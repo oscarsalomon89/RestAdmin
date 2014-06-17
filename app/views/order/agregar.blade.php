@@ -112,7 +112,7 @@
             </tr>
     </ul>
   </table>
-    <p> {{ link_to('orders', 'Volver atrás') }} </p>
+    <p> {{ link_to('orders', 'Volver') }} </p>
 </div>
 </div>
 </div>
