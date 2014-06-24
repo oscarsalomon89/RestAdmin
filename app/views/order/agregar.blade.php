@@ -7,7 +7,7 @@
     @if(Session::has('notice'))
     <div class="alert alert-success">{{ Session::get('notice') }}</div>
     @endif
-<h1> Mesa Nro: <span class="badge"><h2>{{ $order->table_id }}</h2></span></h1>
+<h1> Mesa Nro: <span class="badge"><h2>{{ $order->table['number'] }}</h2></span></h1>
     <ul>
        <li> Mozo: {{ $order->user['name'].' '.$order->user['lastname']}} </li>
        <li> Estado: @if($order->status==1)
