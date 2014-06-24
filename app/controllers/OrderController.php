@@ -16,17 +16,6 @@
      $total = $order->total;
      return View::make('order.items', array('order' => $order, 'total'=>$total));
      }
-      
-  public function finalizar($id) {
-     $order = Order::find($id, array('id'));
-     $order->total=Input::get('total');
-     $total=$order->total;
-     foreach($order->items as $item){
-     $price=$item->price*$item->pivot->quantity;
-     $total=$total+$item->price*$item->pivot->quantity;
-     }
-     return View::make('order.show', array('order' => $order, 'total'=>$total));
-     }
 
   public function show($id) {
     if(!$this->autorizado) return Redirect::to('/auth/login');
