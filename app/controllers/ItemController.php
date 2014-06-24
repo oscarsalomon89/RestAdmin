@@ -4,7 +4,8 @@
   private $autorizado;
    public function __construct() {
       $this->autorizado = (Auth::check() and Auth::user()->name == 'Ariel');
-   } 
+   }
+    
    public function index() {
     if(!$this->autorizado) return Redirect::to('/auth/login');
    $categories = Category::all(array('id','name'));

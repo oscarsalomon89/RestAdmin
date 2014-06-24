@@ -13,10 +13,11 @@
        <li> Estado: @if($order->status==1)
             <span class="label label-success">Abierta</span>
               @else
-            <span class="label label-success">Cerrada</span>
+            <span class="label label-danger">Cerrada</span>
               @endif
         </li>
       </ul>
+@if($order->status==1)
 <h3>Seleccione los items que desea agregar</h1>
   <div class="jumbotron">
   @if($errors->has('quantity'))
@@ -26,10 +27,10 @@
     @endforeach
     </div>
   @endif
-
   <div class="row">
-  {{ Form::open(array('url' => 'orders/agregar/'.$order->id, 'id' => 'formulario_busqueda')) }}
+  {{ Form::open(array('url' => 'orders/edit/'.$order->id, 'id' => 'formulario_busqueda')) }}
   <input type="hidden" class="form-control" id= 'order_id' name="order_id" value='{{$order->id}}'>
+  <input type="hidden" class="form-control" id= 'edit' name="edit" value='agregar'>
   <div class="col-lg-6">
   <select class="form-control" id="item_id" name="item_id">
     @foreach($categories as $category)
@@ -53,65 +54,13 @@
 <!--en este el mensaje de registro correcto-->
 <div class='success_message alert-box success'></div>
 </div> 
-
-<br>
-<div class="row">
-  {{ Form::open(array('url' => 'orders/agregar')) }}
-  <input type="hidden" class="form-control" id= 'order_id' name="order_id" value='{{$order->id}}'>
-  <div class="col-lg-6">
-  <select class="form-control" name="item_id">
-    @foreach($categories as $category)
-    <optgroup label="{{$category->name}}">
-    @foreach($category->items as $item)
-      <option value="{{$item->id}}">{{$item->name}} Precio: ${{$item->price}}</option>
-    @endforeach
-    </optgroup>
-    @endforeach
-  </select>
-  </div>
-    <div class="col-lg-3">
-        <input class="form-control" placeholder="cantidad" autocomplete="of" name="quantity" type="text" id="quantity">
-  </div>
-  <div class="col-lg-3">
-  {{ Form::submit('Agregar',array('class'=>'btn btn-default')) }}
-  </div>
-  {{ Form::close() }}
 </div>
+@else
+<input type="hidden" class="form-control" id= 'order_id' name="order_id" value='{{$order->id}}'>
+  <div class="alert alert-danger">No puede editar esta orden, Ya fue cobrada!</div>
+@endif
+<div id="tabla">
 </div>
-<ul>
-  <h3>Items de la orden</h3>
-          <table class="table table-striped table-bordered table-hover datatable">
-           <tr>
-             <th> Item </th>
-             <th> Descripcion </th>
-             <th> Cantidad </th>
-             <th> Precio unitario </th>
-             <th> Precio total </th>
-          </tr>
-       @foreach($order->items as $item)
-            <tr>
-                <td> {{ $item->name }} </td>
-                <td> {{ $item->description }} </td>
-                <td> {{ $item->pivot->quantity }} </td>
-                <td> {{$item->price}}</td>
-                <td> $ {{$item->price*$item->pivot->quantity }}</td>
-                @if($item->pivot->quantity!=0)
-                <?php $total=$total+$item->price*$item->pivot->quantity; ?>
-              @endif
-              <td>
-                {{ Form::open(array('url' => 'orders/eliminar/'.$item->id)) }}
-                <input type="hidden" class="form-control" id= 'order_id' name="order_id" value='{{$order->id}}'>
-                <input type="submit" value="Eliminar" class="btn btn-primary btn-xs">
-                {{ Form::close() }}
-              </td>
-            </tr>
-      @endforeach
-            <tr>
-                <td> Total: $ {{$total}}</td>
-                <td></td>
-            </tr>
-    </ul>
-  </table>
     <p> {{ link_to('orders', 'Volver') }} </p>
 </div>
 </div>
@@ -120,6 +69,8 @@
 
 $(document).ready(function ()
 {
+var id=$("#order_id").val();
+$("#tabla").load('list/'+id);
 var form = $('#formulario_busqueda');
 form.bind('submit', function () {
   $.ajax({
@@ -131,15 +82,37 @@ form.bind('submit', function () {
                   {
                   if(data.success == false){
                         var errores = '';
-                        foreach(datos in data.errors){
-                            errores += '<small class="error">' + data.errors[datos] + '</small>';
+                        for(datos in data.errors){
+                            errores += '<small class="alert alert-danger error">' + data.errors[datos] + '</small>';
                         }
+                        $('.success_message').html("");
                         $('.errors_form').html(errores);
                     }else{
                         $(form)[0].reset();//limpiamos el formulario
+                        $('.errors_form').html("");
                         $('.success_message').html(data.message);
+                        $("#tabla").load('list/'+id);
                     }
                   }
+         }); 
+  return false;
+});
+var formDelete = $('#formulario_delete');
+formDelete.bind('submit', function () {
+  $.ajax({
+           type: form.attr('method'),
+           dataType: "json",
+           url: form.attr('action'),
+           data: form.serialize(),
+           success: function (data)
+                  {
+                  if(data.success == true){
+                  $(form)[0].reset();//limpiamos el formulario
+                  $('.errors_form').html("");
+                  $('.success_message').html(data.message);
+                  $("#tabla").load('list/'+id);
+                  }
+                }
          }); 
   return false;
 });

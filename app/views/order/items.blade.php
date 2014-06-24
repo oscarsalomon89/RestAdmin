@@ -1,19 +1,3 @@
-@extends('layouts.master')
-
-@section('content')
-<div class="widget">
-<div class="widget-content-white glossed">
-  <div class="padded">
-<h1> Mesa Nro: <span class="badge"><h2>{{ $order->table_id }}</h2></span> </h1>
-    <ul>
-       <li> Mozo: {{ $order->user['name'].' '.$order->user['lastname']}} </li>
-       <li> Estado: @if($order->status==1)
-       				<span class="label label-success">Abierta</span>
-       				@else
-       				<span class="label label-danger">Cerrada</span>
-       				@endif
-        </li>
-<input type="hidden" class="form-control" id= 'order_id' name="order_id" value='{{$order->id}}'>
 <ul>
   <h3>Items de la orden</h3>
           <table class="table table-striped table-bordered table-hover datatable">
@@ -29,6 +13,15 @@
                 <td> {{ $item->description }} </td>
                 <td> {{ $item->pivot->quantity }} </td>
                 <td> $ {{$item->pivot->price}}</td>
+              <td>
+                {{ Form::open(array('url' => 'orders/edit/'.$order->id, 'id' => 'formulario_delete')) }}
+                <input type="hidden" class="form-control" id= 'order_id' name="order_id" value='{{$order->id}}'>
+                <input type="hidden" class="form-control" id= 'item_id' name="item_id" value='{{$item->id}}'>
+                <input type="hidden" class="form-control" id= 'item_price' name="item_price" value='{{$item->pivot->price}}'>
+                <input type="hidden" class="form-control" id= 'edit' name="edit" value='eliminar'>
+                <input type="submit" value="Eliminar" class="btn btn-primary btn-xs">
+                {{ Form::close() }}
+              </td>
           </tr>
       @endforeach
             <tr>
@@ -36,8 +29,3 @@
             </tr>
         </table>
     </ul>
-    <p> {{ link_to('orders', 'Ir a ordenes') }} </p>
-</div>
-</div>
-</div>
-@stop

@@ -57,7 +57,7 @@
 </div>
 </div>
 <div class="col-md-4">
-<i class="icon-code-fork"></i>
+
 </div>
 </div>
 @stop

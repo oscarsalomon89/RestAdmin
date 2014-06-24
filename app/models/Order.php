@@ -10,7 +10,7 @@ class Order extends Eloquent{
 
 public function items()
     {
-        return $this->belongsToMany('Item')->withPivot('quantity');
+        return $this->belongsToMany('Item')->withPivot('quantity','price');
     }
 
     //VALIDACIONES

@@ -31,16 +31,22 @@
                 <td> {{$item->user['name']}}</td>
                 <td> {{$item->table['number']}}</td>
                 <td> {{ link_to('orders/'.$item->id, 'Ver') }} </td>               
-                <td> {{ link_to('orders/agregar/'.$item->id, 'Editar',array('class'=>'btn btn-default btn-xs')) }} </td>
-                <td> 
-  			{{ Form::open(array('url' => 'orders/'.$item->id)) }}
-     		 {{ Form::hidden("_method", "DELETE") }}
-        <input type="submit" value="Eliminar" class="btn btn-primary btn-xs">
-   			{{ Form::close() }}
-        </td>
-          <td>
-        {{ link_to('orders/cobrar/'.$item->id, 'Cobrar',array('class'=>'btn btn-primary btn-xs')) }}
+                <td>
+                @if($item->status==1) 
+                  {{ link_to('orders/edit/'.$item->id, 'Editar',array('class'=>'btn btn-default btn-xs')) }} 
+                  @endif
                 </td>
+          <td>
+        @if($item->status==1)
+        {{ link_to('orders/cobrar/'.$item->id, 'Cobrar',array('class'=>'btn btn-primary btn-xs')) }}
+        @endif
+                </td>
+        <td> 
+        {{ Form::open(array('url' => 'orders/'.$item->id)) }}
+         {{ Form::hidden("_method", "DELETE") }}
+        <input type="submit" value="Eliminar" class="btn btn-primary btn-xs">
+        {{ Form::close() }}
+        </td>
              </tr>
           @endforeach
           </tbody>

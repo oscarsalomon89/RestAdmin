@@ -21,19 +21,18 @@
                 <td> {{ $item->name }} </td>
                 <td> {{ $item->description }} </td>
                 <td> {{ $item->pivot->quantity }} </td>
-                <td> <input type="text" class="form-control" value="{{$item->price}}">
-                <td> $ {{$item->price*$item->pivot->quantity }}</td>
+                <td> $ {{$item->pivot->price }}</td>
             </tr>
             @endforeach
               <tr>
                 <td>
-                <h3>Total: <span class="label label-success">$ {{$total}}</span></h3>
+                <h3>Total: <span class="label label-success">$ {{$order->total}}</span></h3>
                 </td>
             </tr>
     </ul>
 	</table>
   <p>
-      {{ Form::open(array('url' => 'orders/save/'.$order->id)) }}
+      {{ Form::open(array('url' => 'orders/cobrar/'.$order->id)) }}
       <input type="submit" value="Guardar" class="btn btn-primary">
       {{ Form::close() }}
   <button type="button" class="btn btn-default">Imprimir factura</button>

@@ -11,6 +11,9 @@
     {{HTML::style('css/style.css')}}
     {{HTML::style('css/bootstrap.css')}}    
     {{HTML::style('font-awesome/css/font-awesome.min.css')}}
+        <!-- JavaScript -->    
+    {{HTML::script('js/jquery-1.11.0.min.js')}}
+    {{HTML::script('js/bootstrap.min.js')}}
   </head>
 
   <body>
@@ -103,9 +106,5 @@
     </div>
   </div>
 </div><!-- /#wrapper -->
-
-    <!-- JavaScript -->    
-    {{HTML::script('js/jquery-1.11.0.min.js')}}
-    {{HTML::script('js/bootstrap.min.js')}}
   </body>
 </html>

@@ -92,7 +92,11 @@
               </td>
                 <td> {{$order->table['number']}}</td>
                 <td> {{ link_to('orders/'.$order->id, 'Ver') }} </td>               
-                <td> {{ link_to('orders/agregar/'.$order->id, 'Editar',array('class'=>'btn btn-default btn-xs')) }} </td>
+                <td>
+                @if($order->status==1)  
+                  {{ link_to('orders/edit/'.$order->id, 'Editar',array('class'=>'btn btn-default btn-xs')) }} 
+                @endif
+                </td>
                 <td> 
         {{ Form::open(array('url' => 'orders/'.$order->id)) }}
          {{ Form::hidden("_method", "DELETE") }}
