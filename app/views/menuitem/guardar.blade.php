@@ -57,7 +57,8 @@
 </div>
 </div>
 <div class="col-md-4">
-
+  <br>
+{{ HTML::image('images/menu-icon.png', "Imagen no encontrada", array('id' => 'principito')) }}
 </div>
 </div>
 @stop

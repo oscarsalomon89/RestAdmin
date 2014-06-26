@@ -5,4 +5,7 @@
    		$reservas = Reserva::all();
         return View::make('reservas.index')->with('reservas', $reservas);
     }
+    public function create() {
+     return View::make('reservas.save');
+     }
 }

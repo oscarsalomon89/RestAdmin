@@ -90,8 +90,9 @@ public function agregarItems() {
       );
           
       $messages = array(
-          'required'=> 'El campo :attribute es obligatorio.',
-          'min' => 'El campo :attribute no puede tener menos de :min carácteres.',
+          'item_id.required'=> 'Ingresar un item es obligatorio.',
+          'quantity.required'=> 'Ingresar la cantidad es obligatorio.',
+          'quantity.min' => 'La cantidad no puede tener menos de uno.',
       );
           
       $validation = Validator::make(Input::all(), $rules, $messages); 

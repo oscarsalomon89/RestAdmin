@@ -33,6 +33,7 @@
   <input type="hidden" class="form-control" id= 'edit' name="edit" value='agregar'>
   <div class="col-lg-6">
   <select class="form-control" id="item_id" name="item_id">
+    <option value=""></option>
     @foreach($categories as $category)
     <optgroup label="{{$category->name}}">
     @foreach($category->items as $item)
@@ -50,9 +51,11 @@
   </div>
   {{ Form::close() }}
     <!--en este los errores del formulario--> 
+<div class="cold-md-6 col-md-offset-3">
 <div class='errors_form'></div>
 <!--en este el mensaje de registro correcto-->
 <div class='success_message alert-box success'></div>
+</div>
 </div> 
 </div>
 @else
@@ -83,14 +86,15 @@ form.bind('submit', function () {
                   if(data.success == false){
                         var errores = '';
                         for(datos in data.errors){
-                            errores += '<small class="alert alert-danger error">' + data.errors[datos] + '</small>';
+                            errores += '<small class="alert alert-danger error">' + data.errors[datos] + '<br>' + '</small>';
                         }
                         $('.success_message').html("");
                         $('.errors_form').html(errores);
                     }else{
                         $(form)[0].reset();//limpiamos el formulario
                         $('.errors_form').html("");
-                        $('.success_message').html(data.message);
+                          mensaje = '<small class="alert alert-success">' + data.message + '</small>';
+                        $('.success_message').html(mensaje);
                         $("#tabla").load('list/'+id);
                     }
                   }
