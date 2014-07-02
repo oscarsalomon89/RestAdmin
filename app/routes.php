@@ -4,7 +4,6 @@ Route::get('/', 'HomeController@index');
 Route::controller('auth', 'AuthController');
 
 Route::resource('users', 'UsersController');
-Route::resource('reservas', 'ReservaController');
 
 Route::get('orders','OrderController@index');
 Route::get('orders/create', 'OrderController@create');
@@ -44,3 +43,8 @@ Route::get('tables/create', 'TableController@create');
 Route::post('tables', 'TableController@store');
 Route::get('tables/{id}/delete', 'TableController@show');
 Route::DELETE('tables/{id}', 'TableController@destroy');
+
+Route::get('reservas', 'ReservaController@index');
+Route::get('reservas/create', 'ReservaController@create');
+Route::post('reservas/save', 'ReservaController@guardar');
+Route::get('listres', 'ReservaController@lista');

@@ -14,6 +14,8 @@
         <!-- JavaScript -->    
     {{HTML::script('js/jquery-1.11.0.min.js')}}
     {{HTML::script('js/bootstrap.min.js')}}
+    @section ('head')
+    @show
   </head>
 
   <body>
