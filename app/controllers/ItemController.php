@@ -43,7 +43,7 @@
             'price' => array('required', 'numeric'), 
             'category_id'=>'required'
         );
-    $input=Input::all();
+    $input = Input::all();
     $validator = Validator::make($input, $reglas);
     if ($validator->fails()){
             $respuesta['notice'] = $validator;

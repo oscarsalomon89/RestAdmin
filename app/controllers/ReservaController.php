@@ -2,9 +2,9 @@
  class ReservaController extends BaseController {
     
     public function index(){
-   		$reservas = Reserva::all();
+   		$reservas = Reserva::all(array('id','date','name','cantpersons'));
    		$reserva = new Reserva();
-        return View::make('reservas.index2', array('reservas' => $reservas, 'reserva'=>$reserva));
+        return View::make('reservas.index', array('reservas' => $reservas, 'reserva'=>$reserva));
     }
      public function lista() {
       $reservas = Reserva::all();
@@ -16,30 +16,17 @@
       return View::make('reservas.save', array('reservas' => $reservas, 'reserva'=>$reserva));
      }
 
-    public function guardar() {
-      $rules = array(
-          'date' => 'required|date',
-          'name' => 'required|min:2',
-          'cantpersons' => 'required|min:1'
-      );
-          
-      $messages = array(
-          'date.required'=> 'Ingresar una fecha es obligatorio.',
-          'date.date'=> 'Ingresar una fecha.',
-          'name.required'=> 'Ingresar el nombre es obligatorio.',
-          'name.min' => 'El nombre no puede tener menos de dos caracteres.',
-          'cantpersons.required' => 'Debe ingesar una cantidad',
-          'cantpersons.min' => 'Debe ser al menos una persona'
-      );
-          
-      $validation = Validator::make(Input::all(), $rules, $messages); 
-      if ($validation->fails())
+    public function save() {
+   $reserva = new Reserva();
+   $reserva->date = Input::get('date');
+   $reserva->name = Input::get('name');
+   $reserva->cantpersons = Input::get('cantpersons');
+
+   $validator = Reserva::validate(Input::all());
+      if ($validator->fails())
       {
-        //como ha fallado el formulario, devolvemos los datos en formato json
-      return Response::json(array(
-          'success' => false,
-          'errors' => $validation->getMessageBag()->toArray()
-      )); 
+      $errors = $validator->messages()->all();
+      return View::make('reservas.save')->with('reserva', $reserva)->with('errors', $errors);
           //en otro caso ingresamos al usuario en la tabla usuarios
       }else{
           $reserva = new Reserva();
@@ -47,14 +34,31 @@
           $reserva->name = Input::get('name');
           $reserva->cantpersons = Input::get('cantpersons');
           $reserva->save();
-          return Response::json(array(
-            'success'     =>  true,
-            'message'     =>  'Se agrego la reserva correctamente'
-            ));
+         return Redirect::to('reservas')->with('notice', 'La Reserva ha sido creada correctamente.');
       }     
 }
-    public function edit() {
-      $reserva = new Reserva();
-      return View::make('reservas.save', array('reserva'=>$reserva));
+    public function edit($id) {
+    $reserva = Reserva::find($id);
+   return View::make('reservas.save')->with('reserva', $reserva);
      }
+   public function update($id) { 
+   $reserva = Reserva::find($id);
+   $reserva->date = Input::get('date');
+   $reserva->name = Input::get('name');
+   $reserva->cantpersons = Input::get('cantpersons');
+   $validator = Reserva::validate(Input::all(), $reserva->id);
+
+   if($validator->fails()){
+      $errors = $validator->messages()->all();
+      return View::make('reservas.save')->with('reserva', $reserva)->with('errors', $errors);
+   }else{
+      $reserva->save();
+      return Redirect::to('reservas')->with('notice', 'La reserva ha sido modificado correctamente.');
+   }
+   }
+ public function destroy($id) { 
+   $reserva = Reserva::find($id);
+   $reserva->delete();
+   return Redirect::to('reservas')->with('notice', 'La Reserva ha sido eliminada correctamente.');
+   }
 }

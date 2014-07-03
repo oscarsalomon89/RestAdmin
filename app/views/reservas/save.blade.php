@@ -1,14 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-@if(isset($errors))
-<br>
-   <ul>
-      @foreach($errors as $item)
-         <li> {{ $item }} </li>
-      @endforeach
-   </ul>
-@endif
 <div class="row">
 <div class="col-md-8">
   <div class="widget">
@@ -20,7 +12,7 @@
 {{ Form::open(array('url' => 'reservas/'.$reserva->id, 'id' => 'form')) }}
     <div class="form-group">
        {{ Form::label ('date', 'Fecha') }}
-       <input type="date" name='date' class='form-control'>
+       <input class="form-control" placeholder="Fecha" autocomplete="of" name="date" type="date" value="{{$reserva->date}}" id="date">
     </div>
     <div class="form-group">
        {{ Form::label ('name', 'Nombre') }}
@@ -32,15 +24,20 @@
      </div>
       <br>
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
-      <input type="submit" tabindex="-1" class="btn btn-success">
+      {{ Form::submit('Guardar reserva',array('class'=>'btn btn-success')) }}
+       {{ link_to('reservas', 'Volver') }}
 {{ Form::close() }}
 </div>
 </div>
 </div>
 </div>
 <div class="col-md-4">
-  <br>
 {{ HTML::image('images/calendar.png', "Imagen no encontrada", array('id' => 'calendar')) }}
+@if(isset($errors))
+      @foreach($errors as $item)
+         <h5 class="alert alert-danger"> {{ $item }} </h5>
+      @endforeach
+@endif
 </div>
 </div>
 @stop

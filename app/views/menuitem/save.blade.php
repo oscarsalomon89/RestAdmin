@@ -19,35 +19,17 @@
        {{ Form::label ('name', 'Nombre') }}
        {{ Form::text ('name', $itemmenu->name, array('class'=>'form-control','placeholder'=>'nombre', 'autocomplete'=>'of')) }}
     </div>
-    @if($errors->has('name'))
-  <div class="alert alert-danger">
-    @foreach($errors->get('name') as $error)
-      *{{$error}}<br>
-    @endforeach
-    </div>
-  @endif
+
     <div class="form-group">
        {{ Form::label ('description', 'Descripcion') }}
        {{ Form::text ('description', $itemmenu->description, array('class'=>'form-control','placeholder'=>'Descripcion', 'autocomplete'=>'of')) }} 
      </div> 
-     @if($errors->has('description'))
-  <div class="alert alert-danger">
-    @foreach($errors->get('description') as $error)
-      *{{$error}}<br>
-    @endforeach
-  </div>
-  @endif
-       <div class="form-group">
+    
+    <div class="form-group">
           {{ Form::label ('price', 'Precio') }}
           {{ Form::text ('price',$itemmenu->price,array('class'=>'form-control','placeholder'=>'Precio', 'autocomplete'=>'of')) }}
       </div>
-      @if($errors->has('price'))
-  <div class="alert alert-danger">
-    @foreach($errors->get('price') as $error)
-      *{{$error}}<br>
-    @endforeach
-  </div>
-  @endif
+
     <div class="form-group">
       {{ Form::label ('itemcategory', 'Categoria') }}<br>
       <ul class="list-group">
@@ -66,13 +48,7 @@
       @endforeach
     </ul>
     </div>
-    @if($errors->has('item_category_id'))
-  <div class="alert alert-danger">
-    @foreach($errors->get('item_category_id') as $error)
-      *{{$error}}<br>
-    @endforeach
-  </div>
-  @endif
+
        {{ Form::submit('Guardar item',array('class'=>'btn btn-success')) }}
        {{ link_to('items', 'Cancelar') }}
     {{ Form::close() }}
@@ -81,8 +57,35 @@
 </div>
 </div>
 <div class="col-md-4">
-  <br>
 {{ HTML::image('images/menu-icon.png', "Imagen no encontrada", array('id' => 'principito', 'title' => 'El principito')) }}
+    @if($errors->has('name'))
+  <div class="alert alert-danger">
+    @foreach($errors->get('name') as $error)
+      *{{$error}}<br>
+    @endforeach
+    </div>
+  @endif
+   @if($errors->has('description'))
+  <div class="alert alert-danger">
+    @foreach($errors->get('description') as $error)
+      *{{$error}}<br>
+    @endforeach
+  </div>
+  @endif
+@if($errors->has('price'))
+  <div class="alert alert-danger">
+    @foreach($errors->get('price') as $error)
+      *{{$error}}<br>
+    @endforeach
+  </div>
+  @endif
+  @if($errors->has('category_id'))
+  <div class="alert alert-danger">
+    @foreach($errors->get('category_id') as $error)
+      *{{$error}}<br>
+    @endforeach
+  </div>
+  @endif
 </div>
 </div>
 @stop
