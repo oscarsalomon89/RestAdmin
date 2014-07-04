@@ -21,9 +21,9 @@
    public function create() { 
     if(!$this->autorizado) return Redirect::to('/auth/login');
    	$itemmenu = new Item();
-    $itemcategories = Category::all();
+    $categories = Category::all(array('id','name'));
 
-   return View::make('menuitem.save', array('itemmenu' => $itemmenu, 'itemcategories'=> $itemcategories));
+   return View::make('menuitem.save', array('itemmenu' => $itemmenu, 'categories'=> $categories));
    }
    public function crear($id) { 
     if(!$this->autorizado) return Redirect::to('/auth/login');
@@ -35,44 +35,29 @@
 
    public function store() { 
     if(!$this->autorizado) return Redirect::to('/auth/login');
-    $respuesta = array();
- 
-        $reglas =  array(
-            'name'  => 'required',
-            'description'  => array('required', 'min:10'),  
-            'price' => array('required', 'numeric'), 
-            'category_id'=>'required'
-        );
-    $input = Input::all();
-    $validator = Validator::make($input, $reglas);
+    $itemmenu = new Item();
+    $itemmenu->name = Input::get('name');
+    $itemmenu->description = Input::get('description');
+    $itemmenu->price = Input::get('price');
+    $itemmenu->category_id = Input::get('category_id');
+    $categories = Category::all(array('id','name'));
+    $validator = Item::validate(Input::all());
+
     if ($validator->fails()){
-            $respuesta['notice'] = $validator;
-            $respuesta['error']   = true;
+      $errors = $validator->messages()->all();
+      return View::make('menuitem.save')->with('itemmenu', $itemmenu)->with('categories', $categories)->with('errors', $errors);
             }
-    else{
-            $itemmenu = new Item();
-            $itemmenu->name = Input::get('name');
-            $itemmenu->description = Input::get('description');
-            $itemmenu->price = Input::get('price');
-            $itemmenu->category_id = Input::get('category_id');
-            $itemmenu->save();
-                               
-            $respuesta['notice'] = 'Producto creado!';
-            $respuesta['error']   = false;
-            $respuesta['data']    = $itemmenu;
-        }
-        if ($respuesta['error'] == true){
-            return Redirect::to('items/create')->withErrors($respuesta['notice'] )->withInput();
-        }else{
-            return Redirect::to('items')->with('notice', $respuesta['notice']);
+    else{   
+        $itemmenu->save();
+        return Redirect::to('items')->with('notice', 'El item ha sido creado correctamente.');
         }
    }
 
    public function edit($id) { 
     if(!$this->autorizado) return Redirect::to('/auth/login');
    	$itemmenu = Item::find($id);
-    $itemcategories =Category::all();
-  return View::make('menuitem.save', array('itemmenu' => $itemmenu, 'itemcategories'=> $itemcategories));
+    $categories =Category::all(array('id','name'));
+  return View::make('menuitem.save', array('itemmenu' => $itemmenu, 'categories'=> $categories));
    }
 
    public function update($id) { 
@@ -83,31 +68,15 @@
         $itemmenu->description = Input::get('description');
         $itemmenu->price = Input::get('price');
         $itemmenu->category_id = Input::get('category_id');
-        $respuesta = array();
- 
-        $reglas =  array(
-            'name'  => 'required',
-            'description'  => array('required', 'min:10'),  
-            'price' => array('required', 'numeric'), 
-            'category_id'=>'required',
-        );
-        $input=Input::all();
-        $validator = Validator::make($input, $reglas);
-        
+        $categories = Category::all(array('id','name'));
+
+        $validator = Item::validate(Input::all(), $itemmenu->id);
         if ($validator->fails()){
-            $respuesta['notice'] = $validator;
-            $respuesta['error']   = true;
+      $errors = $validator->messages()->all();
+      return View::make('menuitem.save')->with('itemmenu', $itemmenu)->with('categories', $categories)->with('errors', $errors);
         }else{
-            $itemmenu->save();                               
-            $respuesta['notice'] = 'Producto modificado!';
-            $respuesta['error']   = false;
-            $respuesta['data']    = $itemmenu;
-        }
-        
-        if ($respuesta['error'] == true){
-            return Redirect::to('items/'.$id.'/edit')->withErrors($respuesta['notice'] )->withInput();
-        }else{
-            return Redirect::to('items')->with('notice', $respuesta['notice']);
+        $itemmenu->save();
+        return Redirect::to('items')->with('notice', 'El item ha sido modificado correctamente.');
         }
    }
 

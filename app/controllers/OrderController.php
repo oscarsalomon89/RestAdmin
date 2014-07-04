@@ -14,7 +14,7 @@
     public function items($id) {
      $order = Order::find($id, array('id','user_id','table_id','status','total'));
      $total = $order->total;
-     return View::make('order.items', array('order' => $order, 'total'=>$total));
+     return View::make('order.items', array('order' => $order));
      }
 
   public function show($id) {
@@ -110,7 +110,7 @@ public function agregarItems() {
           $total = $item->price * $quantity;
           $order->total= $order->total + $total;
           $order->save();
-          $order->items()->attach($item, array('quantity'=>$quantity, 'price'=>$total));
+          $order->items()->attach($item, array('quantity'=>$quantity, 'price'=>$item->price));
           return Response::json(array(
             'success'     =>  true,
             'message'     =>  'Se agrego el item correctamente'

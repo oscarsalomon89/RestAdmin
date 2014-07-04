@@ -79,6 +79,7 @@
 </div>
 </div>
 <div class="col-md-4">
+{{ HTML::image('images/order.png', "Imagen no encontrada", array('id' => 'orderIco')) }}
 
 </div>
 </div>

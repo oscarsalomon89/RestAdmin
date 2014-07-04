@@ -2,8 +2,8 @@
  
 @section('content')
 <h1> Items de menu </h1>
-    @if(Session::has('notice'))
-       <p> <strong> {{ Session::get('notice') }} </strong> </p>
+@if(Session::has('notice'))
+       <div class="alert alert-success">{{ Session::get('notice') }}</div>
     @endif
     <p> {{ link_to ('items/create', 'Crear nuevo item') }} </p>
     @if($categories->count())

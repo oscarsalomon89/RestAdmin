@@ -5,6 +5,7 @@
              <th> Item </th>
              <th> Descripcion </th>
              <th> Cantidad </th>
+             <th> Precio unitario </th>
              <th> Precio total </th>
           </tr>
        @foreach($order->items as $item)
@@ -13,11 +14,13 @@
                 <td> {{ $item->description }} </td>
                 <td> {{ $item->pivot->quantity }} </td>
                 <td> $ {{$item->pivot->price}}</td>
+                <td> $ {{$item->pivot->price * $item->pivot->quantity}}</td>
+                <td><a class="btn btn-default btn-xs">Editar</a></td>
               <td>
                 {{ Form::open(array('url' => 'orders/edit/'.$order->id, 'id' => 'formulario_delete')) }}
                 <input type="hidden" class="form-control" id= 'order_id' name="order_id" value='{{$order->id}}'>
                 <input type="hidden" class="form-control" id= 'item_id' name="item_id" value='{{$item->id}}'>
-                <input type="hidden" class="form-control" id= 'item_price' name="item_price" value='{{$item->pivot->price}}'>
+                <input type="hidden" class="form-control" id= 'item_price' name="item_price" value='{{$item->pivot->price* $item->pivot->quantity}}'>
                 <input type="hidden" class="form-control" id= 'edit' name="edit" value='eliminar'>
                 <input type="submit" value="Eliminar" class="btn btn-primary btn-xs">
                 {{ Form::close() }}
@@ -25,7 +28,7 @@
           </tr>
       @endforeach
             <tr>
-                <td><h3>Total: <span class="label label-success">$ {{$order->total}}</span></h3></td>
+                <td><h3>Total:<span class="label label-success">$ {{$order->total}}</span></h3></td>
             </tr>
         </table>
     </ul>

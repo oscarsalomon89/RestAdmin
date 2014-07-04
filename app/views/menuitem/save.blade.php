@@ -1,13 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-@if(isset($errors))
-   <ul>
-      @foreach($errors as $item)
-         <li> {{ $item }} </li>
-      @endforeach
-   </ul>
-@endif
 <div class="row">
 <div class="col-md-8">
   <div class="widget">
@@ -33,10 +26,10 @@
     <div class="form-group">
       {{ Form::label ('itemcategory', 'Categoria') }}<br>
       <ul class="list-group">
-      @foreach($itemcategories as $category)
+      @foreach($categories as $category)
       @if($category->id==$itemmenu->category_id)
         <li class="list-group-item active">
-        <span class="badge">{{$itemcategories->count()}}</span>
+        <span class="badge">{{$categories->count()}}</span>
         {{ Form::radio('category_id', $category->id,true) }}   {{$category->name}}
       </li>
       @else
@@ -58,34 +51,11 @@
 </div>
 <div class="col-md-4">
 {{ HTML::image('images/menu-icon.png', "Imagen no encontrada", array('id' => 'principito', 'title' => 'El principito')) }}
-    @if($errors->has('name'))
-  <div class="alert alert-danger">
-    @foreach($errors->get('name') as $error)
-      *{{$error}}<br>
-    @endforeach
-    </div>
-  @endif
-   @if($errors->has('description'))
-  <div class="alert alert-danger">
-    @foreach($errors->get('description') as $error)
-      *{{$error}}<br>
-    @endforeach
-  </div>
-  @endif
-@if($errors->has('price'))
-  <div class="alert alert-danger">
-    @foreach($errors->get('price') as $error)
-      *{{$error}}<br>
-    @endforeach
-  </div>
-  @endif
-  @if($errors->has('category_id'))
-  <div class="alert alert-danger">
-    @foreach($errors->get('category_id') as $error)
-      *{{$error}}<br>
-    @endforeach
-  </div>
-  @endif
+@if(isset($errors))
+      @foreach($errors as $item)
+         <h5 class="alert alert-danger"> {{ $item }} </h5>
+      @endforeach
+@endif
 </div>
 </div>
 @stop

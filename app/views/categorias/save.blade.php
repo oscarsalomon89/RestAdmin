@@ -1,14 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-@if(isset($errors))
-<br>
-   <ul>
-      @foreach($errors as $item)
-         <li> {{ $item }} </li>
-      @endforeach
-   </ul>
-@endif
+
 <div class="row">
 <div class="col-md-8">
   <div class="widget">
@@ -32,6 +25,11 @@
 </div>
 </div>
 <div class="col-md-4">
+@if(isset($errors))
+      @foreach($errors as $item)
+         <h5 class="alert alert-danger"> {{ $item }} </h5>
+      @endforeach
+@endif
 </div>
 </div>
 @stop

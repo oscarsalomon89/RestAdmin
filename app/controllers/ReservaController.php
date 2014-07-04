@@ -27,12 +27,7 @@
       {
       $errors = $validator->messages()->all();
       return View::make('reservas.save')->with('reserva', $reserva)->with('errors', $errors);
-          //en otro caso ingresamos al usuario en la tabla usuarios
       }else{
-          $reserva = new Reserva();
-          $reserva->date = Input::get('date');
-          $reserva->name = Input::get('name');
-          $reserva->cantpersons = Input::get('cantpersons');
           $reserva->save();
          return Redirect::to('reservas')->with('notice', 'La Reserva ha sido creada correctamente.');
       }     

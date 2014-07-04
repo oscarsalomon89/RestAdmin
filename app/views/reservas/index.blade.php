@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
+<h1> Reservas </h1>
 @if(Session::has('notice'))
        <div class="alert alert-success">{{ Session::get('notice') }}</div>
     @endif
 <p> {{ link_to ('reservas/create', 'Crear nueva Reserva') }} </p>
-<h1> Reservas </h1>
 <div class="widget-content-white glossed">
     <div class="padded">
           <table class="table table-striped table-bordered table-hover datatable">

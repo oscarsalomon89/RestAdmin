@@ -21,6 +21,7 @@
              <th> Item </th>
              <th> Descripcion </th>
              <th> Cantidad </th>
+             <th> Precio unitario </th>
              <th> Precio total </th>
           </tr>
        @foreach($order->items as $item)
@@ -29,6 +30,7 @@
                 <td> {{ $item->description }} </td>
                 <td> {{ $item->pivot->quantity }} </td>
                 <td> $ {{$item->pivot->price}}</td>
+                <td>$ {{$item->pivot->price*$item->pivot->quantity}}</td>
           </tr>
       @endforeach
             <tr>

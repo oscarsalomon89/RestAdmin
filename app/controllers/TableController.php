@@ -19,11 +19,7 @@
    $table->quantity = Input::get('quantity');
    $table->state = Input::get('state');
 
-   $validator = Table::validate(array(
-      'number' => Input::get('number'),
-      'quantity' => Input::get('quantity'),
-      'state' => Input::get('state')
-   ));
+   $validator = Table::validate(Input::all());
    if($validator->fails()){
       $errors = $validator->messages()->all();
       return View::make('table.save')->with('table', $table)->with('errors', $errors);
@@ -43,10 +39,8 @@
    $table->number = Input::get('number');
    $table->quantity = Input::get('quantity');
    $table->state = Input::get('state');
-      $validator = Table::validate(array(
-      'number' => Input::get('number'),
-      'quantity' => Input::get('quantity'), 
-   ), $table->id);
+      
+   $validator = Table::validate(Input::all(), $table->id);
    if($validator->fails()){
       $errors = $validator->messages()->all();
       return View::make('table.save')->with('table', $table)->with('errors', $errors);

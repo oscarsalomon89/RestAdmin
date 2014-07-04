@@ -20,10 +20,7 @@
    $category->name = Input::get('name');
    $category->description = Input::get('description');
 
-   $validator = Category::validate(array(
-      'name' => Input::get('name'),
-      'description' => Input::get('description')
-   ));
+   $validator = Category::validate(Input::all());
    if($validator->fails()){
       $errors = $validator->messages()->all();
       return View::make('categorias.save')->with('category', $category)->with('errors', $errors);
@@ -42,10 +39,7 @@
    $category = Category::find($id);
    $category->name = Input::get('name');
    $category->description = Input::get('description');
-      $validator = Category::validate(array(
-      'name' => Input::get('name'),
-      'description' => Input::get('description'), 
-   ), $category->id);
+   $validator = Category::validate(Input::all(), $category->id);
    if($validator->fails()){
       $errors = $validator->messages()->all();
       return View::make('categorias.save')->with('category', $category)->with('errors', $errors);
