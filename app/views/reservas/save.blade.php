@@ -57,6 +57,7 @@ form.bind('submit', function () {
                         $('.errors_form').html(errores);
                     }else{
                         $(form)[0].reset();//limpiamos el formulario
+                        $('.errors_form').removeClass( "alert alert-danger error" )
                         $('.errors_form').addClass( "alert alert-success" );
                         $('.errors_form').html("Se agrego la reserva correctamente");
                     }

@@ -31,7 +31,7 @@
       ));
       }else{
           $reserva->save();
-                   return Response::json(array(
+          return Response::json(array(
             'success'     =>  true
         ));
       }     
@@ -48,11 +48,15 @@
    $validator = Reserva::validate(Input::all(), $reserva->id);
 
    if($validator->fails()){
-      $errors = $validator->messages()->all();
-      return View::make('reservas.save')->with('reserva', $reserva)->with('errors', $errors);
+         return Response::json(array(
+          'success' => false,
+          'errors' => $validator->getMessageBag()->toArray()
+      ));
    }else{
       $reserva->save();
-      return Redirect::to('reservas')->with('notice', 'La reserva ha sido modificado correctamente.');
+          return Response::json(array(
+            'success'     =>  true
+        ));
    }
    }
  public function destroy($id) { 
