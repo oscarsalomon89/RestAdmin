@@ -2,11 +2,9 @@
 
 @section('content')
 @if(isset($errors))
-   <ul>
       @foreach($errors as $item)
-         <li> {{ $item }} </li>
+         <h5 class="alert alert-danger"> {{ $item }} </h5>
       @endforeach
-   </ul>
 @endif
 @if($tables->count())
 <div class="row">
@@ -18,13 +16,7 @@
     {{ Form::open(array('url' => 'orders/' . $order->id)) }}
 
   <input type="hidden" class="form-control" id= 'date' name="date" value='{{date("Y-m-d")}}'>
-    @if($errors->has('date'))
-  <div class="alert alert-danger">
-    @foreach($errors->get('date') as $error)
-      *{{$error}}<br>
-    @endforeach
-    </div>
-  @endif
+
       <div class="form-group">
       {{ Form::label ('orderuser', 'Mozo') }}<br>
       <ul class="list-group">
@@ -43,13 +35,6 @@
       @endforeach
     </ul>
     </div>
-        @if($errors->has('user_id'))
-  <div class="alert alert-danger">
-    @foreach($errors->get('user_id') as $error)
-      *{{$error}}<br>
-    @endforeach
-    </div>
-  @endif
     <div class="form-group">
       {{ Form::label ('ordertable', 'Mesa') }}
       <ul class="list-group">
@@ -64,13 +49,6 @@
     </ul>
     </select>
     </div>
-     @if($errors->has('table_id'))
-  <div class="alert alert-danger">
-    @foreach($errors->get('table_id') as $error)
-      *{{$error}}<br>
-    @endforeach
-    </div>
-  @endif
        {{ Form::submit('Crear orden',array('class'=>'btn btn-success')) }}
        {{ link_to('orders', 'Cancelar') }}
     {{ Form::close() }}
@@ -80,7 +58,6 @@
 </div>
 <div class="col-md-4">
 {{ HTML::image('images/order.png', "Imagen no encontrada", array('id' => 'orderIco')) }}
-
 </div>
 </div>
 @else

@@ -33,45 +33,29 @@
 
      public function store() { 
       if(!$this->autorizado) return Redirect::to('/auth/login');
-      $respuesta = array();
- 
-        $reglas =  array(
-       'date' => 'required|date',
-      'user_id' => 'required',
-      'table_id'=>'required',
-        );
-        $input=Input::all();
-        $validator = Validator::make($input, $reglas);
-        
-        if ($validator->fails()){
-            $respuesta['notice'] = $validator;
-            $respuesta['error']   = true;
-        }else{
-            $order = new Order();
-            $order->date = Input::get('date');
-            $order->user_id = Input::get('user_id');
-            $order->table_id = Input::get('table_id');
-            $order->status = '1';
-            $order->total='0';
-            $table = Table::find($order->table_id);
-            $table->state ='1';
-            $table->save();
-            $order->save();
-                               
-            $respuesta['notice'] = 'Orden creada!';
-            $respuesta['id'] = $order->id;
-            $respuesta['error']   = false;
-            $respuesta['data']    = $order;
-        }
-          
-          if ($respuesta['error'] == true){
-              return Redirect::to('orders/create')->withErrors($respuesta['notice'] )->withInput();
-          }else{
-              $order = Order::find($respuesta['id']);
-              $categories = Category::all(array('id','name'));
-              return View::make('order.agregar', array('order' => $order,'categories'=>$categories, $respuesta['notice']));
-          }
-     }
+      $order = new Order();
+      $order->date = Input::get('date');
+      $order->user_id = Input::get('user_id');
+      $order->table_id = Input::get('table_id');
+      
+      $validator = Order::validate(Input::all());
+   if($validator->fails()){
+      $users = User::all(array('id','name','lastname'));
+      $tables= Table::where('state','=',0)->get();
+      $errors = $validator->messages()->all();
+      return View::make('order.save')->with('order', $order)->with('users', $users)->with('tables', $tables)->with('errors', $errors);
+   }else{
+      $order->status = '1';
+      $order->total='0';
+      $table = Table::find($order->table_id);
+      $table->state ='1';
+      $table->save();
+      $order->save();
+
+      $categories = Category::all(array('id','name'));
+      return View::make('order.agregar', array('order' => $order,'categories'=>$categories));
+   }
+}
 
   public function editarItems($id) { 
     if(!$this->autorizado) return Redirect::to('/auth/login');

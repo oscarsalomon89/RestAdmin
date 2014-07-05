@@ -1,9 +1,8 @@
 <?php
  class TableController extends BaseController {
     
-    public function index(){
-        
-        $tables = Table::all(array('id','number','quantity','state'));
+    public function index(){ 
+        $tables = Table::all();
         return View::make('table.index')->with('tables', $tables);
     }
 

@@ -15,14 +15,17 @@ public function items()
 
     //VALIDACIONES
     public static $rules = array(
-      'date' => 'required|date',
       'user_id' => 'required',
-      'table_id'=>'required',
-      'status'=>'required|numeric'
+      'table_id'=>'required'
    );
+    public static $messages = array(
+          'user_id.required'=> 'Ingresar un mozo es obligatorio.',
+          'table_id.required' => 'Debe ingresar una una mesa'
+      );
 
    public static function validate($data, $id=null){
-      $reglas = self::$rules;
-      return Validator::make($data, $reglas);
+      $rules = self::$rules;
+      $messages = self::$messages;
+      return Validator::make($data, $rules, $messages);
    }
 }

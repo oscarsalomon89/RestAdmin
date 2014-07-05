@@ -8,6 +8,11 @@
      <div class="widget-content-white glossed">
      <div class="padded">
 <h1> Categorias </h1>
+@if(isset($errors))
+      @foreach($errors as $item)
+         <h5 class="alert alert-danger"> {{ $item }} </h5>
+      @endforeach
+@endif
     {{ Form::open(array('url' => 'categorias/' . $category->id)) }}
     <div class="form-group">
        {{ Form::label ('name', 'Nombre') }}
@@ -25,11 +30,6 @@
 </div>
 </div>
 <div class="col-md-4">
-@if(isset($errors))
-      @foreach($errors as $item)
-         <h5 class="alert alert-danger"> {{ $item }} </h5>
-      @endforeach
-@endif
 </div>
 </div>
 @stop

@@ -25,11 +25,15 @@
    $validator = Reserva::validate(Input::all());
       if ($validator->fails())
       {
-      $errors = $validator->messages()->all();
-      return View::make('reservas.save')->with('reserva', $reserva)->with('errors', $errors);
+         return Response::json(array(
+          'success' => false,
+          'errors' => $validator->getMessageBag()->toArray()
+      ));
       }else{
           $reserva->save();
-         return Redirect::to('reservas')->with('notice', 'La Reserva ha sido creada correctamente.');
+                   return Response::json(array(
+            'success'     =>  true
+        ));
       }     
 }
     public function edit($id) {

@@ -7,6 +7,11 @@
      <div class="widget-content-white glossed">
      <div class="padded">
 <h1> Item de Menu </h1>
+@if(isset($errors))
+      @foreach($errors as $item)
+         <h5 class="alert alert-danger"> {{ $item }} </h5>
+      @endforeach
+@endif
     {{ Form::open(array('url' => 'items/' . $itemmenu->id)) }}
     <div class="form-group">
        {{ Form::label ('name', 'Nombre') }}
@@ -51,11 +56,6 @@
 </div>
 <div class="col-md-4">
 {{ HTML::image('images/menu-icon.png', "Imagen no encontrada", array('id' => 'principito', 'title' => 'El principito')) }}
-@if(isset($errors))
-      @foreach($errors as $item)
-         <h5 class="alert alert-danger"> {{ $item }} </h5>
-      @endforeach
-@endif
 </div>
 </div>
 @stop

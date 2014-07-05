@@ -21,9 +21,9 @@ class User extends Eloquent implements UserInterface{
    );
 
    public static function validate($data, $id=null){
-      $reglas = self::$rules;
+      $rules = self::$rules;
       $messages = self::$messages;
-      return Validator::make($data, $reglas, $messages);
+      return Validator::make($data, $rules, $messages);
    }
 
 public function getAuthIdentifier(){

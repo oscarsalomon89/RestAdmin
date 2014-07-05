@@ -46,6 +46,7 @@ Route::DELETE('tables/{id}', 'TableController@destroy');
 
 Route::get('reservas', 'ReservaController@index');
 Route::get('reservas/create', 'ReservaController@create');
+Route::post('reservas/create', 'ReservaController@save');
 Route::post('reservas', 'ReservaController@save');
 Route::get('reservas/{id}/edit', 'ReservaController@edit');
 Route::post('reservas/{id}', 'ReservaController@update');
