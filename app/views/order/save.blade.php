@@ -1,11 +1,9 @@
 @extends('layouts.master')
 
 @section('content')
-@if(isset($errors))
-      @foreach($errors as $item)
-         <h5 class="alert alert-danger"> {{ $item }} </h5>
-      @endforeach
-@endif
+@section('head')
+{{HTML::script('js/functions.js')}}
+@stop
 @if($tables->count())
 <div class="row">
 <div class="col-md-8">
@@ -13,8 +11,9 @@
      <div class="widget-content-white glossed">
      <div class="padded">
 <h1> Nueva Orden </h1>
-    {{ Form::open(array('url' => 'orders/' . $order->id)) }}
-
+<div class='errors_form'></div>
+    {{ Form::open(array('url' => 'orders/create/' . $order->id, 'id'=>'form')) }}
+  <input type="hidden" class="form-control" id= 'link' value='orders'>
   <input type="hidden" class="form-control" id= 'date' name="date" value='{{date("Y-m-d")}}'>
 
       <div class="form-group">

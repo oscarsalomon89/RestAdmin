@@ -13,10 +13,11 @@
     public function create() {
       $reservas = Reserva::all();
       $reserva = new Reserva();
-      return View::make('reservas.save', array('reservas' => $reservas, 'reserva'=>$reserva));
+      $title = 'Nueva';
+      return View::make('reservas.save', array('reservas' => $reservas, 'reserva'=>$reserva, 'title'=>$title));
      }
 
-    public function save() {
+    public function store() {
    $reserva = new Reserva();
    $reserva->date = Input::get('date');
    $reserva->name = Input::get('name');
@@ -38,7 +39,8 @@
 }
     public function edit($id) {
     $reserva = Reserva::find($id);
-   return View::make('reservas.save')->with('reserva', $reserva);
+    $title = 'Editar';
+   return View::make('reservas.save', array('reserva'=>$reserva, 'title'=>$title));
      }
    public function update($id) { 
    $reserva = Reserva::find($id);
@@ -55,13 +57,17 @@
    }else{
       $reserva->save();
           return Response::json(array(
-            'success'     =>  true
+            'success'     =>  true,
+            'types' => 'edit'
         ));
    }
    }
- public function destroy($id) { 
-   $reserva = Reserva::find($id);
+ public function destroy() { 
+   $reserva = Reserva::find(Input::get('reserva_id'));
    $reserva->delete();
-   return Redirect::to('reservas')->with('notice', 'La Reserva ha sido eliminada correctamente.');
+ return Response::json(array(
+          'success' => true,
+          'message' => 'Se elimino correctamente'
+      ));
    }
 }

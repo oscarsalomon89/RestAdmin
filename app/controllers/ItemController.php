@@ -40,16 +40,19 @@
     $itemmenu->description = Input::get('description');
     $itemmenu->price = Input::get('price');
     $itemmenu->category_id = Input::get('category_id');
-    $categories = Category::all(array('id','name'));
     $validator = Item::validate(Input::all());
 
     if ($validator->fails()){
-      $errors = $validator->messages()->all();
-      return View::make('menuitem.save')->with('itemmenu', $itemmenu)->with('categories', $categories)->with('errors', $errors);
+         return Response::json(array(
+          'success' => false,
+          'errors' => $validator->getMessageBag()->toArray()
+          ));
             }
     else{   
         $itemmenu->save();
-        return Redirect::to('items')->with('notice', 'El item ha sido creado correctamente.');
+          return Response::json(array(
+            'success'     =>  true
+            ));
         }
    }
 
@@ -68,15 +71,19 @@
         $itemmenu->description = Input::get('description');
         $itemmenu->price = Input::get('price');
         $itemmenu->category_id = Input::get('category_id');
-        $categories = Category::all(array('id','name'));
 
         $validator = Item::validate(Input::all(), $itemmenu->id);
         if ($validator->fails()){
-      $errors = $validator->messages()->all();
-      return View::make('menuitem.save')->with('itemmenu', $itemmenu)->with('categories', $categories)->with('errors', $errors);
+         return Response::json(array(
+          'success' => false,
+          'errors' => $validator->getMessageBag()->toArray()
+          ));
         }else{
         $itemmenu->save();
-        return Redirect::to('items')->with('notice', 'El item ha sido modificado correctamente.');
+        return Response::json(array(
+            'success'     =>  true,
+            'types' => 'edit'
+        ));
         }
    }
 

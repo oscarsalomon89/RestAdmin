@@ -6,7 +6,12 @@ class HomeController extends BaseController {
    public function __construct() {
       $this->autorizado = (Auth::check() and Auth::user()->name == 'Ariel');
    } 
-	public function index() {
+
+   	public function index()
+	{
+		return View::make('web.index');
+	}
+	public function indexAdmin() {
 	if(!$this->autorizado) return Redirect::to('/index.php/auth/login');
     $users = User::all(array('id', 'name', 'lastname' ));
     $orders = Order::all()->count();

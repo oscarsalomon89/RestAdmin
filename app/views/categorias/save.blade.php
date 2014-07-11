@@ -1,19 +1,18 @@
 @extends('layouts.master')
 
 @section('content')
-
+@section('head')
+{{HTML::script('js/functions.js')}}
+@stop
 <div class="row">
 <div class="col-md-8">
   <div class="widget">
      <div class="widget-content-white glossed">
      <div class="padded">
 <h1> Categorias </h1>
-@if(isset($errors))
-      @foreach($errors as $item)
-         <h5 class="alert alert-danger"> {{ $item }} </h5>
-      @endforeach
-@endif
-    {{ Form::open(array('url' => 'categorias/' . $category->id)) }}
+<div class='errors_form'></div>
+    {{ Form::open(array('url' => 'categorias/create/'. $category->id, 'id'=>'form')) }}
+    <input type="hidden" class="form-control" id= 'link' value='categorias'>
     <div class="form-group">
        {{ Form::label ('name', 'Nombre') }}
        {{ Form::text ('name', $category->name, array('class'=>'form-control','placeholder'=>'nombre', 'autocomplete'=>'of')) }}

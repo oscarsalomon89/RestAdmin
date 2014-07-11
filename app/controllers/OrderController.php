@@ -12,8 +12,9 @@
       }
 
     public function items($id) {
-     $order = Order::find($id, array('id','user_id','table_id','status','total'));
-     $total = $order->total;
+     $order = Order::find($id);
+     //$items = ItemOrder::where('order_id','=',$order->id)->get();
+     //$total = $order->total;
      return View::make('order.items', array('order' => $order));
      }
 
@@ -40,10 +41,10 @@
       
       $validator = Order::validate(Input::all());
    if($validator->fails()){
-      $users = User::all(array('id','name','lastname'));
-      $tables= Table::where('state','=',0)->get();
-      $errors = $validator->messages()->all();
-      return View::make('order.save')->with('order', $order)->with('users', $users)->with('tables', $tables)->with('errors', $errors);
+         return Response::json(array(
+          'success' => false,
+          'errors' => $validator->getMessageBag()->toArray()
+      ));
    }else{
       $order->status = '1';
       $order->total='0';
@@ -51,9 +52,10 @@
       $table->state ='1';
       $table->save();
       $order->save();
-
-      $categories = Category::all(array('id','name'));
-      return View::make('order.agregar', array('order' => $order,'categories'=>$categories));
+          return Response::json(array(
+            'success'     =>  true,
+            'idorder' => $order->id
+        ));
    }
 }
 
@@ -64,10 +66,11 @@
      return View::make('order.agregar', array('order' => $order,'categories'=>$categories));
      }
 
-public function agregarItems() {
+public function agregarItems($id) {
   if(!$this->autorizado) return Redirect::to('/auth/login');
-  $order = Order::find(Input::get('order_id'), array('id','total'));
-  if (Input::get('edit') == "agregar") {  
+    $order = Order::find($id, array('id','total'));
+  if(Input::get('type_id') == 'edit')
+  {
       $rules = array(
           'item_id' => 'required',
           'quantity' => 'required|min:1'
@@ -101,32 +104,41 @@ public function agregarItems() {
         ));
       }
     }
-    else{      
-      $item = Item::find(Input::get('item_id'), array('id'));
-      $precio = Input::get('item_price');
+    else{
+      $item = ItemOrder::find(Input::get('item_id'));      
+      $precio = Input::get('price');
       $order->total = $order->total - $precio;
       $order->save();
-      $order->items()->detach($item);
-      return Response::json(array(
-            'success'     =>  true,
-            'message'     =>  'Se elimino el item correctamente'
-        ));
+      $item->delete();
+      return Redirect::to('orders/edit/'.$order->id)->with('notice', 'el item ha sido eliminado correctamente.');
     }
 }
-   /* public function eliminarItems($id) { 
+
+  public function editar($id) { 
+    if(!$this->autorizado) return Redirect::to('/auth/login');
+      $item = Item::find($id);
+      $order = Order::find('43', array('id','total'));
+      $price = '100';
+      $order->total = $order->total - $price;
+      $order->save();
+      $order->items()->detach($item);
+            return Response::json(array(
+            'success'     =>  true,
+            'message'     =>  'Modifique los datos que desee'
+        ));
+     }
+    public function eliminarItems($id) { 
       $order = Order::find(Input::get('order_id'), array('id','total'));
       $item = Item::find($id, array('id'));
       $precio = Input::get('item_price');
       $order->total = $order->total - $precio;
       $order->save();
       $order->items()->detach($item);
-      $respuesta = array();
-      $respuesta['notice']="El item ha sido eliminado correctamente";      
-      return Redirect::to('orders/edit/'.$order->id)->with('notice', $respuesta['notice']);
-            *return Response::json(array(
-            'message'     =>  'Se elimino el item correctamente'
-        ));*
-     }*/
+            return Response::json(array(
+            'success'     =>  true,
+            'message'     =>  'item eliminado'
+        ));
+     }
 
    public function cobrar($id) {
     if(!$this->autorizado) return Redirect::to('/auth/login');

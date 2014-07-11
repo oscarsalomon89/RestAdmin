@@ -1,18 +1,18 @@
 @extends('layouts.master')
 
 @section('content')
+@section('head')
+{{HTML::script('js/functions.js')}}
+@stop
 <div class="row">
 <div class="col-md-8">
   <div class="widget">
      <div class="widget-content-white glossed">
      <div class="padded">
 <h1> Item de Menu </h1>
-@if(isset($errors))
-      @foreach($errors as $item)
-         <h5 class="alert alert-danger"> {{ $item }} </h5>
-      @endforeach
-@endif
-    {{ Form::open(array('url' => 'items/' . $itemmenu->id)) }}
+<div class='errors_form'></div>
+    {{ Form::open(array('url' => 'items/create/' . $itemmenu->id, 'id'=>'form')) }}
+    <input type="hidden" class="form-control" id= 'link' value='items'>
     <div class="form-group">
        {{ Form::label ('name', 'Nombre') }}
        {{ Form::text ('name', $itemmenu->name, array('class'=>'form-control','placeholder'=>'nombre', 'autocomplete'=>'of')) }}

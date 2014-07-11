@@ -8,7 +8,7 @@
     <p> {{ link_to ('items/create', 'Crear nuevo item') }} </p>
     @if($categories->count())
      @foreach($categories as $category)
-     {{ link_to ('items/create/'.$category->id, $category->name, array('class'=>'btn btn-danger')) }}
+     {{ link_to ('item/create/'.$category->id, $category->name, array('class'=>'btn btn-danger')) }}
      @endforeach
      <br>
      <br>

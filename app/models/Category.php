@@ -17,7 +17,7 @@ public static $messages = array(
       'name.required' => 'El nombre es obligatorio.',
       'name.min' => 'El nombre debe contener al menos dos caracteres.',
       'description.required' => 'La descripcion es obligatoria.',
-      'descripcion.min' => 'La descripcion debe contener al menos 10 caracteres.',
+      'description.min' => 'La descripcion debe contener al menos 10 caracteres.',
    );
 
    public static function validate($data, $id=null){

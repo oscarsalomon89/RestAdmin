@@ -5,7 +5,7 @@
 <div class="widget-content-white glossed">
   <div class="padded">
     @if(Session::has('notice'))
-    <div class="alert alert-success">{{ Session::get('notice') }}</div>
+    <div class="alert alert-success" id='del'>{{ Session::get('notice') }}</div>
     @endif
 <h1> Mesa Nro: <span class="badge"><h2>{{ $order->table['number'] }}</h2></span></h1>
     <ul>
@@ -30,7 +30,7 @@
   <div class="row">
   {{ Form::open(array('url' => 'orders/edit/'.$order->id, 'id' => 'formulario_busqueda')) }}
   <input type="hidden" class="form-control" id= 'order_id' name="order_id" value='{{$order->id}}'>
-  <input type="hidden" class="form-control" id= 'edit' name="edit" value='agregar'>
+  <input type="hidden" class="form-control" id= 'type_id' name="type_id" value='edit'>
   <div class="col-lg-6">
   <select class="form-control" id="item_id" name="item_id">
     <option value=""></option>
@@ -47,7 +47,7 @@
         <input class="form-control" placeholder="cantidad" autocomplete="of" name="quantity" type="text" id="quantity">
   </div>
   <div class="col-lg-3">
-  {{ Form::submit('Agregar',array('class'=>'btn btn-primary', 'id'=>'enviar')) }}
+  {{ Form::submit('Agregar',array('class'=>'btn btn-primary')) }}
   </div>
   {{ Form::close() }}
     <!--en este los errores del formulario--> 
@@ -75,7 +75,7 @@ $(document).ready(function ()
 var id=$("#order_id").val();
 $("#tabla").load('list/'+id);
 var form = $('#formulario_busqueda');
-form.bind('submit', function () {
+form.on('submit', function () {
   $.ajax({
            type: form.attr('method'),
            dataType: "json",
@@ -88,6 +88,8 @@ form.bind('submit', function () {
                         for(datos in data.errors){
                             errores += '<small class="alert alert-danger error">' + data.errors[datos] + '<br>' + '</small>';
                         }
+                        $('#del').html('');
+                        $('#del').removeClass( "alert alert-success" )
                         $('.success_message').html("");
                         $('.errors_form').html(errores);
                     }else{
@@ -95,19 +97,21 @@ form.bind('submit', function () {
                         $('.errors_form').html("");
                           mensaje = '<small class="alert alert-success">' + data.message + '</small>';
                         $('.success_message').html(mensaje);
+                        $('#del').html('');
+                        $('#del').removeClass( "alert alert-success" )
                         $("#tabla").load('list/'+id);
                     }
                   }
          }); 
   return false;
 });
-var formDelete = $('#formulario_delete');
-formDelete.bind('submit', function () {
+
+var idbtn = $('#btn_edit').val();
+$('#btn_edit').on('click', function () {
   $.ajax({
-           type: form.attr('method'),
+           type: 'post',
            dataType: "json",
-           url: form.attr('action'),
-           data: form.serialize(),
+           url: '/orders/editar/'+idbtn,
            success: function (data)
                   {
                   if(data.success == true){

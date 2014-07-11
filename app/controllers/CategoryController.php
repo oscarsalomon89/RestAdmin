@@ -22,11 +22,15 @@
 
    $validator = Category::validate(Input::all());
    if($validator->fails()){
-      $errors = $validator->messages()->all();
-      return View::make('categorias.save')->with('category', $category)->with('errors', $errors);
+   return Response::json(array(
+          'success' => false,
+          'errors' => $validator->getMessageBag()->toArray()
+      ));
    }else{
       $category->save();
-      return Redirect::to('categorias')->with('notice', 'La categoria ha sido creada correctamente.');
+          return Response::json(array(
+            'success'     =>  true
+        ));
    }
    }
 
@@ -41,11 +45,16 @@
    $category->description = Input::get('description');
    $validator = Category::validate(Input::all(), $category->id);
    if($validator->fails()){
-      $errors = $validator->messages()->all();
-      return View::make('categorias.save')->with('category', $category)->with('errors', $errors);
+         return Response::json(array(
+          'success' => false,
+          'errors' => $validator->getMessageBag()->toArray()
+      ));
    }else{
       $category->save();
-      return Redirect::to('categorias')->with('notice', 'El usuario ha sido modificado correctamente.');
+          return Response::json(array(
+            'success'     =>  true,
+            'types' => 'edit'
+        ));
    }
    }
 

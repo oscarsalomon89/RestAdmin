@@ -32,7 +32,7 @@
   </button>
 </div>
 <div class="side-bar-wrapper collapse navbar-collapse navbar-ex1-collapse">
-  <a href="http://localhost/restappadmin/public/index.php" class="logo hidden-sm hidden-xs">
+  <a href="http://localhost/restappadmin/public/index.php/admin" class="logo hidden-sm hidden-xs">
     <i class="icon-laptop"></i>
     <span>RestApp</span>
   </a>

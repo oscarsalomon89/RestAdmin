@@ -20,11 +20,15 @@
 
    $validator = Table::validate(Input::all());
    if($validator->fails()){
-      $errors = $validator->messages()->all();
-      return View::make('table.save')->with('table', $table)->with('errors', $errors);
+         return Response::json(array(
+          'success' => false,
+          'errors' => $validator->getMessageBag()->toArray()
+      ));
    }else{
       $table->save();
-      return Redirect::to('tables')->with('notice', 'La Mesa ha sido creada correctamente.');
+          return Response::json(array(
+            'success'     =>  true
+        ));
    }
    }
 
@@ -41,11 +45,16 @@
       
    $validator = Table::validate(Input::all(), $table->id);
    if($validator->fails()){
-      $errors = $validator->messages()->all();
-      return View::make('table.save')->with('table', $table)->with('errors', $errors);
+         return Response::json(array(
+          'success' => false,
+          'errors' => $validator->getMessageBag()->toArray()
+      ));
    }else{
       $table->save();
-      return Redirect::to('tables')->with('notice', 'La mesa ha sido modificada correctamente.');
+          return Response::json(array(
+            'success'     =>  true,
+            'types' => 'edit'
+        ));
    }
    }
 
