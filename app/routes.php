@@ -1,5 +1,6 @@
 <?php
 Route::get('/', 'HomeController@index');
+Route::post('/', 'HomeController@store');
 Route::get('admin', 'HomeController@indexAdmin');
 Route::controller('auth', 'AuthController');
 

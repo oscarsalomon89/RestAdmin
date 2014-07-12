@@ -11,7 +11,41 @@
     <!-- Bootstrap core CSS -->
     {{HTML::style('css/styleWeb.css')}}
     {{HTML::style('css/bootstrap.css')}}   
-    {{HTML::style('font-awesome/css/font-awesome.min.css')}}    
+    {{HTML::style('font-awesome/css/font-awesome.min.css')}}
+        <!-- JavaScript -->
+    {{HTML::script('js/jquery-1.11.0.min.js')}}
+    {{HTML::script('js/bootstrap.min.js')}}
+<script type="text/javascript">
+$(document).ready(function ()
+{
+var form = $('#form');
+form.on('submit', function () {
+  $.ajax({
+           type: form.attr('method'),
+           dataType: "json",
+           url: form.attr('action'),
+           data: form.serialize(),
+           success: function (data)
+                  {
+                  if(data.success == false){
+                        var errores = '';
+                        for(datos in data.errors){
+                            errores += data.errors[datos] + '<br>';
+                        }
+                        $('.errors_form').addClass( "alert alert-danger error" );
+                        $('.errors_form').html(errores);
+                    }else{
+                        $(form)[0].reset();//limpiamos el formulario
+                        $('.errors_form').removeClass( "alert alert-danger error" );
+                        $('.errors_form').addClass( "alert alert-success" );
+                        $('.errors_form').html("La consulta fue enviada correctamente");
+                    }
+                  }
+         }); 
+  return false;
+});
+});
+</script>    
   </head>
 
   <body>
@@ -176,34 +210,29 @@
             <div id="about" class="intro">
         <div class="container">
                 <div class="jumbotron">
+  <div class='errors_form'></div>
   <h1>Consultas</h1>
-  <p>This template really has it all. It's up to you to customize it to your liking! It features some fresh photography courtesy of Death to the Stock Photo.</p>
+  <p>Puede realizar su consulta desde aqui le responderemos a su email</p>
   <br>
-  <form class="form-horizontal" role="form">
+  {{ Form::open(array('url' => '/', 'id' => 'form', 'class' => 'form-horizontal')) }}
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-8">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-    <div class="col-sm-8">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+      {{ Form::email ('email', $consulta->email, array('class'=>'form-control','placeholder'=>'Email', 'autocomplete'=>'of')) }}
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">Consulta</label>
     <div class="col-sm-8">
-      <textarea class="form-control" rows="3"></textarea>
+      {{ Form::textarea ('consulta', $consulta->consulta, array('class'=>'form-control','placeholder'=>'Consulta', 'autocomplete'=>'of')) }}
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Sign in</button>
+      {{ Form::submit('Enviar',array('class'=>'btn btn-success')) }}
     </div>
   </div>
-</form>
+{{ Form::close() }}
 </div>
         </div>
     </div>
@@ -248,11 +277,6 @@
       </div>
     </footer>
     <!-- /Footer -->
-
-    <!-- JavaScript -->
-    {{HTML::script('js/jquery-1.11.0.min.js')}}
-    {{HTML::script('js/bootstrap.min.js')}}
-
     <!-- Custom JavaScript for the Side Menu and Smooth Scrolling -->
     <script>
         $("#menu-close").click(function(e) {

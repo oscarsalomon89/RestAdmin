@@ -3,18 +3,16 @@
     
     public function index(){
    		$reservas = Reserva::all(array('id','date','name','cantpersons'));
-   		$reserva = new Reserva();
-        return View::make('reservas.index', array('reservas' => $reservas, 'reserva'=>$reserva));
+        return View::make('reservas.index', array('reservas' => $reservas));
     }
      public function lista() {
       $reservas = Reserva::all();
      return View::make('reservas.listres', array('reservas' => $reservas));
      }
     public function create() {
-      $reservas = Reserva::all();
       $reserva = new Reserva();
       $title = 'Nueva';
-      return View::make('reservas.save', array('reservas' => $reservas, 'reserva'=>$reserva, 'title'=>$title));
+      return View::make('reservas.save', array('reserva'=>$reserva, 'title'=>$title));
      }
 
     public function store() {
@@ -65,9 +63,6 @@
  public function destroy() { 
    $reserva = Reserva::find(Input::get('reserva_id'));
    $reserva->delete();
- return Response::json(array(
-          'success' => true,
-          'message' => 'Se elimino correctamente'
-      ));
+return Redirect::to('reservas')->with('notice', 'el item ha sido eliminado correctamente.');
    }
 }
