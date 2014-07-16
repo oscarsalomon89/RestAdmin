@@ -39,7 +39,7 @@
 </div>
 </div>
 <div class="col-md-4">
-<i class="icon-code-fork"></i>
+{{ HTML::image('images/user.png', "Imagen no encontrada", array('id' => 'user')) }}
 </div>
 </div>
 @stop

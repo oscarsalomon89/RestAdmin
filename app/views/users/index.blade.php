@@ -14,6 +14,7 @@
           <tr>
              <th> Nombre real </th>
              <th> Apellido </th>
+             <th> Rol </th>
              <th> </th>
           </tr>
           </thead>
@@ -22,6 +23,7 @@
              <tr>
                 <td> {{ $item->name }} </td>
                 <td> {{ $item->lastname }} </td>
+                <td> {{ $item->role['name'] }} </td>
                 <td> {{ link_to('users/'.$item->id, 'Ver') }} </td>
                 <td> {{ link_to('users/'.$item->id.'/edit', 'Editar',array('class'=>'btn btn-default btn-xs')) }} </td>
                 <td> 

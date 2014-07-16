@@ -6,24 +6,20 @@ class AuthController extends BaseController {
    public function postLogin() {
       $user_data = array(
          'name' => Input::get('name'),
-         'password' => Input::get('password')
+         'password' => Input::get('password'),
+         'role_id' => '1'
       );
       if(Auth::attempt($user_data)){
-         return Redirect::to('auth/welcome');
+            return Response::json(array(
+            'success'     =>  true,
+        ));
       }else{
-         return $this->getLogin()->with('error', 'Usuario o contraseña incorrectos.');
+            return Response::json(array(
+            'success'     =>  false,
+        ));
       }
    } 
-   public function getWelcome(){
-      if(Auth::check()){
-         $user = Auth::user();
-         $users = User::all(array('id', 'name', 'lastname' ));
-         $orders = Order::all()->count();
-         return View::make('inicio', array('user' => $user, 'users'=> $users, 'orders'=>$orders));
-      }else{
-         return $this->getLogin();
-      }
-   }
+
    public function getLogout(){
       if(Auth::check()){
          Auth::logout();

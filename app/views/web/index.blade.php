@@ -1,314 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Rest App</title>
-
-    <!-- Bootstrap core CSS -->
-    {{HTML::style('css/styleWeb.css')}}
-    {{HTML::style('css/bootstrap.css')}}   
-    {{HTML::style('font-awesome/css/font-awesome.min.css')}}
-        <!-- JavaScript -->
-    {{HTML::script('js/jquery-1.11.0.min.js')}}
-    {{HTML::script('js/bootstrap.min.js')}}
-<script type="text/javascript">
-$(document).ready(function ()
-{
-var form = $('#form');
-form.on('submit', function () {
-  $.ajax({
-           type: form.attr('method'),
-           dataType: "json",
-           url: form.attr('action'),
-           data: form.serialize(),
-           success: function (data)
-                  {
-                  if(data.success == false){
-                        var errores = '';
-                        for(datos in data.errors){
-                            errores += data.errors[datos] + '<br>';
-                        }
-                        $('.errors_form').addClass( "alert alert-danger error" );
-                        $('.errors_form').html(errores);
-                    }else{
-                        $(form)[0].reset();//limpiamos el formulario
-                        $('.errors_form').removeClass( "alert alert-danger error" );
-                        $('.errors_form').addClass( "alert alert-success" );
-                        $('.errors_form').html("La consulta fue enviada correctamente");
-                    }
-                  }
-         }); 
-  return false;
-});
-});
-</script>    
-  </head>
-
-  <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Rest App</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#productos">Productos</a></li>
-            <li><a href="#services">Servicios</a></li>
-            <li><a href="#about">Consultas</a></li>
-            <li><a href="#contact">Contactos</a></li>
-            <li><a href="#reservas">Reservas</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </div>
-  
-    <!-- Full Page Image Header Area -->
-    <div id="top" class="header">
-      <div class="vert-text">
-            <div class="row-traslucida">
-            <h1>Start RestApp</h1>
-            <h2><em>Conozca nuestro </em>software online para la gestión de restaurantes, bares y cafés.</h2>
-            </div>
-      </div>
-    </div>
-    <!-- /Full Page Image Header Area -->
-  
-    <!-- Intro -->
-<div id="productos" class="content-section-a">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">Death to the Stock Photo:
-                        <br>Special Thanks</h2>
-                    <p class="lead">A special thanks to Death to the Stock Photo for providing the photographs that you see in this template. <a target="_blank" href="http://join.deathtothestockphoto.com/">Visit their website</a> to become a member.</p>
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                  {{ HTML::image('images/web/ipad.png', "Imagen no encontrada", array('class'=> 'img-responsive')) }}
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.content-section-a -->
-
-    <div class="content-section-b">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">3D Device Mockups
-                        <br>by PSDCovers</h2>
-                    <p class="lead">Turn your 2D designs into high quality, 3D product shots in seconds using free Photoshop actions by PSDCovers! <a target="_blank" href="http://www.psdcovers.com/">Visit their website</a> to download some of their awesome, free photoshop actions!</p>
-                </div>
-                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    {{ HTML::image('images/web/doge.png', "Imagen no encontrada", array('class'=> 'img-responsive')) }}
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.content-section-b -->
-
-    <div class="content-section-a">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">Google Web Fonts and
-                        <br>Font Awesome Icons</h2>
-                    <p class="lead">This template features the 'Lato' font, part of the <a target="_blank" href="http://www.google.com/fonts">Google Web Font library</a>, as well as <a target="_blank" href="http://fontawesome.io">icons from Font Awesome</a>.</p>
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    {{ HTML::image('images/web/phones.png', "Imagen no encontrada", array('class'=> 'img-responsive')) }}
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.content-section-a -->
-    <!-- /Intro -->
-  
-    <!-- Callout -->
-    <div class="callout">
-      <div class="vert-text">
-        <h1>A Dramatic Text Area</h1>
-      </div>
-    </div>
-    <!-- /Callout -->
-    <!-- Services -->
-    <div id="services" class="services">
-       <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4 text-center">
-                    <h1>Nuestros Servicios</h1>
-                    <hr>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 text-center">
-                    <div class="service-item">
-                        <i class="service-icon fa fa-cutlery"></i>
-                        <h3>¿Qué es RestApp?</h3>
-                        <p>Reemplazá al papel y lapiz. El mozo toma los pedidos en la mesa y envía el pedido a la cocina. Ofrece un mejor servicio</p>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center">
-                    <div class="service-item">
-                        <i class="service-icon fa fa-laptop"></i>
-                        <h3>¿Qué necesito para usarlo?</h3>
-                        <p>Una computadora o dispositivo movil conectado a Internet y una cuenta de Facebook es suficiente para poder utilizar RestApp.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center">
-                    <div class="service-item">
-                        <i class="service-icon fa fa-thumbs-o-up"></i>
-                        <h3>¿Por qué usarlo?</h3>
-                        <p>Realiza tu reserva para la fecha y hora que desees. No pierdas tiempo haciendo colas ni llamando para tener una mesa.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
-    </div>
-    <!-- /Services -->
-
-            <div id="about" class="intro">
-        <div class="container">
-                <div class="jumbotron">
-  <div class='errors_form'></div>
-  <h1>Consultas</h1>
-  <p>Puede realizar su consulta desde aqui le responderemos a su email</p>
-  <br>
-  {{ Form::open(array('url' => '/', 'id' => 'form', 'class' => 'form-horizontal')) }}
-  <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-    <div class="col-sm-8">
-      {{ Form::email ('email', $consulta->email, array('class'=>'form-control','placeholder'=>'Email', 'autocomplete'=>'of')) }}
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">Consulta</label>
-    <div class="col-sm-8">
-      {{ Form::textarea ('consulta', $consulta->consulta, array('class'=>'form-control','placeholder'=>'Consulta', 'autocomplete'=>'of')) }}
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      {{ Form::submit('Enviar',array('class'=>'btn btn-success')) }}
-    </div>
-  </div>
-{{ Form::close() }}
+@extends('layouts.layout')
+@section('content')
+<div id="status">
 </div>
-        </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Reserva nueva</h4>
+      </div>
+      <div class="modal-body">
+{{ Form::open(array('url' => '/', 'id' => 'formReserv')) }}
+<input type="hidden" class="form-control" id= 'link' value='reservas'>
+    <div class="form-group">
+       {{ Form::label ('date', 'Fecha') }}
+       <input class="form-control" placeholder="Fecha" autocomplete="of" name="date" type="date" value="{{$reserva->date}}" id="date">
     </div>
-
-    <!-- Map -->
-    <div id="contact" class="map">
-      <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a></small></iframe>
-    </div>
-    <!-- /Map -->
-
-        <!-- Call to Action -->
-    <div id="reservas"class="call-to-action">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-md-offset-3 text-center">
-            <h3>The buttons below are impossible to resist.</h3>
-            <a href="#" class="btn btn-lg btn-default">Click Me!</a>
-            <a href="#" class="btn btn-lg btn-primary">Look at Me!</a>
-          </div>
-        </div>
+    <div class="form-group">
+       {{ Form::label ('name', 'Nombre') }}
+       {{ Form::text ('name', $reserva->name, array('class'=>'form-control','placeholder'=>'Nombre', 'autocomplete'=>'of')) }} 
+     </div> 
+      <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      {{ Form::submit('Guardar reserva',array('class'=>'btn btn-success')) }}
+{{ Form::close() }}
       </div>
     </div>
-    <!-- /Call to Action -->
-    
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-md-offset-3 text-center">
-            <ul class="list-inline">
-              <li><i class="fa fa-facebook fa-3x"></i></li>
-              <li><i class="fa fa-twitter fa-3x"></i></li>
-              <li><i class="fa fa-dribbble fa-3x"></i></li>
-            </ul>
-            <div class="top-scroll">
-              <a href="#top"><i class="fa fa-circle-arrow-up scroll fa-4x"></i></a>
-            </div>
-            <hr>
-            <p>Copyright &copy; Company 2013</p>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- /Footer -->
-    <!-- Custom JavaScript for the Side Menu and Smooth Scrolling -->
-    <script>
-        $("#menu-close").click(function(e) {
-            e.preventDefault();
-            $("#sidebar-wrapper").toggleClass("active");
-        });
-    </script>
-    <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#sidebar-wrapper").toggleClass("active");
-        });
-    </script>
-    <script>
-      $(function() {
-        $('a[href*=#]:not([href=#])').click(function() {
-          if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
-            || location.hostname == this.hostname) {
-
-            var target = $(this.hash);
-            target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-            if (target.length) {
-              $('html,body').animate({
-                scrollTop: target.offset().top
-              }, 1000);
-              return false;
-            }
-          }
-        });
-      });
-    </script>
-
-  </body>
-
-</html>
+  </div>
+</div>
+@stop

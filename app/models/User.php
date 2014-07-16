@@ -4,6 +4,9 @@ class User extends Eloquent implements UserInterface{
 
    protected $fillable = array('name', 'lastname', 'password');
    
+   public function role(){
+      return $this->belongsTo('Role');
+   }
 	public function orders(){
    return $this->hasMany('Order');
 }

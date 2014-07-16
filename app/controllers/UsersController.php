@@ -2,7 +2,7 @@
  class UsersController extends BaseController {
     
    public function index() {
-   $users = User::all(array('name','lastname'));
+   $users = User::all(array('name','lastname','role_id'));
    return View::make('users.index')->with('users', $users);
    }
 

@@ -3,7 +3,7 @@
     
   private $autorizado;
    public function __construct() {
-      $this->autorizado = (Auth::check() and Auth::user()->name == 'Ariel');
+      $this->autorizado = (Auth::check() and Auth::user()->role_id == '1');
    } 
       public function index(){
         if(!$this->autorizado) return Redirect::to('/auth/login');

@@ -4,13 +4,14 @@ class HomeController extends BaseController {
 
  private $autorizado;
    public function __construct() {
-      $this->autorizado = (Auth::check() and Auth::user()->name == 'Ariel');
+      $this->autorizado = (Auth::check() and Auth::user()->role_id == '1');
    } 
 
    	public function index()
 	{
     $consulta = new Consulta();
-		return View::make('web.index', array('consulta' => $consulta));
+    $reserva = new FaceReserva();
+		return View::make('web.index', array('consulta' => $consulta, 'reserva' => $reserva));
 	}
       public function store()
   {
