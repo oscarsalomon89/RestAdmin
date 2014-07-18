@@ -51,6 +51,9 @@ App::error(function(Exception $exception, $code)
 	Log::error($exception);
 });
 
+// IuserRepository interface,  UserRepository class
+App::bind('repositories\\User\\IUserRepository', 'repositories\\User\\UserRepository');
+
 /*
 |--------------------------------------------------------------------------
 | Maintenance Mode Handler

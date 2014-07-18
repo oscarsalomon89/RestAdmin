@@ -1,34 +1,22 @@
 @extends('layouts.layout')
 @section('content')
-<div id="status">
-</div>
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Reserva nueva</h4>
-      </div>
-      <div class="modal-body">
-{{ Form::open(array('url' => '/', 'id' => 'formReserv')) }}
-<input type="hidden" class="form-control" id= 'link' value='reservas'>
-    <div class="form-group">
-       {{ Form::label ('date', 'Fecha') }}
-       <input class="form-control" placeholder="Fecha" autocomplete="of" name="date" type="date" value="{{$reserva->date}}" id="date">
-    </div>
-    <div class="form-group">
-       {{ Form::label ('name', 'Nombre') }}
-       {{ Form::text ('name', $reserva->name, array('class'=>'form-control','placeholder'=>'Nombre', 'autocomplete'=>'of')) }} 
-     </div> 
-      <br>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      {{ Form::submit('Guardar reserva',array('class'=>'btn btn-success')) }}
-{{ Form::close() }}
-      </div>
+  {{ Form::open(array('url' => '/', 'id' => 'form', 'class' => 'form-horizontal')) }}
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-8">
+      {{ Form::email ('email', $consulta->email, array('class'=>'form-control','placeholder'=>'Email', 'autocomplete'=>'of')) }}
     </div>
   </div>
-</div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Consulta</label>
+    <div class="col-sm-8">
+      {{ Form::textarea ('consulta', $consulta->consulta, array('class'=>'form-control','placeholder'=>'Consulta', 'autocomplete'=>'of')) }}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      {{ Form::submit('Enviar',array('class'=>'btn btn-success')) }}
+    </div>
+  </div>
+{{ Form::close() }}
 @stop

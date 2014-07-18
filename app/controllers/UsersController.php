@@ -1,18 +1,36 @@
 <?php
+use repositories\User\IUserRepository;
  class UsersController extends BaseController {
-    
+   
+   public function __construct(IUserRepository $user)
+    {
+        $this->user = $user;
+    } 
+
    public function index() {
-   $users = User::all(array('name','lastname','role_id'));
+   $users = $this->user->getAllUsers();
    return View::make('users.index')->with('users', $users);
    }
 
    public function show($id) { 
-   $user = User::find($id);
+   $user = $this->user->getUserById($id);
    return View::make('users.show')->with('user', $user);
    }
 
+    public function saveUser($id = null)
+    {
+        if($id) {
+            $this->user->createOrUpdate($id);
+        }
+        else {
+            $this->user->createOrUpdate();
+        }
+        // return redirect...
+    }
+
+
    public function create() { 
-   	$user = new User();
+   $user = new User();
    return View::make('users.save')->with('user', $user);
    }
 
@@ -21,18 +39,18 @@
    $user->name = Input::get('name');
    $user->lastname = Input::get('lastname');
    $user->password = Hash::make(Input::get('password'));
-   $validator = User::validate(array(
-      'name' => Input::get('name'),
-      'lastname' => Input::get('lastname'),
-      'password' => Input::get('password'),
-   ));
+
+   $validator = User::validate(Input::all());
    if($validator->fails()){
-      $errors = $validator->messages()->all();
-      $user->password = null;
-      return View::make('users.save')->with('user', $user)->with('errors', $errors);
+   return Response::json(array(
+          'success' => false,
+          'errors' => $validator->getMessageBag()->toArray()
+      ));
    }else{
-      $user->save();
-      return Redirect::to('users')->with('notice', 'El usuario ha sido creado correctamente.');
+      $category->save();
+          return Response::json(array(
+            'success'     =>  true
+        ));
    }
    }
 

@@ -1,20 +1,17 @@
 @extends('layouts.master')
 
 @section('content')
-@if(isset($errors))
-   <ul>
-      @foreach($errors as $item)
-         <li> {{ $item }} </li>
-      @endforeach
-   </ul>
-@endif
+@section('head')
+{{HTML::script('js/functions.js')}}
+@stop
 <div class="row">
 <div class="col-md-8">
   <div class="widget">
      <div class="widget-content-white glossed">
      <div class="padded">
 <h1> Usuario </h1>
-    {{ Form::open(array('url' => 'users/' . $user->id)) }}
+<div class='errors_form'></div>
+    {{ Form::open(array('url' => 'users/create/' . $user->id, 'id'=>'form')) }}
     <div class="form-group">
        {{ Form::label ('name', 'Nombre real') }}
        {{ Form::text ('name', $user->name, array('class'=>'form-control','placeholder'=>'nombre', 'autocomplete'=>'of')) }}

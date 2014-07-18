@@ -16,7 +16,7 @@
     {{HTML::script('js/jquery-1.11.0.min.js')}}
     {{HTML::script('js/bootstrap.min.js')}}
 <script type="text/javascript">
-  // This is called with the results from from FB.getLoginStatus().
+  /*/ This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
@@ -78,11 +78,11 @@
       //location.href = "http://localhost/restappadmin/public/index.php/reservas";
     });
   }
-////////
+////////*/
 
 $(document).ready(function ()
 {
-var form = $('#formReserv');
+var form = $('#form');
 form.on('submit', function () {
   $.ajax({
            type: form.attr('method'),
@@ -278,25 +278,7 @@ form.on('submit', function () {
   <h1>Consultas</h1>
   <p>Puede realizar su consulta desde aqui le responderemos a su email</p>
   <br>
-  {{ Form::open(array('url' => '/', 'id' => 'form', 'class' => 'form-horizontal')) }}
-  <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-    <div class="col-sm-8">
-      {{ Form::email ('email', $consulta->email, array('class'=>'form-control','placeholder'=>'Email', 'autocomplete'=>'of')) }}
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">Consulta</label>
-    <div class="col-sm-8">
-      {{ Form::textarea ('consulta', $consulta->consulta, array('class'=>'form-control','placeholder'=>'Consulta', 'autocomplete'=>'of')) }}
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      {{ Form::submit('Enviar',array('class'=>'btn btn-success')) }}
-    </div>
-  </div>
-{{ Form::close() }}
+@yield('content')
 </div>
         </div>
     </div>
@@ -313,11 +295,12 @@ form.on('submit', function () {
         <div class="row">
           <div class="col-md-6 col-md-offset-3 text-center">
             <h3>The buttons below are impossible to resist.</h3>
-            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" class="fb-login-button" data-max-rows="2" data-size="xlarge">
-</fb:login-button>
-
-@yield('content')
-          </div>
+<a href="<?= Social::login('facebook') ?>">Login to facebook</a>
+<pre>
+    <?php if (Social::check('facebook')): ?>
+    <?= print_r( Social::facebook('/120500222/feed') )?>
+    <?php endif; ?>
+  </pre>
         </div>
       </div>
     </div>

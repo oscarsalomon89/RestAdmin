@@ -1,9 +1,11 @@
 <?php
 Route::get('/', 'HomeController@index');
+
 Route::post('/', 'HomeController@store');
 Route::get('admin', 'HomeController@indexAdmin');
 Route::controller('auth', 'AuthController');
 
+Route::post('users/create', 'UsersController@store');
 Route::resource('users', 'UsersController');
 
 Route::get('orders','OrderController@index');
@@ -48,7 +50,8 @@ Route::post('tables/create/{id}', 'TableController@update');
 Route::get('tables/{id}/delete', 'TableController@show');
 Route::DELETE('tables/{id}', 'TableController@destroy');
 
-Route::get('reservas', 'ReservaController@index');
+Route::get('reservas',array("before" => "roles:1,reservas", 'uses' => 'ReservaController@index'));
+
 Route::post('reservas', 'ReservaController@destroy');
 Route::get('reservas/create', 'ReservaController@create');
 Route::post('reservas/create', 'ReservaController@store');
