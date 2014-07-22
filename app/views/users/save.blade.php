@@ -12,6 +12,7 @@
 <h1> Usuario </h1>
 <div class='errors_form'></div>
     {{ Form::open(array('url' => 'users/create/' . $user->id, 'id'=>'form')) }}
+    <input type="hidden" class="form-control" id= 'link' value='users'>
     <div class="form-group">
        {{ Form::label ('name', 'Nombre real') }}
        {{ Form::text ('name', $user->name, array('class'=>'form-control','placeholder'=>'nombre', 'autocomplete'=>'of')) }}

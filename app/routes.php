@@ -5,8 +5,12 @@ Route::post('/', 'HomeController@store');
 Route::get('admin', 'HomeController@indexAdmin');
 Route::controller('auth', 'AuthController');
 
-Route::post('users/create', 'UsersController@store');
-Route::resource('users', 'UsersController');
+Route::get('users','UsersController@index');
+Route::get('users/create', 'UsersController@create');
+Route::post('users/create', 'UsersController@saveUser');
+Route::get('users/{id}/edit', 'UsersController@edit');
+Route::post('users/create/{id}', 'UsersController@update');
+//Route::resource('users', 'UsersController');
 
 Route::get('orders','OrderController@index');
 Route::get('orders/create', 'OrderController@create');

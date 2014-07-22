@@ -6,5 +6,5 @@ interface IUserRepository {
 
     public function getUserById($id);
 
-    public function createOrUpdate($id = null);
+    public function createOrUpdate($id = null, $input);
 }

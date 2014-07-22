@@ -13,23 +13,42 @@ public function getAllUsers()
         return User::find($id);
     }
  
-    public function createOrUpdate($id = null)
+    public function createOrUpdate($id = null, $input)
     {
-        if(is_null($id)) {
-            // create after validation
-            $user = new User;
-            $user->name = 'Sheikh Heera';
-            $user->lastname = 'me@yahoo.com';
-            $user->password = '123456';
-            return $user->save();
+    if(is_null($id)) {
+      $validator = User::validate($input);
+      if ($validator->fails()){
+      
+      return array(
+          'success' => false,
+          'errors' => $validator->getMessageBag()->toArray()
+      );
         }
-        else {
-            // update after validation
-            $user = User::find($id);
-            $user->name = 'Sheikh Heera';
-            $user->lastname = 'me@yahoo.com';
-            $user->password = '123456';
-            return $user->save();
+    else{
+      User::create($input);  
+          return array(
+            'success'     =>  true
+        );
+   }
+ }
+ else{
+  $user = User::find($id);
+  $validator = User::validate($input);
+  if ($validator->fails()){      
+      return array(
+          'success' => false,
+          'errors' => $validator->getMessageBag()->toArray()
+      );
         }
-    }
+    else{
+      $user->name = Input::get('name');
+      $user->lastname = Input::get('lastname');
+      $user->save(); 
+          return array(
+            'success'     =>  true,
+            'types' => 'edit'
+        );
+   }
+ }
+}
 }
