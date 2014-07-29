@@ -32,7 +32,6 @@ public function getAllUsers()
    }
  }
  else{
-  $user = User::find($id);
   $validator = User::validate($input);
   if ($validator->fails()){      
       return array(
@@ -41,8 +40,9 @@ public function getAllUsers()
       );
         }
     else{
-      $user->name = Input::get('name');
-      $user->lastname = Input::get('lastname');
+      $user = User::find($id);
+      $user->name = $input('name');
+      $user->lastname = $input('lastname');
       $user->save(); 
           return array(
             'success'     =>  true,

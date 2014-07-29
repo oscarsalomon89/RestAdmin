@@ -4,9 +4,7 @@
 <div class="widget">
 <div class="widget-content-white glossed">
   <div class="padded">
-    @if(Session::has('notice'))
-    <div class="alert alert-success" id='del'>{{ Session::get('notice') }}</div>
-    @endif
+
 <h1> Mesa Nro: <span class="badge"><h2>{{ $order->table['number'] }}</h2></span></h1>
     <ul>
        <li> Mozo: {{ $order->user['name'].' '.$order->user['lastname']}} </li>
@@ -30,7 +28,6 @@
   <div class="row">
   {{ Form::open(array('url' => 'orders/edit/'.$order->id, 'id' => 'formulario_busqueda')) }}
   <input type="hidden" class="form-control" id= 'order_id' name="order_id" value='{{$order->id}}'>
-  <input type="hidden" class="form-control" id= 'type_id' name="type_id" value='edit'>
   <div class="col-lg-6">
   <select class="form-control" id="item_id" name="item_id">
     <option value=""></option>
@@ -52,6 +49,10 @@
   {{ Form::close() }}
     <!--en este los errores del formulario--> 
 <div class="cold-md-6 col-md-offset-3">
+<br>
+@if(Session::has('notice'))
+<div class="alert alert-success" id='del'>{{ Session::get('notice') }}</div>
+@endif
 <div class='errors_form'></div>
 <!--en este el mensaje de registro correcto-->
 <div class='success_message alert-box success'></div>
@@ -86,15 +87,17 @@ form.on('submit', function () {
                   if(data.success == false){
                         var errores = '';
                         for(datos in data.errors){
-                            errores += '<small class="alert alert-danger error">' + data.errors[datos] + '<br>' + '</small>';
+                            errores +=  data.errors[datos]+'<br>';
                         }
                         $('#del').html('');
-                        $('#del').removeClass( "alert alert-success" )
+                        $('#del').removeClass( "alert alert-success" );
+                        $('.errors_form').addClass( "alert alert-danger error" );
                         $('.success_message').html("");
                         $('.errors_form').html(errores);
                     }else{
                         $(form)[0].reset();//limpiamos el formulario
                         $('.errors_form').html("");
+                        $('.errors_form').removeClass("alert alert-danger error" );
                           mensaje = '<small class="alert alert-success">' + data.message + '</small>';
                         $('.success_message').html(mensaje);
                         $('#del').html('');
@@ -105,25 +108,24 @@ form.on('submit', function () {
          }); 
   return false;
 });
-
-var idbtn = $('#btn_edit').val();
-$('#btn_edit').on('click', function () {
+/*var formDel = $('#formulario_delete');
+formDel.on('submit', function () {
   $.ajax({
-           type: 'post',
+           type: formDel.attr('method'),
            dataType: "json",
-           url: '/orders/editar/'+idbtn,
+           url: formDel.attr('action'),
+           data: formDel.serialize(),
            success: function (data)
                   {
                   if(data.success == true){
-                  $(form)[0].reset();//limpiamos el formulario
-                  $('.errors_form').html("");
-                  $('.success_message').html(data.message);
-                  $("#tabla").load('list/'+id);
+                        var mensaje = 'El item se elimino correctamente';
+                        $('.errors_form').addClass( "alert alert-danger error" );
+                        $('.errors_form').html(mensaje);
+                    }
                   }
-                }
          }); 
   return false;
-});
+});*/
 });
 </script>
 @stop

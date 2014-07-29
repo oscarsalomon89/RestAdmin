@@ -53,6 +53,50 @@
                 </div>
               </div>
             </div>
+<div class='row'>
+<div class='col-md-7'>
+<div class='widget'>
+<h3 class="section-title first-title"><i class="icon-table"></i> Balance</h3>
+<div class='widget-content-white padded glossed'>
+<div id="chart_div" style="height: 400px;"></div>
+</div>
+</div>
+</div>
+  <div class='col-md-5'>
+    <div class='widget'>
+<h3 class="section-title first-title"><i class="icon-table"></i> Top Sellers</h3>
+<div class="widget-content-white padded glossed">
+<div id="piechart"></div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Qty</th>
+        </tr>
+      </thead>
+    <tbody>
+        <tr>
+        <td>Floor Lamp</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Coffee Mug</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>Television</td>
+          <td>1</td>
+        </tr>
+        <tr>
+        <td>Red Carpet</td>
+          <td>6</td>
+          </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
 <h3 class="section-title first-title"><i class="icon-tasks"></i> Ordenes</h3>
 <div class="panel-group" id="accordion">
 @foreach($users as $user)

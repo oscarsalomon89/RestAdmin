@@ -6,6 +6,12 @@
         return View::make('table.index')->with('tables', $tables);
     }
 
+  public function show($id)
+  {
+    $table  = Table::find($id);
+    return View::make('table.show')->with('table', $table);
+  }
+
    public function create() { 
    $table = new Table();
    return View::make('table.save')->with('table', $table);
@@ -59,9 +65,9 @@
    }
 
    public function destroy($id) { 
-   $category = Category::find($id);
-   $category->delete();
-   return Redirect::to('categorias')->with('notice', 'La categoria ha sido eliminada correctamente.');
+   $table = Table::find($id);
+   $table->delete();
+   return Redirect::to('tables')->with('notice', 'La mesa ha sido eliminada correctamente.');
    }
  }
 ?>

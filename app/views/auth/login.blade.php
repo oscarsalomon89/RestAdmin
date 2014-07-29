@@ -9,7 +9,7 @@
         <div class="content-inner">
           <div class="main-content main-content-grey-gradient no-page-header">
 <div class='errors_form'></div>
-    {{ Form::open(array('url' => 'auth/login', 'id'=>'form')) }} 
+    {{ Form::open(array('url' => '/login', 'id'=>'form')) }} 
     <h3 class="form-title form-title-first"><i class="icon-lock"></i> Inicio de sesion</h3>
     <div class="form-group">
        {{ Form::label('name', 'Usuario') }}
@@ -20,7 +20,7 @@
        <input class="form-control" placeholder="Password" autocomplete="of" name="password" type="password" value="" id="password">
     </div>
        {{ Form::submit('Log me',array('class'=>'btn btn-primary')) }} 
-       <a href="index.html" class="btn btn-link">Cancel</a>
+       <a href="/" class="btn btn-link">Cancel</a>
     {{ Form::close() }}
           </div>
         </div>

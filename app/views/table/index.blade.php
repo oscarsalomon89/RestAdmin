@@ -29,7 +29,12 @@
                 <span class="label label-danger">Ocupada</span>
               @endif</td>
                 <td> {{ link_to('tables/'.$table->id.'/edit', 'Editar') }} </td>
-                <td> {{ link_to('tables/'.$table->id.'/delete', 'Eliminar') }} </td>
+                <td>
+                  {{ Form::open(array('url' => 'tables/'.$table->id)) }}
+                  {{ Form::hidden("_method", "DELETE") }}
+                  <input type="submit" value="Eliminar" class="btn btn-primary btn-xs">
+                  {{ Form::close() }}
+               </td>
              </tr>
           @endforeach
           </tbody>

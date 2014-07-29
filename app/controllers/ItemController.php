@@ -7,13 +7,11 @@
    }
     
    public function index() {
-    if(!$this->autorizado) return Redirect::to('/auth/login');
    $categories = Category::all(array('id','name'));
    return View::make('menuitem.index')->with('categories', $categories);
    }
 
-   public function show($id) {
-   if(!$this->autorizado) return Redirect::to('/auth/login'); 
+   public function show($id) { 
    $itemmenu = Item::find($id);
    return View::make('menuitem.delete')->with('itemmenu', $itemmenu);
    }

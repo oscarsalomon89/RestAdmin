@@ -1,32 +1,41 @@
 <?php
-Route::get('/', 'HomeController@index');
+// Nos mostrará el formulario de login.
+Route::get('login', 'AuthController@showLogin');
+// Validamos los datos de inicio de sesión.
+Route::post('login', 'AuthController@postLogin');
+Route::group(array('before' => 'auth'), function()
+{
+Route::get('logout', 'AuthController@Logout');
+});
 
+Route::get('/', 'HomeController@index');
 Route::post('/', 'HomeController@store');
+
 Route::get('admin', 'HomeController@indexAdmin');
-Route::controller('auth', 'AuthController');
+Route::get('admin/cargagraficos', 'StatisticsController@index');
 
 Route::get('users','UsersController@index');
 Route::get('users/create', 'UsersController@create');
 Route::post('users/create', 'UsersController@saveUser');
 Route::get('users/{id}/edit', 'UsersController@edit');
-Route::post('users/create/{id}', 'UsersController@update');
-//Route::resource('users', 'UsersController');
+Route::post('users/create/{id}', 'UsersController@saveUser');
+Route::resource('users', 'UsersController');
 
 Route::get('orders','OrderController@index');
 Route::get('orders/create', 'OrderController@create');
 Route::post('orders/create', 'OrderController@store');
-Route::get('orders/edit/{id}', 'OrderController@editarItems');
-Route::post('orders/edit/{id}', 'OrderController@agregarItems');
-//Route::DELETE('orders/edit/{id}', 'OrderController@eliminarItems');
 Route::get('orders/editar/{id}', 'OrderController@editar');
-Route::get('orders/edit/list/{id}', 'OrderController@items');
-Route::get('list/{id}', 'OrderController@items');
-Route::get('orders/list/{id}', 'OrderController@items');
-//Route::post('orders/eliminar/{id}', 'OrderController@eliminarItems');
+Route::get('orders/edit/list/{id}', 'OrderItemsController@index');
+Route::get('list/{id}', 'OrderItemsController@index');
+Route::get('orders/list/{id}', 'OrderItemsController@index');
 Route::get('orders/cobrar/{id}', 'OrderController@cobrar');
 Route::post('orders/cobrar/{id}', 'OrderController@save');
 Route::get('orders/{id}', 'OrderController@show');
 Route::DELETE('orders/{id}', 'OrderController@destroy');
+
+Route::get('orders/edit/{id}', 'OrderItemsController@editarItems');
+Route::post('orders/edit/{id}', 'OrderItemsController@store');
+Route::post('orders/del/{id}', 'OrderItemsController@destroy');
 
 Route::get('items', 'ItemController@index');
 Route::get('items/create', 'ItemController@create');
@@ -54,8 +63,7 @@ Route::post('tables/create/{id}', 'TableController@update');
 Route::get('tables/{id}/delete', 'TableController@show');
 Route::DELETE('tables/{id}', 'TableController@destroy');
 
-Route::get('reservas',array("before" => "roles:1,reservas", 'uses' => 'ReservaController@index'));
-
+Route::get('reservas','ReservaController@index');
 Route::post('reservas', 'ReservaController@destroy');
 Route::get('reservas/create', 'ReservaController@create');
 Route::post('reservas/create', 'ReservaController@store');

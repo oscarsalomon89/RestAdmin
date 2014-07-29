@@ -53,7 +53,7 @@ use repositories\User\IUserRepository;
    return View::make('users.save')->with('user', $user);
    }
 
-   public function update($id) { 
+   public function update($id = null) { 
    $message = $this->user->createOrUpdate($id, Input::all());
    return Response::json($message);
    }

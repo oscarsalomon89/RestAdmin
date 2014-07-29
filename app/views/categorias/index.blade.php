@@ -5,7 +5,7 @@
 @if(Session::has('notice'))
        <div class="alert alert-success">{{ Session::get('notice') }}</div>
     @endif
-    <p> {{ link_to ('categorias/create', 'Crear nueva categoria') }} </p>
+<p><a href='categorias/create' class='btn-primary'><i class="fa fa-plus"></i>Crear nueva categoria</a></p>
     @if($categories->count())
 <div class="widget-content-white glossed">
     <div class="padded">

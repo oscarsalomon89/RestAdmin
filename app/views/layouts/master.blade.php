@@ -9,11 +9,13 @@
     <title>Dashboard - SB Admin</title>
     {{HTML::style('http://fonts.googleapis.com/css?family=Oswald:300,400,700|Open+Sans:400,700,300')}}    
     {{HTML::style('css/style.css')}}
-    {{HTML::style('css/bootstrap.css')}}   
+    {{HTML::style('css/bootstrap.css')}} 
     {{HTML::style('font-awesome/css/font-awesome.min.css')}}
         <!-- JavaScript -->    
     {{HTML::script('js/jquery-1.11.0.min.js')}}
     {{HTML::script('js/bootstrap.min.js')}}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    {{HTML::script('js/charts.js')}}
     @section ('head')
     @show
   </head>
@@ -91,7 +93,7 @@
   <div class="header-links hidden-xs">
     <a href="notifications.html"><i class="icon-comments"></i> User Alerts</a>
     <a href="#"><i class="icon-cog"></i> Settings</a>
-    {{ link_to('/auth/logout', 'Cerrar sesión') }}
+    {{ link_to('/logout', 'Cerrar sesión') }}
   </div>
   <h1><i class="icon-bar-chart"></i> RestApp - Admin</h1>
 </div>

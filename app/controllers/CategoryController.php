@@ -17,8 +17,6 @@
    public function store() { 
 
    $category = new Category();
-   $category->name = Input::get('name');
-   $category->description = Input::get('description');
 
    $validator = Category::validate(Input::all());
    if($validator->fails()){
@@ -27,6 +25,8 @@
           'errors' => $validator->getMessageBag()->toArray()
       ));
    }else{
+      $category->name = Input::get('name');
+      $category->description = Input::get('description');
       $category->save();
           return Response::json(array(
             'success'     =>  true
