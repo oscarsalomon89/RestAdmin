@@ -1,11 +1,6 @@
 <?php
  class ItemController extends BaseController {
     
-  private $autorizado;
-   public function __construct() {
-      $this->autorizado = (Auth::check() and Auth::user()->role_id == '1');
-   }
-    
    public function index() {
    $categories = Category::all(array('id','name'));
    return View::make('menuitem.index')->with('categories', $categories);
@@ -17,14 +12,12 @@
    }
 
    public function create() { 
-    if(!$this->autorizado) return Redirect::to('/auth/login');
    	$itemmenu = new Item();
     $categories = Category::all(array('id','name'));
 
    return View::make('menuitem.save', array('itemmenu' => $itemmenu, 'categories'=> $categories));
    }
    public function crear($id) { 
-    if(!$this->autorizado) return Redirect::to('/auth/login');
     $itemmenu = new Item();
     $itemcategory = Category::find($id);
 
@@ -32,7 +25,6 @@
    }
 
    public function store() { 
-    if(!$this->autorizado) return Redirect::to('/auth/login');
     $itemmenu = new Item();
     $itemmenu->name = Input::get('name');
     $itemmenu->description = Input::get('description');
@@ -55,14 +47,12 @@
    }
 
    public function edit($id) { 
-    if(!$this->autorizado) return Redirect::to('/auth/login');
    	$itemmenu = Item::find($id);
     $categories =Category::all(array('id','name'));
   return View::make('menuitem.save', array('itemmenu' => $itemmenu, 'categories'=> $categories));
    }
 
    public function update($id) { 
-    if(!$this->autorizado) return Redirect::to('/auth/login');
 
         $itemmenu = Item::find($id);
         $itemmenu->name = Input::get('name');
@@ -86,7 +76,6 @@
    }
 
    public function destroy($id) { 
-    if(!$this->autorizado) return Redirect::to('/auth/login');
    $itemmenu = Item::find($id);
    $itemmenu->delete();
    return Redirect::to('items')->with('notice', 'El Item ha sido eliminado correctamente.');

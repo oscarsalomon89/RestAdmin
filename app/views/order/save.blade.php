@@ -11,6 +11,7 @@
      <div class="widget-content-white glossed">
      <div class="padded">
 <h1> Nueva Orden </h1>
+{{ HTML::image('images/table.png', "Imagen no encontrada", array('id' => 'easydrag1')) }}
 <div class='errors_form'></div>
     {{ Form::open(array('url' => 'orders/create/' . $order->id, 'id'=>'form')) }}
   <input type="hidden" class="form-control" id= 'link' value='orders'>

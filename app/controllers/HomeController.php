@@ -2,11 +2,6 @@
 
 class HomeController extends BaseController {
 
- private $autorizado;
-   public function __construct() {
-      $this->autorizado = (Auth::check() and Auth::user()->role_id == '1');
-   } 
-
    	public function index()
 	{
     $consulta = new Consulta();
@@ -33,7 +28,6 @@ class HomeController extends BaseController {
    }
   }
 	public function indexAdmin() {
-	if(!$this->autorizado) return Redirect::to('/index.php/auth/login');
     $users = User::all(array('id', 'name', 'lastname' ));
     $orders = Order::all()->count();
     return View::make('inicio',array('users'=> $users, 'orders'=>$orders));

@@ -79,36 +79,6 @@
     });
   }
 ////////*/
-
-$(document).ready(function ()
-{
-var form = $('#form');
-form.on('submit', function () {
-  $.ajax({
-           type: form.attr('method'),
-           dataType: "json",
-           url: form.attr('action'),
-           data: form.serialize(),
-           success: function (data)
-                  {
-                  if(data.success == false){
-                        var errores = '';
-                        for(datos in data.errors){
-                            errores += data.errors[datos] + '<br>';
-                        }
-                        $('.errors_form').addClass( "alert alert-danger error" );
-                        $('.errors_form').html(errores);
-                    }else{
-                        $(form)[0].reset();//limpiamos el formulario
-                        $('.errors_form').removeClass( "alert alert-danger error" );
-                        $('.errors_form').addClass( "alert alert-success" );
-                        $('.errors_form').html("La consulta fue enviada correctamente");
-                    }
-                  }
-         }); 
-  return false;
-});
-});
 </script>    
   </head>
 
@@ -274,7 +244,6 @@ form.on('submit', function () {
             <div id="about" class="intro">
         <div class="container">
                 <div class="jumbotron">
-  <div class='errors_form'></div>
   <h1>Consultas</h1>
   <p>Puede realizar su consulta desde aqui le responderemos a su email</p>
   <br>

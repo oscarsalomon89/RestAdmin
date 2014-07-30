@@ -1,12 +1,7 @@
   <?php
    class OrderController extends BaseController {
-    
-  private $autorizado;
-   public function __construct() {
-      $this->autorizado = (Auth::check() and Auth::user()->role_id == '1');
-   } 
+
       public function index(){
-        if(!$this->autorizado) return Redirect::to('/auth/login');
           $orders =Order::where('date','=',date("Y-m-d"))->get();
           return View::make('order.index', array('orders' => $orders));
       }
@@ -26,7 +21,7 @@
 
      public function store() { 
       $order = new Order();
-      $input = Input::all();
+      $input = Input::get();
       
       $validator = Order::validate($input);
    if($validator->fails()){

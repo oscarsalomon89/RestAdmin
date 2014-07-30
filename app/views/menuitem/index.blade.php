@@ -22,11 +22,31 @@
         </a>
       </h4>
     </div>
-    <div id="{{$category->name}}" class="panel-collapse collapse">
+    <div id="{{$category->name}}" class="panel-collapse collapse in">
       <div class="panel-body">
-      @foreach($category->items as $item)
-      <li class="list-group-item">{{$item->name.' - Descripcion: '.$item->description.' - Precio: $'.$item->price.'<br>'.link_to('items/'.$item->id.'/edit', 'Editar').' - '.link_to('items/'.$item->id.'/delete', 'Eliminar')}}</li>
-      @endforeach
+      <table class="table table-striped">
+      <thead>
+          <tr>
+             <th> Codigo </th>
+             <th> Nombre </th>
+             <th> Descripcion</th>
+             <th> Precio</th>
+             <th> </th>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach($category->items as $item)
+             <tr>
+                <td> {{ $item->id }} </td>
+                <td> {{ $item->name }} </td>
+                <td> {{ $item->description }} </td>
+                <td> $ {{$item->price}}</td>
+                <td> {{ link_to('items/'.$item->id.'/edit', 'Editar') }} </td>
+                <td> {{link_to('items/'.$item->id.'/delete', 'Eliminar') }}  </td>
+             </tr>
+          @endforeach
+          </tbody>
+      </table>
       </div>
     </div>
   </div>
