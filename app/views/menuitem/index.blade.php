@@ -40,7 +40,7 @@
                 <td> {{ $item->id }} </td>
                 <td> {{ $item->name }} </td>
                 <td> {{ $item->description }} </td>
-                <td> $ {{$item->price}}</td>
+                <td> <h4><span class="label label-success">$ {{$item->price}}</span></h4></td>
                 <td> {{ link_to('items/'.$item->id.'/edit', 'Editar') }} </td>
                 <td> {{link_to('items/'.$item->id.'/delete', 'Eliminar') }}  </td>
              </tr>

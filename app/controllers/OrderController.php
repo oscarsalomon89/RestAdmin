@@ -2,7 +2,7 @@
    class OrderController extends BaseController {
 
       public function index(){
-          $orders =Order::where('date','=',date("Y-m-d"))->get();
+          $orders =Order::where('status',true)->get();
           return View::make('order.index', array('orders' => $orders));
       }
 
@@ -15,7 +15,7 @@
      public function create() { 
       $order = new Order();
       $users = User::all(array('id','name','lastname'));
-      $tables= Table::where('state','=',0)->get();
+      $tables = Table::where('state',false)->get();
      return View::make('order.save', array('order' => $order, 'users'=> $users,'tables'=>$tables));
      }
 
@@ -31,14 +31,17 @@
       ));
    }else{
       $order->date = $input['date'];
-      $order->user_id = $input['user_id'];
+      if(isset($input['user_id'])){
+        $order->user_id = $input['user_id'];
+      }else{
+        $order->user_id = Auth::User()->id;
+      }
       $order->table_id = $input['table_id'];
-      $order->status = '1';
+      $order->status = true;
       $order->total='0';
       $table = Table::find($order->table_id);
-      $table->state ='1';
-      $table->save();
-      $order->save();
+      $order->table->state = true;
+      $order->push();
           return Response::json(array(
             'success'     =>  true,
             'idorder' => $order->id
@@ -62,14 +65,11 @@
    }
 
    public function destroy($id) { 
+    // no elimino las ordenes solo las desactivo
    $order = Order::find($id);
-   foreach ( $order->items as $item) {
-   $order->items()->detach($item);
-   }
-   $table = Table::find($order->table_id);
-   $table->state = '0';
-   $table->save();
-   $order->delete();
+   $order->status = false;
+   $order->table->state = false;
+   $order->push();
    return Redirect::to('orders')->with('notice', 'La Orden ha sido eliminada correctamente.');
    }
 }

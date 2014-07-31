@@ -26,11 +26,9 @@
 
    public function store() { 
     $itemmenu = new Item();
-    $itemmenu->name = Input::get('name');
-    $itemmenu->description = Input::get('description');
-    $itemmenu->price = Input::get('price');
-    $itemmenu->category_id = Input::get('category_id');
-    $validator = Item::validate(Input::all());
+    $input = Input::get();
+
+    $validator = Item::validate($input);
 
     if ($validator->fails()){
          return Response::json(array(
@@ -38,7 +36,11 @@
           'errors' => $validator->getMessageBag()->toArray()
           ));
             }
-    else{   
+    else{
+        $itemmenu->name = $input['name'];
+        $itemmenu->description = $input['description'];
+        $itemmenu->price = $input['price'];
+        $itemmenu->category_id = $input['category_id'];   
         $itemmenu->save();
           return Response::json(array(
             'success'     =>  true
