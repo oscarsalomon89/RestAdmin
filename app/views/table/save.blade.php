@@ -21,11 +21,6 @@
        {{ Form::label ('quantity', 'Cantidad de personas') }}
        {{ Form::text ('quantity', $table->quantity, array('class'=>'form-control','placeholder'=>'cantidad de personas', 'autocomplete'=>'of')) }} 
      </div>
-     @if($table->state!=null)
-    <input type="hidden" class="form-control" id= 'state' name="state" value='{{$table->state}}'>
-    @else
-    <input type="hidden" class="form-control" id= 'state' name="state" value='0'>
-    @endif
        {{ Form::submit('Guardar mesa',array('class'=>'btn btn-success')) }}
        {{ link_to('tables', 'Cancelar') }}
     {{ Form::close() }}

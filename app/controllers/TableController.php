@@ -22,7 +22,7 @@
    $table = new Table();
    $table->number = Input::get('number');
    $table->quantity = Input::get('quantity');
-   $table->state = Input::get('state');
+   $table->taken = false;
 
    $validator = Table::validate(Input::all());
    if($validator->fails()){
@@ -47,7 +47,6 @@
    $table = Table::find($id);
    $table->number = Input::get('number');
    $table->quantity = Input::get('quantity');
-   $table->state = Input::get('state');
       
    $validator = Table::validate(Input::all(), $table->id);
    if($validator->fails()){
@@ -67,7 +66,10 @@
    public function destroy($id) { 
    $table = Table::find($id);
    $table->delete();
-   return Redirect::to('tables')->with('notice', 'La mesa ha sido eliminada correctamente.');
+   return Response::json(array(
+            'success'     =>  true
+        ));
+   //return Redirect::to('tables')->with('notice', 'La mesa ha sido eliminada correctamente.');
    }
  }
 ?>

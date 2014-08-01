@@ -5,7 +5,6 @@
 {{HTML::script('js/functions.js')}}
 @stop
 @if($tables->count())
-
 <div class="widget">
 <div class="widget-content-white glossed">
 <div class="padded">
@@ -18,15 +17,14 @@
 {{ Form::label ('ordertable', 'Mesa') }}
 <ul class="list-group">
 @foreach($tables as $table)
-@if($table->state=='0')
 <div class= 'col-md-3'>
 <li id='table_select' value='{{$table->id}}' class="list-group-item">
 {{ HTML::image('images/table.png', "Imagen no encontrada", array('class' => 'img-circle')) }}
 {{ Form::radio('table_id', $table->id) }}
-Mesa numero: <span class="label label-success">{{$table->number}}</span>
+      <div class='indicators'><h3><span class="label label-success">{{$table->number}}</span></h3>
+        </div>
 </li>
 </div>
-@endif
 @endforeach
 </ul>
 </div>

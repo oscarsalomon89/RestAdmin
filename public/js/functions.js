@@ -28,7 +28,7 @@ form.on('submit', function () {
                           else{
                             $('.errors_form').html("El registro se agrego correctamente");
                               if(tipo == 'orders'){
-                                location.href = "http://localhost/restappadmin/public/index.php/orders/edit/"+data.idorder;
+                                location.href = "http://localhost/restappadmin/public/index.php/orders/edit/"+ data.idorder;
                               }
                               }
                         
