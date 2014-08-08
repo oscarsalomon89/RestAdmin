@@ -41,4 +41,10 @@
     @else
        <p> No se han encontrado usuarios </p>
     @endif
+<script type="text/javascript">
+$(document).ready(function ()
+{
+$('#user').addClass("active");
+});
+</script>
 @stop

@@ -12,11 +12,23 @@
 <div class='errors_form'></div>
 {{ Form::open(array('url' => 'orders/create/' . $order->id, 'id'=>'form')) }}
 <input type="hidden" class="form-control" id= 'link' value='orders'>
+<input type="hidden" class="form-control" id= 'table_ant' value='{{$order->table_id}}'>
 <input type="hidden" class="form-control" id= 'date' name="date" value='{{date("Y-m-d")}}'>
 <div class="row form-group">
 {{ Form::label ('ordertable', 'Mesa') }}
 <ul class="list-group">
 @foreach($tables as $table)
+@if($table->id == $order->table_id)
+<div class= 'col-md-3'>
+<li id='table_select' value='{{$table->id}}' class="list-group-item active">
+{{ HTML::image('images/table.png', "Imagen no encontrada", array('class' => 'img-circle')) }}
+{{ Form::radio('table_id', $table->id, true) }}
+      <div class='indicators'><h3><span class="label label-success">{{$table->number}}</span></h3>
+        </div>
+</li>
+</div>
+@else
+@if($table->taken == 'true')
 <div class= 'col-md-3'>
 <li id='table_select' value='{{$table->id}}' class="list-group-item">
 {{ HTML::image('images/table.png', "Imagen no encontrada", array('class' => 'img-circle')) }}
@@ -25,6 +37,8 @@
         </div>
 </li>
 </div>
+@endif
+@endif
 @endforeach
 </ul>
 </div>
@@ -32,12 +46,17 @@
       {{ Form::label ('orderuser', 'Mozo') }}<br>
       <ul class="list-group">
       @foreach($users as $user)
-      <div>
+      @if($user->id == $order->user_id)
+      <li id='mozo_select' value='{{$user->id}}' class="list-group-item active">
+        <span class="badge">10</span>
+        {{ Form::radio('user_id', $user->id, true) }}   {{$user->name.' - '.$user->lastname}}
+      </li> 
+      @else
       <li id='mozo_select' value='{{$user->id}}' class="list-group-item">
         <span class="badge">10</span>
         {{ Form::radio('user_id', $user->id) }}   {{$user->name.' - '.$user->lastname}}
       </li>
-      </div>    
+      @endif  
       @endforeach
     </ul>
     </div>

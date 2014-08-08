@@ -27,8 +27,8 @@
      public function store() { 
       
       $input = Input::get();
-      
       $validator = Order::validate($input);
+      
    if($validator->fails()){
          return Response::json(array(
           'success' => false,
@@ -62,6 +62,43 @@
     }
 }
 
+   public function edit($id) { 
+    $order = Order::find($id);
+    $tables = Table::all(array('id','number', 'taken'));
+    $users = User::all();
+  return View::make('order.save', array('order' => $order, 'tables' => $tables, 'users' => $users));
+   }
+
+   public function update($id){
+
+        $input = Input::get();
+        $order = Order::find($id);
+        $validator = Order::validate($input, $order->id);
+        if ($validator->fails()){
+         return Response::json(array(
+          'success' => false,
+          'errors' => $validator->getMessageBag()->toArray()
+          ));
+        }else{        
+        $table = $order->table;
+        $table->taken= false;
+        $table->save();
+        $order->date = $input['date'];
+        //$table = Table::find($input['table_ant']);
+        //$table->taken= false;
+        //$table->save();
+        $table = Table::find($input['table_id']);
+        $order->table_id = $table->id;
+        $order->user_id = $input['user_id'];
+        $order->table->taken = true;
+        $order->push();
+             return Response::json(array(
+          'success' => true,
+          'idorder' => $id
+      ));
+        }
+   }
+
   public function cobrar($id) {
      $order = Order::find($id, array('id','user_id','table_id','total'));
      return View::make('order.cobrar', array('order' => $order));
@@ -80,9 +117,9 @@
    public function destroy($id) { 
     // no elimino las ordenes solo las desactivo
    $order = Order::find($id);
-   $order->status = false;
-   $order->table->taken = false;
-   $order->push();
+   //$order->status = false;
+   //$order->table->taken = false;
+   $order->delete();
    return Redirect::to('orders')->with('notice', 'La Orden ha sido eliminada correctamente.');
    }
 }

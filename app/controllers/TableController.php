@@ -69,7 +69,6 @@
    return Response::json(array(
             'success'     =>  true
         ));
-   //return Redirect::to('tables')->with('notice', 'La mesa ha sido eliminada correctamente.');
    }
  }
 ?>

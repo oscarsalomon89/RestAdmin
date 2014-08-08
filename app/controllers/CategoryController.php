@@ -61,7 +61,9 @@
    public function destroy($id) { 
    $category = Category::find($id);
    $category->delete();
-   return Redirect::to('categorias')->with('notice', 'La categoria ha sido eliminada correctamente.');
+      return Response::json(array(
+            'success'     =>  true
+        ));
    }
  }
 ?>

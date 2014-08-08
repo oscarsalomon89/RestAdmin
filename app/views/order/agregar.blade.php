@@ -49,10 +49,6 @@
   {{ Form::close() }}
     <!--en este los errores del formulario--> 
 <div class="cold-md-6 col-md-offset-3">
-<br>
-@if(Session::has('notice'))
-<div class="alert alert-success" id='del'>{{ Session::get('notice') }}</div>
-@endif
 <div class='errors_form'></div>
 <!--en este el mensaje de registro correcto-->
 <div class='success_message alert-box success'></div>
@@ -87,45 +83,21 @@ form.on('submit', function () {
                   if(data.success == false){
                         var errores = '';
                         for(datos in data.errors){
-                            errores +=  data.errors[datos]+'<br>';
+                            errores +=  '<small class="alert alert-danger">'+data.errors[datos]+'</small>'+'<br>';
                         }
-                        $('#del').html('');
-                        $('#del').removeClass( "alert alert-success" );
-                        $('.errors_form').addClass( "alert alert-danger error" );
-                        $('.success_message').html("");
-                        $('.errors_form').html(errores);
+                        $('.success_message').html(errores);
                     }else{
                         $(form)[0].reset();//limpiamos el formulario
-                        $('.errors_form').html("");
-                        $('.errors_form').removeClass("alert alert-danger error" );
+                        $('.success_message').html("");
+                        $('.success_message').removeClass("alert alert-danger");
                           mensaje = '<small class="alert alert-success">' + data.message + '</small>';
                         $('.success_message').html(mensaje);
-                        $('#del').html('');
-                        $('#del').removeClass( "alert alert-success" )
                         $("#tabla").load('list/'+id);
                     }
                   }
          }); 
   return false;
 });
-/*var formDel = $('#formulario_delete');
-formDel.on('submit', function () {
-  $.ajax({
-           type: formDel.attr('method'),
-           dataType: "json",
-           url: formDel.attr('action'),
-           data: formDel.serialize(),
-           success: function (data)
-                  {
-                  if(data.success == true){
-                        var mensaje = 'El item se elimino correctamente';
-                        $('.errors_form').addClass( "alert alert-danger error" );
-                        $('.errors_form').html(mensaje);
-                    }
-                  }
-         }); 
-  return false;
-});*/
 });
 </script>
 @stop

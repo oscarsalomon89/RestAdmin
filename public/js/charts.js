@@ -18,13 +18,17 @@ function drawChart() {
         var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
         chart.draw(dataColum, options);
 //////
-$.getJSON("/restappadmin/public/index.php/admin/cargagraficos", function (data) {
-    var donutdata = google.visualization.arrayToDataTable([
-          ['Clientes', 'Monto'],
-          [data.id.toString(), 10],
-          [data.name, 5],
-          [data.description, 4]
-        ]);
+$.getJSON("/restappadmin/public/index.php/admin/cargagraficos", function (datos) {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Categories');
+    data.addColumn('number', 'Cantidad');
+    $.each(datos, function(id, item){
+    data.addRows([
+          [item.name, 5],        
+    ])
+    var tds = '<tr><td>'+item.name+'</td><td>'+5+'</td></tr>';
+    $("#cat tbody").append(tds);
+    })
 
     var donutoptions = {
           title: 'Distribución de ingresos por clientes',
@@ -32,7 +36,7 @@ $.getJSON("/restappadmin/public/index.php/admin/cargagraficos", function (data) 
         };
 
     var chart3 = new google.visualization.PieChart(document.getElementById('piechart'));
-        chart3.draw(donutdata, donutoptions);
+        chart3.draw(data, donutoptions);
 });
 
 }

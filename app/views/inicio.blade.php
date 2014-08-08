@@ -1,5 +1,9 @@
 @extends('layouts.master')
 @section('content')
+@section('head')
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+{{HTML::script('js/charts.js')}}
+@stop
             <div class="widget">
               <div class="widget-controls pull-right">
                 <a href="#" class="widget-link-remove"><i class="icon-minus-sign"></i></a>
@@ -67,30 +71,14 @@
 <h3 class="section-title first-title"><i class="icon-table"></i> Top Sellers</h3>
 <div class="widget-content-white padded glossed">
 <div id="piechart"></div>
-    <table class="table">
+    <table id='cat' class="table">
       <thead>
         <tr>
-          <th>Product</th>
-          <th>Qty</th>
+          <th>Categorias</th>
+          <th>Cantidad</th>
         </tr>
       </thead>
     <tbody>
-        <tr>
-        <td>Floor Lamp</td>
-          <td>2</td>
-        </tr>
-        <tr>
-          <td>Coffee Mug</td>
-          <td>4</td>
-        </tr>
-        <tr>
-          <td>Television</td>
-          <td>1</td>
-        </tr>
-        <tr>
-        <td>Red Carpet</td>
-          <td>6</td>
-          </tr>
   </tbody>
 </table>
 </div>

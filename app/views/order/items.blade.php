@@ -17,11 +17,7 @@
                 <td> $ {{$item->pivot->price * $item->pivot->quantity}}</td>
                 <td> <a href='http://localhost/restappadmin/public/index.php/orders/editar/{{$item->id}}' class="btn btn-default btn-xs">Editar</a></td>
               <td>
-               {{ Form::open(array('url' => 'orders/del/'.$item->pivot->id, 'id' => 'formulario_delete')) }}
-                <input type="hidden" class="form-control" id= 'id' name="id" value='{{$order->id}}'>
-                <input type="hidden" class="form-control" id= 'price' name="price" value='{{$item->pivot->price * $item->pivot->quantity}}'>
-               <input type="submit" value="Eliminar" class="btn btn-primary btn-xs">
-               {{ Form::close() }}
+                <button id="button" onclick="eliminar({{ $item->pivot->id }}, {{ $order->id }}, {{$item->pivot->price * $item->pivot->quantity}})" class="btn btn-danger btn-xs">Eliminar</button>
               </td>
           </tr>
       @endforeach
@@ -30,3 +26,19 @@
             </tr>
         </table>
     </ul>
+<script type="text/javascript">
+function eliminar(iditem, idorder, price){          
+
+$.get(iditem+'/'+idorder+'/'+price, 
+            function(data){
+                if (data.success != true){
+                  alert('Error');
+                }else{
+                    // si la respuesta fue exitosa entonces eliminamos la fila de la tabla 
+                    var mensaje = '<small class="alert alert-danger">El item se elimino correctamente</small>';
+                    $('.success_message').html(mensaje);
+                    $("#tabla").load('list/'+idorder);
+                }
+            });                         
+}
+</script>

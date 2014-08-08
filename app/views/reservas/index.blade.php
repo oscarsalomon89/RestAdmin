@@ -34,4 +34,10 @@
        </table>
 </div>
 </div>
+<script type="text/javascript">
+$(document).ready(function ()
+{
+$('#res').addClass("active");
+});
+</script>
 @stop

@@ -12,7 +12,7 @@ class OrderItemsController extends BaseController {
      return View::make('order.items', array('order' => $order));
      }
      
-	 public function editarItems($id) { 
+	 public function edit($id) { 
       $order = Order::find($id);
       $categories = Category::all(array('id','name'));
      return View::make('order.agregar', array('order' => $order,'categories'=>$categories));
@@ -34,12 +34,12 @@ class OrderItemsController extends BaseController {
           $item = Item::find($input['item_id'], array('id','price'));
           $quantity = $input['quantity'];
           $total = $item->price * $quantity;
-          $order->total= $order->total + $total;
+          $order->total += $total;
           $order->save();
 
           $itemOrder = new ItemOrder();
           $itemOrder->item_id = $input['item_id'];
-		      $itemOrder->order_id = $input['order_id'];
+		      $itemOrder->order_id = $id;
 		      $itemOrder->quantity = $input['quantity'];
 		      $itemOrder->price = $item->price;
 		      $itemOrder->save();
@@ -63,13 +63,15 @@ class OrderItemsController extends BaseController {
             'message'     =>  'Modifique los datos que desee'
         ));
      }
-    public function destroy($id) { 
-      $order = Order::find(Input::get('id'), array('id','total'));
-      $precio = Input::get('price');
-      $order->total = $order->total - $precio;
+
+    public function destroy($iditem, $idorder, $price) { 
+      $order = Order::find($idorder, array('id','total'));
+      $order->total = $order->total - $price;
       $order->save();
-      $item = ItemOrder::find($id);      
+      $item = ItemOrder::find($iditem);      
       $item->delete();
-      return Redirect::to('orders/edit/'.$order->id)->with('notice', 'el item ha sido eliminado correctamente.');
+         return Response::json(array(
+            'success'     =>  true
+        ));
      }
 }

@@ -47,6 +47,7 @@
         <input type="submit" value="Eliminar" class="btn btn-primary btn-xs">
         {{ Form::close() }}
         </td>
+        <td>{{ link_to('orders/editar/'.$item->id, 'Editar')}}</td>
              </tr>
           @endforeach
           </tbody>
@@ -56,4 +57,10 @@
     @else
     <div class="alert alert-danger">No existen ordenes a la fecha</div>
     @endif
+<script type="text/javascript">
+$(document).ready(function ()
+{
+$('#order').addClass("active");
+});
+</script>
 @stop

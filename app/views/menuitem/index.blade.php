@@ -55,4 +55,10 @@
     @else
        <p> Primero debe crear las categorias </p>
     @endif
+<script type="text/javascript">
+$(document).ready(function ()
+{
+$('#item').addClass("active");
+});
+</script>
 @stop

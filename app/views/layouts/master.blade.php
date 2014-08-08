@@ -14,8 +14,6 @@
         <!-- JavaScript -->    
     {{HTML::script('js/jquery-1.11.0.min.js')}}
     {{HTML::script('js/bootstrap.min.js')}}
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    {{HTML::script('js/charts.js')}}
     @section ('head')
     @show
   </head>
@@ -40,37 +38,37 @@
   </a>
   <div class="relative-w">
     <ul class="side-menu">
-      <li>
+      <li id ='user'>
         <a href="http://localhost/restappadmin/public/index.php/users">
           <span class="badge pull-right"></span>
           <i class="icon-group"></i> Usuarios
         </a>
       </li>
-      <li>
+      <li id='order'>
         <a href="http://localhost/restappadmin/public/index.php/orders">
           <span class="badge pull-right">12</span>
           <i class="icon-pencil"></i> Ordenes
         </a>
       </li>
-      <li>
+      <li id='item'>
         <a href="http://localhost/restappadmin/public/index.php/items">
           <span class="badge pull-right"></span>
           <i class="icon-code-fork"></i> Items
         </a>
       </li>
-      <li>
+      <li id='cat'>
         <a href="http://localhost/restappadmin/public/index.php/categorias">
           <span class="badge pull-right">24</span>
           <i class="icon-th"></i> Categorias
         </a>
       </li>
-      <li>      
+      <li id='table'>      
         <a href="http://localhost/restappadmin/public/index.php/tables">
           <span class="badge pull-right"></span>
           <i class="icon-table"></i> Mesas
         </a>
       </li>
-      <li><a href="http://localhost/restappadmin/public/index.php/reservas">
+      <li id='res'><a href="http://localhost/restappadmin/public/index.php/reservas">
           <span class="badge pull-right">11</span>
           <i class="icon-calendar"></i> Reservas
         </a>

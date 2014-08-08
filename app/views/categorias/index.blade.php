@@ -1,11 +1,12 @@
 @extends('layouts.master')
  
 @section('content')
+@section('head')
+{{HTML::script('js/delete.js')}}
+@stop
 <h1> Categorias de menu </h1>
-@if(Session::has('notice'))
-       <div class="alert alert-success">{{ Session::get('notice') }}</div>
-    @endif
-<p><a href='categorias/create' class='btn-primary'><i class="fa fa-plus"></i>Crear nueva categoria</a></p>
+<a href='categorias/create' class='btn-primary'>Crear nueva categoria</a>
+<div class='errors_form'></div>
     @if($categories->count())
 <div class="widget-content-white glossed">
     <div class="padded">
@@ -19,11 +20,11 @@
           </thead>
           <tbody>
           @foreach($categories as $category)
-             <tr>
+             <tr id='fila_{{$category->id}}'>
                 <td> {{ $category->name }} </td>
                 <td> {{ $category->description }} </td>
                 <td> {{ link_to('categorias/'.$category->id.'/edit', 'Editar') }} </td>
-                <td> {{ link_to('categorias/'.$category->id.'/delete', 'Eliminar') }} </td>
+                <td> <button id="button" value='categorias/' onclick="eliminar({{ $category->id }})" class="btn btn-danger btn-xs">Eliminar</button> </td>
              </tr>
           @endforeach
           </tbody>
@@ -33,4 +34,10 @@
     @else
        <p> No se han encontrado categorias de menu </p>
     @endif
+<script type="text/javascript">
+$(document).ready(function ()
+{
+$('#cat').addClass("active");
+});
+</script>
 @stop
