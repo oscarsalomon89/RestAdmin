@@ -23,7 +23,7 @@
              <tr id='fila_{{$category->id}}'>
                 <td> {{ $category->name }} </td>
                 <td> {{ $category->description }} </td>
-                <td> {{ link_to('categorias/'.$category->id.'/edit', 'Editar') }} </td>
+                <td> {{ link_to('categorias/'.$category->id.'/edit', 'Editar',array('class'=>'btn btn-default btn-xs')) }} </td>
                 <td> <button id="button" value='categorias/' onclick="eliminar({{ $category->id }})" class="btn btn-danger btn-xs">Eliminar</button> </td>
              </tr>
           @endforeach

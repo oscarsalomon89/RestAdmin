@@ -80,14 +80,12 @@
           'errors' => $validator->getMessageBag()->toArray()
           ));
         }else{        
-        $table = $order->table;
+        $table = Table::find($order->table_id);
         $table->taken= false;
         $table->save();
-        $order->date = $input['date'];
-        //$table = Table::find($input['table_ant']);
-        //$table->taken= false;
-        //$table->save();
+
         $table = Table::find($input['table_id']);
+        $order->date = $input['date'];
         $order->table_id = $table->id;
         $order->user_id = $input['user_id'];
         $order->table->taken = true;

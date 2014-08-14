@@ -2,30 +2,41 @@
  class ItemController extends BaseController {
     
    public function index() {
-   $categories = Category::all(array('id','name'));
-   return View::make('menuitem.index')->with('categories', $categories);
+    if (Request::wantsJson())
+    {
+    $items  = Item::get();
+    return Response::json($items);
+    }else{
+    $categories = Category::all(array('id','name'));
+    return View::make('item.index', array('categories'=> $categories));
+    }
    }
 
    public function show($id) { 
-   $itemmenu = Item::find($id);
-   return View::make('menuitem.delete')->with('itemmenu', $itemmenu);
+   $item = Item::find($id);
+   if (Request::wantsJson())
+    {
+    return Response::json($item);
+    }else{
+    return View::make('item.delete', array('item' => $item));
+    }
    }
 
    public function create() { 
-   	$itemmenu = new Item();
+   	$item = new Item();
     $categories = Category::all(array('id','name'));
 
-   return View::make('menuitem.save', array('itemmenu' => $itemmenu, 'categories'=> $categories));
+   return View::make('item.save', array('item' => $item, 'categories'=> $categories));
    }
    public function crear($id) { 
-    $itemmenu = new Item();
+    $item = new Item();
     $itemcategory = Category::find($id);
 
-   return View::make('menuitem.guardar', array('itemmenu' => $itemmenu, 'itemcategory'=> $itemcategory));
+   return View::make('item.guardar', array('item' => $item, 'itemcategory'=> $itemcategory));
    }
 
    public function store() { 
-    $itemmenu = new Item();
+    
     $input = Input::get();
 
     $validator = Item::validate($input);
@@ -37,11 +48,12 @@
           ));
             }
     else{
-        $itemmenu->name = $input['name'];
-        $itemmenu->description = $input['description'];
-        $itemmenu->price = $input['price'];
-        $itemmenu->category_id = $input['category_id'];   
-        $itemmenu->save();
+        $item = new Item();
+        $item->name = $input['name'];
+        $item->description = $input['description'];
+        $item->price = $input['price'];
+        $item->category_id = $input['category_id'];   
+        $item->save();
           return Response::json(array(
             'success'     =>  true
             ));
@@ -49,27 +61,27 @@
    }
 
    public function edit($id) { 
-   	$itemmenu = Item::find($id);
+   	$item = Item::find($id);
     $categories =Category::all(array('id','name'));
-  return View::make('menuitem.save', array('itemmenu' => $itemmenu, 'categories'=> $categories));
+  return View::make('item.save', array('item' => $item, 'categories'=> $categories));
    }
 
    public function update($id) { 
+        $input = Input::get();
+        $item = Item::find($id);
 
-        $itemmenu = Item::find($id);
-        $itemmenu->name = Input::get('name');
-        $itemmenu->description = Input::get('description');
-        $itemmenu->price = Input::get('price');
-        $itemmenu->category_id = Input::get('category_id');
-
-        $validator = Item::validate(Input::all(), $itemmenu->id);
+        $validator = Item::validate($input, $item->id);
         if ($validator->fails()){
          return Response::json(array(
           'success' => false,
           'errors' => $validator->getMessageBag()->toArray()
           ));
         }else{
-        $itemmenu->save();
+        $item->name = $input['name'];
+        $item->description = $input['description'];
+        $item->price = $input['price'];
+        $item->category_id = $input['category_id'];
+        $item->save();
         return Response::json(array(
             'success'     =>  true,
             'types' => 'edit'
@@ -78,8 +90,8 @@
    }
 
    public function destroy($id) { 
-   $itemmenu = Item::find($id);
-   $itemmenu->delete();
+   $item = Item::find($id);
+   $item->delete();
    return Redirect::to('items')->with('notice', 'El Item ha sido eliminado correctamente.');
    }
  }

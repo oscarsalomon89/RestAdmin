@@ -1,6 +1,9 @@
 @extends('layouts.master')
  
 @section('content')
+@section('head')
+{{HTML::style('css/chosen.css')}}
+@stop
 <div class="widget">
 <div class="widget-content-white glossed">
   <div class="padded">
@@ -86,6 +89,8 @@ form.on('submit', function () {
                             errores +=  '<small class="alert alert-danger">'+data.errors[datos]+'</small>'+'<br>';
                         }
                         $('.success_message').html(errores);
+                        $(".success_message").fadeOf("slow");
+                        //$('.success_message').hide('5000');
                     }else{
                         $(form)[0].reset();//limpiamos el formulario
                         $('.success_message').html("");

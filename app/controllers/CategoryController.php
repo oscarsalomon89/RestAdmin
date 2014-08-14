@@ -2,60 +2,69 @@
  class CategoryController extends BaseController {
     
    public function index() {
+
    $categories = Category::all();
-   return View::make('categorias.index')->with('categories', $categories);
+   if (Request::wantsJson())
+    {
+      return Response::json($categories);
+    }else{
+      return View::make('categorias.index', array('categories' => $categories));
+    }
    }
+
    public function show($id) { 
    $category = Category::find($id);
    return View::make('categorias.delete')->with('category', $category);
    }
    public function create() { 
    $category = new Category();
-   return View::make('categorias.save')->with('category', $category);
+   return View::make('categorias.save', array('category' => $category));
    }
 
    public function store() { 
+   
+   $input = Input::get();
+   $validator = Category::validate($input);
 
-   $category = new Category();
-
-   $validator = Category::validate(Input::all());
    if($validator->fails()){
    return Response::json(array(
           'success' => false,
           'errors' => $validator->getMessageBag()->toArray()
       ));
-   }else{
-      $category->name = Input::get('name');
-      $category->description = Input::get('description');
+   }
+      $category = new Category();
+      $category->name = $input['name'];
+      $category->description = $input['description'];
       $category->save();
           return Response::json(array(
             'success'     =>  true
         ));
    }
-   }
 
    public function edit($id) { 
    $category = Category::find($id);
-   return View::make('categorias.save')->with('category', $category);
+   return View::make('categorias.save', array('category' => $category));
    }
 
    public function update($id) { 
-   $category = Category::find($id);
-   $category->name = Input::get('name');
-   $category->description = Input::get('description');
-   $validator = Category::validate(Input::all(), $category->id);
+
+    $input = Input::get();
+    $category = Category::find($id);
+    $validator = Category::validate($input, $category->id);
+    
    if($validator->fails()){
          return Response::json(array(
           'success' => false,
           'errors' => $validator->getMessageBag()->toArray()
       ));
-   }else{
-      $category->save();
+   }
+    $category->name = $input['name'];
+    $category->description = $input['description'];
+    $category->save();
           return Response::json(array(
             'success'     =>  true,
             'types' => 'edit'
         ));
-   }
    }
 
    public function destroy($id) { 

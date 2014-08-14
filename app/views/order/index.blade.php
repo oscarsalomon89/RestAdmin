@@ -24,7 +24,7 @@
              <tr>
                 <td> {{ $item->date }} </td>
                 <td> @if($item->status==1)
-                <span class="label label-success">Abierta</span>
+                <span id='line' class="label label-success">Abierta</span>
               @else
                 <span class="label label-danger">Cerrada</span>
               @endif </td>
