@@ -74,7 +74,7 @@
     <table id='cat' class="table">
       <thead>
         <tr>
-          <th>Categorias</th>
+          <th>Items</th>
           <th>Cantidad</th>
         </tr>
       </thead>

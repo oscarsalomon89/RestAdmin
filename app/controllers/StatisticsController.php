@@ -2,9 +2,11 @@
  class StatisticsController extends BaseController {
 
 public function index() {
-   $categories = DB::table('categories')->orderBy('name', 'asc')->get();
-   //$items = DB::table('items')->groupBy('category_id')->orderBy('name', 'asc')->get();
-   return Response::json($categories);
+   $items = DB::table('item_order')
+   ->join('items', 'item_order.item_id', '=', 'items.id')
+   ->select('items.name', DB::raw('SUM(quantity) AS quantity'))->groupBy('item_id')
+   ->orderBy('quantity', 'desc')->get();
+   return Response::json($items);
    }
 
 }

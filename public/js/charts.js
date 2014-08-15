@@ -24,9 +24,9 @@ $.getJSON("/restappadmin/public/index.php/admin/cargagraficos", function (datos)
     data.addColumn('number', 'Cantidad');
     $.each(datos, function(id, item){
     data.addRows([
-          [item.name, 5],        
+          [item.name, parseInt(item.quantity)],        
     ])
-    var tds = '<tr><td>'+item.name+'</td><td>'+5+'</td></tr>';
+    var tds = '<tr><td>'+item.name+'</td><td>'+parseInt(item.quantity)+'</td></tr>';
     $("#cat tbody").append(tds);
     })
 
