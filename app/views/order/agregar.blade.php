@@ -1,9 +1,6 @@
 @extends('layouts.master')
  
 @section('content')
-@section('head')
-{{HTML::style('css/chosen.css')}}
-@stop
 <div class="widget">
 <div class="widget-content-white glossed">
   <div class="padded">
@@ -21,13 +18,6 @@
 @if($order->status==1)
 <h3>Seleccione los items que desea agregar</h1>
   <div class="jumbotron">
-  @if($errors->has('quantity'))
-  <div class="alert alert-danger">
-    @foreach($errors->get('quantity') as $error)
-      *{{$error}}<br>
-    @endforeach
-    </div>
-  @endif
   <div class="row">
   {{ Form::open(array('url' => 'orders/edit/'.$order->id, 'id' => 'formulario_busqueda')) }}
   <input type="hidden" class="form-control" id= 'order_id' name="order_id" value='{{$order->id}}'>
@@ -50,13 +40,11 @@
   {{ Form::submit('Agregar',array('class'=>'btn btn-primary')) }}
   </div>
   {{ Form::close() }}
-    <!--en este los errores del formulario--> 
-<div class="cold-md-6 col-md-offset-3">
-<div class='errors_form'></div>
-<!--en este el mensaje de registro correcto-->
-<div class='success_message alert-box success'></div>
 </div>
-</div> 
+<div class='row'>
+    <!--en este los errores del formulario--> 
+<div id='message'></div>
+</div>
 </div>
 @else
 <input type="hidden" class="form-control" id= 'order_id' name="order_id" value='{{$order->id}}'>
@@ -86,17 +74,16 @@ form.on('submit', function () {
                   if(data.success == false){
                         var errores = '';
                         for(datos in data.errors){
-                            errores +=  '<small class="alert alert-danger">'+data.errors[datos]+'</small>'+'<br>';
+                            errores +=  data.errors[datos]+'<br>';
                         }
-                        $('.success_message').html(errores);
-                        $(".success_message").fadeOf("slow");
-                        //$('.success_message').hide('5000');
+                        $('#message').addClass("alert alert-danger");
+                        $('#message').html(errores);
                     }else{
                         $(form)[0].reset();//limpiamos el formulario
-                        $('.success_message').html("");
-                        $('.success_message').removeClass("alert alert-danger");
-                          mensaje = '<small class="alert alert-success">' + data.message + '</small>';
-                        $('.success_message').html(mensaje);
+                        $('#message').removeClass("alert alert-danger");
+                          mensaje = data.message;
+                        $('#message').addClass("alert alert-success");
+                        $('#message').html(mensaje);
                         $("#tabla").load('list/'+id);
                     }
                   }

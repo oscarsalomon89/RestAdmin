@@ -29,14 +29,15 @@
 <script type="text/javascript">
 function eliminar(iditem, idorder, price){          
 
-$.get(iditem+'/'+idorder+'/'+price, 
+$.post(iditem+'/'+idorder+'/'+price, 
             function(data){
                 if (data.success != true){
                   alert('Error');
                 }else{
                     // si la respuesta fue exitosa entonces eliminamos la fila de la tabla 
-                    var mensaje = '<small class="alert alert-danger">El item se elimino correctamente</small>';
-                    $('.success_message').html(mensaje);
+                    var mensaje = 'El item se elimino correctamente';
+                    $('#message').addClass("alert alert-danger");
+                    $('#message').html(mensaje);
                     $("#tabla").load('list/'+idorder);
                 }
             });                         

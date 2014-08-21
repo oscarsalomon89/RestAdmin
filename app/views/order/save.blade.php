@@ -8,14 +8,12 @@
 <div class="widget">
 <div class="widget-content-white glossed">
 <div class="padded">
-<h1> Nueva Orden </h1>
+<h1> {{$title}} Orden </h1>
 <div class='errors_form'></div>
 {{ Form::open(array('url' => 'orders/create/' . $order->id, 'id'=>'form')) }}
 <input type="hidden" class="form-control" id= 'link' value='orders'>
-<input type="hidden" class="form-control" id= 'table_ant' value='{{$order->table_id}}'>
-<input type="hidden" class="form-control" id= 'date' name="date" value='{{date("Y-m-d")}}'>
 <div class="row form-group">
-{{ Form::label ('ordertable', 'Mesa') }}
+{{ Form::label ('ordertable', 'Mesas') }}
 <ul class="list-group">
 @foreach($tables as $table)
 @if($table->id == $order->table_id)
@@ -42,25 +40,29 @@
 @endforeach
 </ul>
 </div>
-      <div class="form-group">
-      {{ Form::label ('orderuser', 'Mozo') }}<br>
+      <div class="row form-group">
+      {{ Form::label ('orderuser', 'Mozos') }}<br>
       <ul class="list-group">
       @foreach($users as $user)
       @if($user->id == $order->user_id)
+      <div class= 'col-md-3'>
       <li id='mozo_select' value='{{$user->id}}' class="list-group-item active">
-        <span class="badge">10</span>
-        {{ Form::radio('user_id', $user->id, true) }}   {{$user->name.' - '.$user->lastname}}
+        {{ HTML::image('images/waiter.png', "Imagen no encontrada", array('class' => 'img-circle')) }}
+        {{ Form::radio('user_id', $user->id, true) }}   {{$user->name.' '.$user->lastname}}
       </li> 
+    </div>
       @else
+      <div class= 'col-md-3'>
       <li id='mozo_select' value='{{$user->id}}' class="list-group-item">
-        <span class="badge">10</span>
-        {{ Form::radio('user_id', $user->id) }}   {{$user->name.' - '.$user->lastname}}
+        {{ HTML::image('images/waiter.png', "Imagen no encontrada", array('class' => 'img-circle')) }}
+        {{ Form::radio('user_id', $user->id) }}   {{$user->name.' '.$user->lastname}}
       </li>
+    </div>
       @endif  
       @endforeach
     </ul>
     </div>
-       {{ Form::submit('Crear orden',array('class'=>'btn btn-success')) }}
+       {{ Form::submit('Guardar orden',array('class'=>'btn btn-success')) }}
        {{ link_to('orders', 'Cancelar') }}
     {{ Form::close() }}
   </div>

@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard - SB Admin</title>
+    <title>Dashboard - RestApp Admin</title>
     {{HTML::style('http://fonts.googleapis.com/css?family=Oswald:300,400,700|Open+Sans:400,700,300')}}    
     {{HTML::style('css/style.css')}}
     {{HTML::style('css/bootstrap.css')}} 
@@ -71,6 +71,10 @@
       <li id='res'><a href="http://localhost/restappadmin/public/index.php/reservas">
           <span class="badge pull-right">11</span>
           <i class="icon-calendar"></i> Reservas
+        </a>
+      </li>
+            <li id='res'><a href="http://localhost/restappadmin/public/index.php/cocina">
+          <i class="icon-table"></i> Cocina
         </a>
       </li>
       <li>

@@ -22,9 +22,9 @@
           <tbody>
           @foreach($orders as $item)
              <tr>
-                <td> {{ $item->date }} </td>
+                <td> {{ $item->created_at }} </td>
                 <td> @if($item->status==1)
-                <span id='line' class="label label-success">Abierta</span>
+                <span class="label label-success">Abierta</span>
               @else
                 <span class="label label-danger">Cerrada</span>
               @endif </td>
@@ -58,9 +58,9 @@
     <div class="alert alert-danger">No existen ordenes a la fecha</div>
     @endif
 <script type="text/javascript">
-$(document).ready(function ()
-{
-$('#order').addClass("active");
+$(document).ready(function (){ 
+  $('#order').addClass("active");
 });
+
 </script>
 @stop

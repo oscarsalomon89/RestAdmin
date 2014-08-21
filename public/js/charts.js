@@ -2,21 +2,26 @@ google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
 
 function drawChart() {
-        var dataColum = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses'],
-          ['2004',  1000,      400],
-          ['2005',  1170,      460],
-          ['2006',  660,       1120],
-          ['2007',  1030,      540]
-        ]);
+
+$.getJSON("/restappadmin/public/index.php/admin/colum", function (datos) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Meses');
+        data.addColumn('number', 'Total');
+          
+          $.each(datos, function(id, item){
+          data.addRows([
+            [item.date, parseInt(item.total)],
+            ])
+          })
 
         var options = {
-          title: 'Company Performance',
-          hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
+          title: 'Company Sales',
+          hAxis: {title: 'Meses', titleTextStyle: {color: 'red'}}
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-        chart.draw(dataColum, options);
+        chart.draw(data, options);
+  });
 //////
 $.getJSON("/restappadmin/public/index.php/admin/cargagraficos", function (datos) {
     var data = new google.visualization.DataTable();

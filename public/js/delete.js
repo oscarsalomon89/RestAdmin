@@ -1,7 +1,7 @@
 function eliminar(id){          
 
 var href = $( "#button" ).val();
-$.get(href+id, 
+$.post(href+id, 
             function(data){
                 if (data.success != true){
                   alert('Error');

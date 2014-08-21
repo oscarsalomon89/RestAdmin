@@ -21,7 +21,8 @@
       $order = new Order();
       $users = User::all(array('id','name','lastname'));
       $tables = Table::where('taken',false)->get();
-     return View::make('order.save', array('order' => $order, 'users'=> $users,'tables'=>$tables));
+      $title = 'Nueva';
+     return View::make('order.save', array('order' => $order, 'users'=> $users,'tables'=>$tables,'title'=>$title));
      }
 
      public function store() { 
@@ -45,7 +46,6 @@
       }else{
         $order->user_id = Auth::User()->id;
       }
-      $order->date = $input['date'];
       $order->table_id = $table->id;
       $order->table->taken = true;
       $order->push();
@@ -66,7 +66,8 @@
     $order = Order::find($id);
     $tables = Table::all(array('id','number', 'taken'));
     $users = User::all();
-  return View::make('order.save', array('order' => $order, 'tables' => $tables, 'users' => $users));
+    $title = 'Editar';
+  return View::make('order.save', array('order' => $order, 'tables' => $tables, 'users' => $users, 'title' => $title));
    }
 
    public function update($id){
@@ -85,7 +86,6 @@
         $table->save();
 
         $table = Table::find($input['table_id']);
-        $order->date = $input['date'];
         $order->table_id = $table->id;
         $order->user_id = $input['user_id'];
         $order->table->taken = true;
@@ -104,11 +104,9 @@
 
   public function save($id) { 
    $order = Order::find($id, array('id','table_id', 'status'));
-   $order->status = '0';
-   $table = Table::find($order->table_id);
-   $table->state = '0';
-   $table->save();
-   $order->save();
+   $order->status = false;
+   $order->table->taken = false;
+   $order->push();
    return Redirect::to('orders')->with('notice', 'La orden ha sido cobrada.');
    }
 

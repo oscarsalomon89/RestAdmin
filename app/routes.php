@@ -13,6 +13,7 @@ Route::post('/', 'HomeController@store');
 
 Route::get('admin', 'HomeController@indexAdmin');
 Route::get('admin/cargagraficos', 'StatisticsController@index');
+Route::get('admin/colum', 'StatisticsController@barrasChart');
 
 Route::get('users','UsersController@index');
 Route::get('users/create', 'UsersController@create');
@@ -20,6 +21,8 @@ Route::post('users/create', 'UsersController@saveUser');
 Route::get('users/{id}/edit', 'UsersController@edit');
 Route::post('users/create/{id}', 'UsersController@saveUser');
 Route::resource('users', 'UsersController');
+
+Route::get('cocina','CocinaController@index');
 
 Route::get('orders','OrderController@index');
 Route::get('orders/create', 'OrderController@create');
@@ -36,7 +39,7 @@ Route::DELETE('orders/{id}', 'OrderController@destroy');
 
 Route::get('orders/edit/{id}', 'OrderItemsController@edit');
 Route::post('orders/edit/{id}', 'OrderItemsController@store');
-Route::get('orders/edit/{iditem}/{idorder}/{price}', 'OrderItemsController@destroy');
+Route::post('orders/edit/{iditem}/{idorder}/{price}', 'OrderItemsController@destroy');
 
 Route::get('items', 'ItemController@index');
 Route::get('items/create', 'ItemController@create');
@@ -53,7 +56,7 @@ Route::get('categorias/create', 'CategoryController@create');
 Route::post('categorias/create', 'CategoryController@store');
 Route::get('categorias/{id}/edit', 'CategoryController@edit');
 Route::post('categorias/create/{id}', 'CategoryController@update');
-Route::get('categorias/{id}', 'CategoryController@destroy');
+Route::post('categorias/{id}', 'CategoryController@destroy');
 
 Route::get('tables', 'TableController@index');
 Route::get('tables/create', 'TableController@create');
@@ -62,7 +65,7 @@ Route::get('tables/{id}/edit', 'TableController@edit');
 Route::post('tables/create/{id}', 'TableController@update');
 Route::get('tables/{id}/delete', 'TableController@show');
 Route::DELETE('tables/{id}', 'TableController@destroy');
-Route::get('tables/{id}', 'TableController@destroy');
+Route::post('tables/{id}', 'TableController@destroy');
 
 Route::get('reservas','ReservaController@index');
 Route::post('reservas', 'ReservaController@destroy');

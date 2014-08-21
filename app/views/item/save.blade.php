@@ -33,12 +33,12 @@
       <ul class="list-group">
       @foreach($categories as $category)
       @if($category->id==$item->category_id)
-        <li class="list-group-item active">
+        <li value='{{$category->id}}' class="list-group-item active">
         <span class="badge">{{$categories->count()}}</span>
         {{ Form::radio('category_id', $category->id,true) }}   {{$category->name}}
       </li>
       @else
-      <li class="list-group-item">
+      <li value='{{$category->id}}' class="list-group-item">
         <span class="badge">14</span>
         {{ Form::radio('category_id', $category->id) }}   {{$category->name}}
       </li>
@@ -58,4 +58,12 @@
 {{ HTML::image('images/menu-icon.png', "Imagen no encontrada", array('id' => 'principito', 'title' => 'El principito')) }}
 </div>
 </div>
+<script type="text/javascript">
+$('ul li').click(function() {
+  var valu = $(this).val();
+  $('ul li input:radio[value ='+ valu +']').prop('checked',true);
+  $('ul li').removeClass('active');
+    $(this).addClass('active');    
+});
+</script>
 @stop
