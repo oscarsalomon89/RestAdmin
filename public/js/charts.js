@@ -10,7 +10,7 @@ $.getJSON("/restappadmin/public/index.php/admin/colum", function (datos) {
           
           $.each(datos, function(id, item){
           data.addRows([
-            [item.date, parseInt(item.total)],
+            [item.fecha, parseInt(item.total)],
             ])
           })
 

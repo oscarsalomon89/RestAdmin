@@ -12,7 +12,7 @@ public function index() {
  public function barrasChart(){
 
  	$items = DB::table('orders')
-	->select('date', DB::raw('SUM(total) AS total'))
+	->select('created_at AS fecha', DB::raw('SUM(total) AS total'))
  	->groupBy('created_at')
  	->get();
  	return Response::json($items);

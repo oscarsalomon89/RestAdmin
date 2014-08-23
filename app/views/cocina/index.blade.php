@@ -10,9 +10,14 @@
     <div class="padded">
         <div class="row">
         @foreach($orders as $order)
+        <div class="col-lg-6">
         @if($order->status == 1)
-          <div class="col-lg-4" id='parp' onload="parpadear()">
             <div class="panel panel-success">
+            <span class="label label-success pull-right">Mozo: {{$order->user['name'].' '.$order->user['lastname']}}</span>
+        @else
+            <div class="panel panel-danger">
+              <span class="badge pull-right alert-animated">{{$order->user['name'].' '.$order->user['lastname']}}</span>
+        @endif
               <div class="panel-heading">
                 <div class="row">
                   <div class="col-xs-6">
@@ -21,53 +26,30 @@
                   </div>
                   <div class="col-xs-6 text-right">
                     {{ HTML::image('images/waiter.png', "Imagen no encontrada", array('class' => 'img-circle')) }}
-                    <h4><span class="label label-success">Mozo: {{$order->user['name'].' '.$order->user['lastname']}}</span></h4>
                   </div>
                 </div>
               </div>              
-              <a href="#">
                 <div class="panel-footer announcement-bottom">
-                  <div class="row">
-                    <div class="col-xs-6">
-                      View Order
-                    </div>
-                    <div class="col-xs-6 text-right">
-                      <i class="fa fa-arrow-circle-right"></i>
-                    </div>
-                  </div>
+                  <h3>Items de la orden</h3>
+          <table class="table table-striped table-bordered table-hover datatable">
+           <tr>
+             <th> Item </th>
+             <th> Descripcion </th>
+             <th> Cantidad </th>
+          </tr>
+       @foreach($order->items as $item)
+            <tr>
+                <td> {{ $item->name }} </td>
+                <td> {{ $item->description }} </td>
+                <td> {{ $item->pivot->quantity }} </td>
+                <td> <input type="checkbox"></td>
+          </tr>
+      @endforeach
+        </table>
+        <button type="button" class="btn btn-primary">Enviar <i class="fa fa-arrow-circle-right"></i></button>
                 </div>
-              </a>
             </div>
           </div>
-        @else
-          <div class="col-lg-4">
-            <div class="panel panel-danger">
-              <div class="panel-heading">
-                <div class="row">
-                  <div class="col-xs-8">
-                    {{ HTML::image('images/table.png', "Imagen no encontrada", array('class' => 'img-circle')) }}
-                  </div>
-                  <div class="col-xs-4 text-right">
-                    <h4><span class="label label-success">{{$order->table['number']}}</span></h4>
-                  </div>
-                </div>
-                <span class="label label-success">Mozo: {{$order->user['name'].' '.$order->user['lastname']}}</span>
-              </div>              
-              <a href="#">
-                <div class="panel-footer announcement-bottom">
-                  <div class="row">
-                    <div class="col-xs-6">
-                      View Order
-                    </div>
-                    <div class="col-xs-6 text-right">
-                      <i class="fa fa-arrow-circle-right"></i>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-        @endif
           @endforeach
     </div>
 </div>
