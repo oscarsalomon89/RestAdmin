@@ -114,7 +114,9 @@
     // no elimino las ordenes solo las desactivo
    $order = Order::find($id);
    //$order->status = false;
-   //$order->table->taken = false;
+  $table = Table::find($order->table_id);
+  $table->taken= false;
+   $table->save();
    $order->delete();
    return Redirect::to('orders')->with('notice', 'La Orden ha sido eliminada correctamente.');
    }

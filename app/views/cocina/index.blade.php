@@ -29,7 +29,8 @@
                   </div>
                 </div>
               </div>              
-                <div class="panel-footer announcement-bottom">
+                <div class="panel-footer announcement-bottom" style="height:300px;">
+                  <button type="button" class="btn btn-primary pull-right">Enviar <i class="fa fa-arrow-circle-right"></i></button>
                   <h3>Items de la orden</h3>
           <table class="table table-striped table-bordered table-hover datatable">
            <tr>
@@ -42,11 +43,19 @@
                 <td> {{ $item->name }} </td>
                 <td> {{ $item->description }} </td>
                 <td> {{ $item->pivot->quantity }} </td>
-                <td> <input type="checkbox"></td>
+                <td> <div class="checkbox"><input type="checkbox"></div></td>
           </tr>
       @endforeach
         </table>
-        <button type="button" class="btn btn-primary">Enviar <i class="fa fa-arrow-circle-right"></i></button>
+ <ul class="pagination pagination-sm pull-right">
+      <li class="disabled"><a href="#">«</a></li>
+      <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li><a href="#">»</a></li>
+   </ul>
                 </div>
             </div>
           </div>
