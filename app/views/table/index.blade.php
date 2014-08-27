@@ -14,6 +14,7 @@
           <thead>
           <tr>
              <th> Numero </th>
+             <th> Descripción </th>
              <th> Cantidad </th>
              <th>Estado</th>
              <th> </th>
@@ -23,7 +24,8 @@
           @foreach($tables as $table)
              <tr id='fila_{{$table->id}}'>
                 <td> {{ $table->number }} </td>
-                <td> {{ $table->quantity }} </td>
+                <td> {{ $table->description }} </td>
+                <td> {{ $table->seats }} </td>
                 <td> @if($table->taken == 'false')
                 <span class="label label-success">Libre</span>
               @else

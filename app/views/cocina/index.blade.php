@@ -11,7 +11,7 @@
         <div class="row">
         @foreach($orders as $order)
         <div class="col-lg-6">
-        @if($order->status == 1)
+        @if($order->active == true)
             <div class="panel panel-success">
             <span class="label label-success pull-right">Mozo: {{$order->user['name'].' '.$order->user['lastname']}}</span>
         @else

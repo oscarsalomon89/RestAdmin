@@ -17,8 +17,7 @@ class OrderItemsController extends BaseController {
       $categories = Category::all(array('id','name'));
      return View::make('order.agregar', array('order' => $order,'categories'=>$categories));
      }
-	public function store($id) {
-    $order = Order::find($id, array('id','total'));
+	public function store() {
     $input = Input::get(); 
       $validator = ItemOrder::validate($input);
  
@@ -34,19 +33,21 @@ class OrderItemsController extends BaseController {
           $item = Item::find($input['item_id'], array('id','price'));
           $quantity = $input['quantity'];
           $total = $item->price * $quantity;
+          $order = Order::find($input['order_id'], array('id','total'));
           $order->total += $total;
           $order->save();
 
-          $itemOrder = new ItemOrder();
-          $itemOrder->item_id = $input['item_id'];
-		      $itemOrder->order_id = $id;
-		      $itemOrder->quantity = $input['quantity'];
-		      $itemOrder->price = $item->price;
-		      $itemOrder->save();
+          $orderItem = new ItemOrder();
+          $orderItem->item_id = $item->id;
+		      $orderItem->order_id = $order->id;
+		      $orderItem->quantity = $quantity;
+		      $orderItem->price = $item->price;
+		      $orderItem->save();
           //$order->items()->attach($item, array('quantity'=>$quantity, 'price'=>$item->price));
           return Response::json(array(
             'success'     =>  true,
-            'message'     =>  'Se agrego el item correctamente'
+            'message'     =>  'Se agrego el item correctamente',
+            'id' => $orderItem->id
         ));
       }
 }

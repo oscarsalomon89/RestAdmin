@@ -8,18 +8,18 @@
 <h1> Mesa Nro: <span class="badge"><h2>{{ $order->table['number'] }}</h2></span></h1>
     <ul>
        <li> Mozo: {{ $order->user['name'].' '.$order->user['lastname']}} </li>
-       <li> Estado: @if($order->status==1)
+       <li> Estado: @if($order->active==true)
             <span class="label label-success">Abierta</span>
               @else
             <span class="label label-danger">Cerrada</span>
               @endif
         </li>
       </ul>
-@if($order->status==1)
+@if($order->active==true)
 <h3>Seleccione los items que desea agregar</h1>
   <div class="jumbotron">
   <div class="row">
-  {{ Form::open(array('url' => 'orders/edit/'.$order->id, 'id' => 'formulario_busqueda')) }}
+  {{ Form::open(array('url' => 'orders/edit', 'id' => 'formulario_busqueda')) }}
   <input type="hidden" class="form-control" id= 'order_id' name="order_id" value='{{$order->id}}'>
   <div class="col-lg-6">
   <select class="form-control" id="item_id" name="item_id">

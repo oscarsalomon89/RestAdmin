@@ -19,7 +19,11 @@
     </div>
     <div class="form-group">
        {{ Form::label ('quantity', 'Cantidad de personas') }}
-       {{ Form::text ('quantity', $table->quantity, array('class'=>'form-control','placeholder'=>'cantidad de personas', 'autocomplete'=>'of')) }} 
+       {{ Form::text ('seats', $table->seats, array('class'=>'form-control','placeholder'=>'cantidad de personas', 'autocomplete'=>'of')) }} 
+     </div>
+    <div class="form-group">
+       {{ Form::label ('description', 'Cantidad de personas') }}
+       {{ Form::text ('description', $table->description, array('class'=>'form-control','placeholder'=>'Descripcion', 'autocomplete'=>'of')) }} 
      </div>
        {{ Form::submit('Guardar mesa',array('class'=>'btn btn-success')) }}
        {{ link_to('tables', 'Cancelar') }}

@@ -23,7 +23,7 @@
           @foreach($orders as $item)
              <tr>
                 <td> {{ $item->created_at }} </td>
-                <td> @if($item->status==1)
+                <td> @if($item->active==true)
                 <span class="label label-success">Abierta</span>
               @else
                 <span class="label label-danger">Cerrada</span>
@@ -32,12 +32,12 @@
                 <td> {{$item->table['number']}}</td>
                 <td> {{ link_to('orders/'.$item->id, 'Ver') }} </td>               
                 <td>
-                @if($item->status==1) 
+                @if($item->active==true) 
                   {{ link_to('orders/edit/'.$item->id, 'Editar',array('class'=>'btn btn-default btn-xs')) }} 
                   @endif
                 </td>
           <td>
-        @if($item->status==1)
+        @if($item->active==true)
         {{ link_to('orders/cobrar/'.$item->id, 'Cobrar',array('class'=>'btn btn-primary btn-xs')) }}
         @endif
                 </td>
