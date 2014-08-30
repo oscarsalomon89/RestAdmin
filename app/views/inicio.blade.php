@@ -97,7 +97,7 @@
       </h4>
     </div>
     <div id="{{$user->name}}" class="panel-collapse collapse">
-    @if($user->orders()->where('created_at', '=', date("Y-m-d"))->count()=='0')
+    @if($user->orders)
     <div class="alert alert-danger">No existen ordenes</div>
     @else
       <div class="panel-body">
@@ -113,10 +113,10 @@
           </tr>
           </thead>
         <tbody>
-      @foreach($user->orders()->where('created_at', '=', date("Y-m-d"))->get() as $order)
+      @foreach($user->orders() as $order)
               <tr>
                 <td> {{ $order->created_at }} </td>
-                <td> @if($order->status==1)
+                <td> @if($order->active==true)
                 <span class="label label-success">Abierta</span>
               @else
                 <span class="label label-danger">Cerrada</span>

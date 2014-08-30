@@ -73,10 +73,6 @@
           <i class="icon-calendar"></i> Reservas
         </a>
       </li>
-            <li id='res'><a href="http://localhost/restappadmin/public/index.php/cocina">
-          <i class="icon-table"></i> Cocina
-        </a>
-      </li>
       <li>
         <a href="http://localhost/restappadmin/public/index.php/auth/login">
           <span class="badge pull-right"></span>
@@ -93,7 +89,7 @@
 <div class="content-inner">
           <div class="page-header">
   <div class="header-links hidden-xs">
-    <a href="notifications.html"><i class="icon-comments"></i> User Alerts</a>
+    <a href="http://localhost/restappadmin/public/index.php/cocina"><i class="icon-comments"></i> Cocina</a>
     <a href="#"><i class="icon-cog"></i> Settings</a>
     {{ link_to('/logout', 'Cerrar sesión') }}
   </div>

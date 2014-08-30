@@ -8,16 +8,13 @@ public function items(){
 }
 //VALIDACIONES
     public static $rules = array(
-      'name' => 'required|min:2',
-      'description' => 'required|min:10',
+      'name' => 'required|min:2'
    );
 
 
 public static $messages = array(
       'name.required' => 'El nombre es obligatorio.',
-      'name.min' => 'El nombre debe contener al menos dos caracteres.',
-      'description.required' => 'La descripcion es obligatoria.',
-      'description.min' => 'La descripcion debe contener al menos 10 caracteres.',
+      'name.min' => 'El nombre debe contener al menos dos caracteres.'
    );
 
    public static function validate($data, $id=null){

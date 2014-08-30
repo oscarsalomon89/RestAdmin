@@ -1,24 +1,25 @@
 <?php
 use Illuminate\Auth\UserInterface;
+use Illuminate\Auth\Reminders\RemindableInterface;
+
 class User extends Eloquent implements UserInterface{
 
-   protected $fillable = array('name', 'lastname', 'password');
-   
-   public function role(){
-      return $this->belongsTo('Role');
-   }
+
 	public function orders(){
    return $this->hasMany('Order');
 }
    public static $rules = array(
-      'name' => 'required|min:2',
-      'lastname' => 'required|unique:users',
+      'firstname' => 'required|min:2',
+      'username' => 'required|min:2|unique:users',
+      'lastname' => 'required',
       'password' => 'required',
    );
 
    public static $messages = array(
-      'name.required' => 'El nombre es obligatorio.',
-      'name.min' => 'El nombre debe contener al menos dos caracteres.',
+      'firstname.required' => 'El nombre es obligatorio.',
+      'firstname.min' => 'El nombre debe contener al menos dos caracteres.',
+      'username.required' => 'El nick es obligatorio.',
+      'username.min' => 'El nick debe contener al menos dos caracteres.',
       'lastname.required' => 'El apellido es obligatorio.',
       'password.required' => 'El password es obligatorio.',
    );

@@ -20,10 +20,10 @@ Route::get('admin/colum', 'StatisticsController@barrasChart');
 
 Route::get('users','UsersController@index');
 Route::get('users/create', 'UsersController@create');
-Route::post('users/create', 'UsersController@saveUser');
+Route::post('users/create', 'UsersController@store');
 Route::get('users/{id}/edit', 'UsersController@edit');
-Route::post('users/create/{id}', 'UsersController@saveUser');
-Route::resource('users', 'UsersController');
+Route::post('users/create/{id}', 'UsersController@update');
+//Route::resource('users', 'UsersController');
 
 Route::get('cocina','CocinaController@index');
 

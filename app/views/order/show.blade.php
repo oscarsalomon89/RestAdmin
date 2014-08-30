@@ -3,7 +3,7 @@
 @section('content')
 <div class="widget">
 <div class="widget-content-white glossed">
-  <div class="padded">
+<div class="padded">
 <h1> Mesa Nro: <span class="badge"><h2>{{ $order->table['number'] }}</h2></span> </h1>
     <ul>
        <li> Mozo: {{ $order->user['name'].' '.$order->user['lastname']}} </li>

@@ -22,7 +22,7 @@
        {{ Form::text ('seats', $table->seats, array('class'=>'form-control','placeholder'=>'cantidad de personas', 'autocomplete'=>'of')) }} 
      </div>
     <div class="form-group">
-       {{ Form::label ('description', 'Cantidad de personas') }}
+       {{ Form::label ('description', 'Descripcion') }}
        {{ Form::text ('description', $table->description, array('class'=>'form-control','placeholder'=>'Descripcion', 'autocomplete'=>'of')) }} 
      </div>
        {{ Form::submit('Guardar mesa',array('class'=>'btn btn-success')) }}

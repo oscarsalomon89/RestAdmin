@@ -48,14 +48,14 @@
       <div class= 'col-md-3'>
       <li id='mozo_select' value='{{$user->id}}' class="list-group-item active">
         {{ HTML::image('images/waiter.png', "Imagen no encontrada", array('class' => 'img-circle')) }}
-        {{ Form::radio('user_id', $user->id, true) }}   {{$user->name.' '.$user->lastname}}
+        {{ Form::radio('user_id', $user->id, true) }}   {{$user->firstname.' '.$user->lastname}}
       </li> 
     </div>
       @else
       <div class= 'col-md-3'>
       <li id='mozo_select' value='{{$user->id}}' class="list-group-item">
         {{ HTML::image('images/waiter.png', "Imagen no encontrada", array('class' => 'img-circle')) }}
-        {{ Form::radio('user_id', $user->id) }}   {{$user->name.' '.$user->lastname}}
+        {{ Form::radio('user_id', $user->id) }}   {{$user->firstname.' '.$user->lastname}}
       </li>
     </div>
       @endif  

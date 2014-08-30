@@ -32,7 +32,7 @@
 </div>
 </div>
     @else
-       <p> No se han encontrado categorias de menu </p>
+       <div class="alert alert-danger"> No se han encontrado categorias de menu </div>
     @endif
 <script type="text/javascript">
 $(document).ready(function ()

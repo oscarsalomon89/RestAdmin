@@ -17,40 +17,42 @@ class OrderItemsController extends BaseController {
       $categories = Category::all(array('id','name'));
      return View::make('order.agregar', array('order' => $order,'categories'=>$categories));
      }
-	public function store() {
-    $input = Input::get(); 
-      $validator = ItemOrder::validate($input);
- 
-      if ($validator->fails())
-      {
-        //como ha fallado el formulario, devolvemos los datos en formato json
-      return Response::json(array(
-          'success' => false,
-          'errors' => $validator->getMessageBag()->toArray()
-      )); 
-          //en otro caso ingresamos al usuario en la tabla usuarios
-      }else{
-          $item = Item::find($input['item_id'], array('id','price'));
-          $quantity = $input['quantity'];
-          $total = $item->price * $quantity;
-          $order = Order::find($input['order_id'], array('id','total'));
-          $order->total += $total;
-          $order->save();
+  public function store()
+  {
+    $input = Input::get();
+    $validator = ItemOrder::validate($input);
 
-          $orderItem = new ItemOrder();
-          $orderItem->item_id = $item->id;
-		      $orderItem->order_id = $order->id;
-		      $orderItem->quantity = $quantity;
-		      $orderItem->price = $item->price;
-		      $orderItem->save();
-          //$order->items()->attach($item, array('quantity'=>$quantity, 'price'=>$item->price));
-          return Response::json(array(
-            'success'     =>  true,
-            'message'     =>  'Se agrego el item correctamente',
-            'id' => $orderItem->id
-        ));
-      }
-}
+    if(!$validator->fails())
+    {
+      $orderItem = new ItemOrder();
+      $item = Item::find($input['item_id'], array('id','price'));
+      $quantity = $input['quantity'];
+      $total = $item->price * $quantity;
+      //TODO: Deberiamos checkear si la orden existe y está activa.
+      $order = Order::find($input['order_id']);
+      $order->total += $total;
+      $order->save();
+
+      $orderItem = new ItemOrder();
+      $orderItem->item_id = $item->id;
+      $orderItem->order_id = $order->id;
+      $orderItem->quantity = $quantity;
+      $orderItem->price = $item->price;
+      $orderItem->save();
+
+      return Response::json(array(
+        'success'     =>  true,
+        'message'     =>  'Se agrego el item correctamente',
+        'id' => $orderItem->id
+      ));
+    }
+    else {
+      return Response::json(array(
+        'success' => false,
+        'errors' => $validator->getMessageBag()->toArray()
+      ));
+    }
+  }
 
   public function editar($id) { 
       $item = Item::find($id);

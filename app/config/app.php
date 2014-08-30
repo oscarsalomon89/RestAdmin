@@ -119,8 +119,7 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-		'Codesleeve\Social\SocialServiceProvider',
-		'repositories\User\UserServiceProvider'
+		'Codesleeve\Social\SocialServiceProvider'
 	),
 
 	/*

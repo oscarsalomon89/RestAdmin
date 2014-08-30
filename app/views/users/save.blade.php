@@ -14,8 +14,12 @@
     {{ Form::open(array('url' => 'users/create/' . $user->id, 'id'=>'form')) }}
     <input type="hidden" class="form-control" id= 'link' value='users'>
     <div class="form-group">
+       {{ Form::label ('username', 'Nickname') }}
+       {{ Form::text ('username', $user->username, array('class'=>'form-control','placeholder'=>'nickname', 'autocomplete'=>'of')) }}
+    </div>
+    <div class="form-group">
        {{ Form::label ('name', 'Nombre real') }}
-       {{ Form::text ('name', $user->name, array('class'=>'form-control','placeholder'=>'nombre', 'autocomplete'=>'of')) }}
+       {{ Form::text ('firstname', $user->firstname, array('class'=>'form-control','placeholder'=>'nombre', 'autocomplete'=>'of')) }}
     </div>
     <div class="form-group">
        {{ Form::label ('lastname', 'Apellido') }}

@@ -27,7 +27,7 @@ class OrdersController extends BaseController {
 	public function create()
 	{
 		$order = new Order();
-		$users = User::all(array('id','name','lastname'));
+		$users = User::all(array('id','firstname','lastname'));
 		$tables = Table::where('taken',false)->get();
 		$title = 'Nueva';
 		return View::make('order.save', array('order' => $order, 'users'=> $users,'tables'=>$tables,'title'=>$title)); 

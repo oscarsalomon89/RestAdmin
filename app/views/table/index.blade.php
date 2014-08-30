@@ -42,7 +42,7 @@
 </div>
 </div>
     @else
-       <p> No se han encontrado Mesas</p>
+       <div class="alert alert-danger"> No se han encontrado Mesas</div>
     @endif
 <script type="text/javascript">
 $(document).ready(function ()

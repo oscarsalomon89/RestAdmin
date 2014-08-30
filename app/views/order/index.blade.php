@@ -28,7 +28,7 @@
               @else
                 <span class="label label-danger">Cerrada</span>
               @endif </td>
-                <td> {{$item->user['name']}}</td>
+                <td> {{$item->user['firstname']}}</td>
                 <td> {{$item->table['number']}}</td>
                 <td> {{ link_to('orders/'.$item->id, 'Ver') }} </td>               
                 <td>
@@ -47,7 +47,7 @@
         <input type="submit" value="Eliminar" class="btn btn-primary btn-xs">
         {{ Form::close() }}
         </td>
-        <td>{{ link_to('orders/editar/'.$item->id, 'Editar')}}</td>
+        <td><a href='http://localhost/restappadmin/public/index.php/orders/editar/{{$item->id}}' class="btn btn-default btn-xs"><i class="icon-pencil"></i> edit</a></td>
              </tr>
           @endforeach
           </tbody>

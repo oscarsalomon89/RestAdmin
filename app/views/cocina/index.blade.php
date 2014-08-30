@@ -13,10 +13,10 @@
         <div class="col-lg-6">
         @if($order->active == true)
             <div class="panel panel-success">
-            <span class="label label-success pull-right">Mozo: {{$order->user['name'].' '.$order->user['lastname']}}</span>
+            <span class="label label-success pull-right">Mozo: {{$order->user['firstname'].' '.$order->user['lastname']}}</span>
         @else
             <div class="panel panel-danger">
-              <span class="badge pull-right alert-animated">{{$order->user['name'].' '.$order->user['lastname']}}</span>
+              <span class="badge pull-right alert-animated">Mozo: {{$order->user['firstname'].' '.$order->user['lastname']}}</span>
         @endif
               <div class="panel-heading">
                 <div class="row">
@@ -47,7 +47,7 @@
           </tr>
       @endforeach
         </table>
- <ul class="pagination pagination-sm pull-right">
+ <!--<ul class="pagination pagination-sm pull-right">
       <li class="disabled"><a href="#">«</a></li>
       <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
       <li><a href="#">2</a></li>
@@ -55,7 +55,7 @@
       <li><a href="#">4</a></li>
       <li><a href="#">5</a></li>
       <li><a href="#">»</a></li>
-   </ul>
+   </ul>-->
                 </div>
             </div>
           </div>

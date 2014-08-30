@@ -7,8 +7,9 @@
 @section('content')
 <h1> {{ $user->name }} </h1>
     <ul>
-       <li> Nombre de usuario: {{ $user->name }} </li>
-       <li> Email: {{ $user->lastname }} </li>
+    	<li> Username: {{ $user->username }} </li>
+       <li> Nombre de usuario: {{ $user->firstname }} </li>
+       <li> Lastname: {{ $user->lastname }} </li>
     </ul>
     <p> {{ link_to('users', 'Volver atrás') }} </p>
 @stop

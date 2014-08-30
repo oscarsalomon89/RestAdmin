@@ -12,18 +12,18 @@
           <table class="table table-striped table-bordered table-hover datatable">
           <thead>
           <tr>
-             <th> Nombre real </th>
+             <th> Username </th>
              <th> Apellido </th>
-             <th> Rol </th>
+             <th> Nombre </th>
              <th> </th>
           </tr>
           </thead>
           <tbody>
           @foreach($users as $item)
              <tr>
-                <td> {{ $item->name }} </td>
+                <td> {{ $item->username }} </td>
                 <td> {{ $item->lastname }} </td>
-                <td> {{ $item->role['name'] }} </td>
+                <td> {{ $item->firstname}} </td>
                 <td> {{ link_to('users/'.$item->id, 'Ver') }} </td>
                 <td> {{ link_to('users/'.$item->id.'/edit', 'Editar',array('class'=>'btn btn-default btn-xs')) }} </td>
                 <td> 
