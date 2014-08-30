@@ -5,7 +5,7 @@
     @if(Session::has('notice'))
        <div class="alert alert-success">{{ Session::get('notice') }}</div>
     @endif
-    <p> {{ link_to ('orders/create', 'Crear nueva orden') }} </p>
+    <p> <a href='orders/create' class="btn btn-primary"><i class="icon-plus"></i> Crear nueva orden</a> </p>
     @if($orders->count())
 <div class="widget-content-white glossed">
     <div class="padded">
@@ -47,7 +47,7 @@
         <input type="submit" value="Eliminar" class="btn btn-primary btn-xs">
         {{ Form::close() }}
         </td>
-        <td><a href='http://localhost/restappadmin/public/index.php/orders/editar/{{$item->id}}' class="btn btn-default btn-xs"><i class="icon-pencil"></i> edit</a></td>
+        <td><a href='orders/editar/{{$item->id}}' class="btn btn-default btn-xs"><i class="icon-pencil"></i> edit</a></td>
              </tr>
           @endforeach
           </tbody>

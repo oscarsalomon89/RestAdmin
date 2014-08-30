@@ -5,7 +5,7 @@
 {{HTML::script('js/delete.js')}}
 @stop
 <h1> Mesas existentes </h1>
-    <p> {{ link_to ('tables/create', 'Crear nueva mesa') }} </p>
+    <p> <a href='tables/create' class="btn btn-primary"><i class="icon-plus"></i> Crear mesa</a> </p>
     @if($tables->count())
 <div class='errors_form'></div>
 <div class="widget-content-white glossed">
@@ -31,9 +31,9 @@
               @else
                 <span class="label label-danger">Ocupada</span>
               @endif</td>
-                <td> {{ link_to('tables/'.$table->id.'/edit', 'Editar') }} </td>
+                <td> <a href='tables/{{$table->id}}/edit' class="btn btn-default btn-xs"><i class="icon-pencil"></i> edit</a></td>
                 <td>
-                <button id="button" value='tables/' onclick="eliminar({{ $table->id }})" class="btn btn-danger btn-xs">Eliminar</button>
+                <button id="button" value='tables/' onclick="eliminar({{ $table->id }})" class="btn btn-danger btn-xs"><i class="icon-remove"></i></button>
                </td>
              </tr>
           @endforeach

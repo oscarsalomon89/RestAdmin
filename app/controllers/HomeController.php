@@ -28,7 +28,7 @@ class HomeController extends BaseController {
    }
   }
 	public function indexAdmin() {
-    $users = User::all(array('id', 'name', 'lastname' ));
+    $users = User::all(array('id', 'firstname', 'lastname' ));
     $orders = Order::all()->count();
     return View::make('inicio',array('users'=> $users, 'orders'=>$orders));
    }

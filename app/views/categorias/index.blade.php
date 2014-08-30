@@ -5,7 +5,7 @@
 {{HTML::script('js/delete.js')}}
 @stop
 <h1> Categorias de menu </h1>
-<a href='categorias/create' class='btn-primary'>Crear nueva categoria</a>
+<p><a href='categorias/create' class="btn btn-primary"><i class="icon-plus"></i> Crear categoria</a></p>
 <div class='errors_form'></div>
     @if($categories->count())
 <div class="widget-content-white glossed">
@@ -23,8 +23,8 @@
              <tr id='fila_{{$category->id}}'>
                 <td> {{ $category->name }} </td>
                 <td> {{ $category->description }} </td>
-                <td> {{ link_to('categorias/'.$category->id.'/edit', 'Editar',array('class'=>'btn btn-default btn-xs')) }} </td>
-                <td> <button id="button" value='categorias/' onclick="eliminar({{ $category->id }})" class="btn btn-danger btn-xs">Eliminar</button> </td>
+                <td> <a href='categorias/{{$category->id}}/edit' class="btn btn-default btn-xs"><i class="icon-pencil"></i> edit</a> </td>
+                <td> <button id="button" value='categorias/' onclick="eliminar({{ $category->id }})" class="btn btn-danger btn-xs"><i class="icon-remove"></i></button> </td>
              </tr>
           @endforeach
           </tbody>

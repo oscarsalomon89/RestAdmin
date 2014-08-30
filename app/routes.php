@@ -44,15 +44,15 @@ Route::get('orders/edit/{id}', 'OrderItemsController@edit');
 Route::post('orders/edit', 'OrderItemsController@store');
 Route::post('orders/edit/{iditem}/{idorder}/{price}', 'OrderItemsController@destroy');
 
-Route::get('items', 'ItemController@index');
-Route::get('items/create', 'ItemController@create');
-Route::post('items/create', 'ItemController@store');
-Route::get('item/create/{id}', 'ItemController@crear');
-Route::post('item/create', 'ItemController@store');
-Route::get('items/{id}/edit', 'ItemController@edit');
-Route::post('items/create/{id}', 'ItemController@update');
-Route::get('items/{id}/delete', 'ItemController@show');
-Route::DELETE('items/{id}', 'ItemController@destroy');
+Route::get('items', 'ItemsController@index');
+Route::get('items/create', 'ItemsController@create');
+Route::post('items/create', 'ItemsController@store');
+Route::get('item/create/{id}', 'ItemsController@crear');
+Route::post('item/create', 'ItemsController@store');
+Route::get('items/{id}/edit', 'ItemsController@edit');
+Route::post('items/create/{id}', 'ItemsController@update');
+Route::get('items/{id}/delete', 'ItemsController@show');
+Route::DELETE('items/{id}', 'ItemsController@destroy');
 
 Route::get('categorias', 'CategoriesController@index');
 Route::get('categorias/create', 'CategoriesController@create');

@@ -91,15 +91,13 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#{{$user->name}}">
-          {{$user->name.', '.$user->lastname}}
+        <a data-toggle="collapse" data-parent="#accordion" href="#{{$user->firstname}}">
+          {{$user->firstname.', '.$user->lastname}}
         </a>
       </h4>
     </div>
-    <div id="{{$user->name}}" class="panel-collapse collapse">
-    @if($user->orders)
-    <div class="alert alert-danger">No existen ordenes</div>
-    @else
+    <div id="{{$user->firstname}}" class="panel-collapse collapse">
+    @if($user->orders()->count())
       <div class="panel-body">
         <div class="widget-content-white glossed">
           <div class="padded">
@@ -113,7 +111,7 @@
           </tr>
           </thead>
         <tbody>
-      @foreach($user->orders() as $order)
+      @foreach($user->orders as $order)
               <tr>
                 <td> {{ $order->created_at }} </td>
                 <td> @if($order->active==true)
@@ -142,6 +140,8 @@
 </div>
 </div>
       </div>
+    @else
+    <div class="alert alert-danger">No existen ordenes</div>
       @endif
     </div>
   </div>
