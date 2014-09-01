@@ -4,7 +4,7 @@
 @section('head')
 {{HTML::script('js/delete.js')}}
 @stop
-<h1> Mesas existentes </h1>
+<h1> MESAS EXISTENTES </h1>
     <p> <a href='tables/create' class="btn btn-primary"><i class="icon-plus"></i> Crear mesa</a> </p>
     @if($tables->count())
 <div class='errors_form'></div>

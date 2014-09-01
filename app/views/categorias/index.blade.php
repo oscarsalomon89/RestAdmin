@@ -4,7 +4,7 @@
 @section('head')
 {{HTML::script('js/delete.js')}}
 @stop
-<h1> Categorias de menu </h1>
+<h1> CATEGORIAS DEL MENU </h1>
 <p><a href='categorias/create' class="btn btn-primary"><i class="icon-plus"></i> Crear categoria</a></p>
 <div class='errors_form'></div>
     @if($categories->count())

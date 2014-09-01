@@ -29,7 +29,7 @@ class OrdersController extends BaseController {
 		$order = new Order();
 		$users = User::all(array('id','firstname','lastname'));
 		$tables = Table::where('taken',false)->get();
-		$title = 'Nueva';
+		$title = 'NUEVA';
 		return View::make('order.save', array('order' => $order, 'users'=> $users,'tables'=>$tables,'title'=>$title)); 
 	}
 
@@ -109,7 +109,7 @@ class OrdersController extends BaseController {
 		$order = Order::find($id);
 		$tables = Table::all(array('id','number', 'taken'));
 		$users = User::all();
-		$title = 'Editar';
+		$title = 'EDITAR';
 		return View::make('order.save', array('order' => $order, 'tables' => $tables, 'users' => $users,'title'=>$title));
 	}
 

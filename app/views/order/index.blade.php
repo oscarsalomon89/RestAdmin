@@ -1,7 +1,8 @@
 @extends('layouts.master')
  
 @section('content')
-<h1> Ordenes </h1>
+
+<h1> ORDENES </h1>
     @if(Session::has('notice'))
        <div class="alert alert-success">{{ Session::get('notice') }}</div>
     @endif
@@ -28,7 +29,7 @@
               @else
                 <span class="label label-danger">Cerrada</span>
               @endif </td>
-                <td> {{$item->user['firstname']}}</td>
+                <td> {{$item->user['firstname'].' '.$item->user['lastname']}}</td>
                 <td> {{$item->table['number']}}</td>
                 <td> {{ link_to('orders/'.$item->id, 'Ver') }} </td>               
                 <td>

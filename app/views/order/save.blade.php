@@ -8,7 +8,7 @@
 <div class="widget">
 <div class="widget-content-white glossed">
 <div class="padded">
-<h1> {{$title}} Orden </h1>
+<h1> {{$title}} ORDEN </h1>
 <div class='errors_form'></div>
 {{ Form::open(array('url' => 'orders/create/' . $order->id, 'id'=>'form')) }}
 <input type="hidden" class="form-control" id= 'link' value='orders'>
@@ -62,8 +62,8 @@
       @endforeach
     </ul>
     </div>
-       {{ Form::submit('Guardar orden',array('class'=>'btn btn-success')) }}
-       {{ link_to('orders', 'Cancelar') }}
+       {{ Form::submit('Guardar orden',array('class'=>'btn btn-primary')) }}
+       <a href="/restappadmin/public/index.php/orders" class="btn btn-default" role="button">Cancelar</a>
     {{ Form::close() }}
   </div>
 </div>

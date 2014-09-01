@@ -1,17 +1,17 @@
 @extends('layouts.master')
  
 @section('content')
-<h1> Items de menu </h1>
+<h1> ITEMS DEL MENU </h1>
 @if(Session::has('notice'))
        <div class="alert alert-success">{{ Session::get('notice') }}</div>
     @endif
-    <p> {{ link_to ('items/create', 'Crear nuevo item') }} </p>
-    @if($categories->count())
+<p> <a href='items/create' class="btn btn-primary"><i class="icon-plus"></i> Crear nuevo item</a> </p>
+<!--    @if($categories->count())
      @foreach($categories as $category)
      {{ link_to ('item/create/'.$category->id, $category->name, array('class'=>'btn btn-danger')) }}
      @endforeach
      <br>
-     <br>
+     <br>-->
 <div class="panel-group" id="accordion">
 @foreach($categories as $category)
   <div class="panel panel-default">
@@ -41,8 +41,8 @@
                 <td> {{ $item->name }} </td>
                 <td> {{ $item->description }} </td>
                 <td> <h4><span class="label label-success">$ {{$item->price}}</span></h4></td>
-                <td> {{ link_to('items/'.$item->id.'/edit', 'Editar',array('class'=>'btn btn-default btn-xs')) }} </td>
-                <td> {{link_to('items/'.$item->id.'/delete', 'Eliminar',array('class'=>'btn btn-danger btn-xs')) }}  </td>
+                <td> <a href='items/{{$item->id}}/edit' class="btn btn-default btn-xs"><i class="icon-pencil"></i> edit</a></td>
+                <td><a href='items/{{$item->id}}/delete' class="btn btn-danger btn-xs"><i class="icon-remove"></i></a></td>
              </tr>
           @endforeach
           </tbody>

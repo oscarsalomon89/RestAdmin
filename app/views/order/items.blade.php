@@ -1,5 +1,5 @@
 <ul>
-  <h3>Items de la orden</h3>
+  <h3>ITEMS DE LA ORDEN</h3>
           <table class="table table-striped table-bordered table-hover datatable">
            <tr>
              <th> Item </th>

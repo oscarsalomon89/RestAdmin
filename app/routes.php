@@ -10,6 +10,7 @@ Route::get('logout', 'AuthController@Logout');
 Route::resource('sessions', 'SessionsController', array('only'=> array('create','destroy','store')));
 Route::get('logout', 'SessionsController@destroy');
 Route::get('login', 'SessionsController@create')->before('guest');
+Route::post('login', 'SessionsController@store');
 
 Route::get('/', 'HomeController@index');
 Route::post('/', 'HomeController@store');

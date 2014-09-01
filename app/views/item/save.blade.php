@@ -9,7 +9,7 @@
   <div class="widget">
      <div class="widget-content-white glossed">
      <div class="padded">
-<h1> Item de Menu </h1>
+<h1> ITEM DE MENU </h1>
 <div class='errors_form'></div>
     {{ Form::open(array('url' => 'items/create/' . $item->id, 'id'=>'form')) }}
     <input type="hidden" class="form-control" id= 'link' value='items'>
@@ -47,8 +47,8 @@
     </ul>
     </div>
 
-       {{ Form::submit('Guardar item',array('class'=>'btn btn-success')) }}
-       {{ link_to('items', 'Cancelar') }}
+       {{ Form::submit('Guardar item',array('class'=>'btn btn-primary')) }}
+       <a href="/restappadmin/public/index.php/items" class="btn btn-default" role="button">Cancelar</a>
     {{ Form::close() }}
 </div>
 </div>

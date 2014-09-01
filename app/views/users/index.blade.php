@@ -1,11 +1,11 @@
 @extends('layouts.master')
  
 @section('content')
-<h1> Usuarios </h1>
+<h1> USUARIOS </h1>
     @if(Session::has('notice'))
        <p> <strong> {{ Session::get('notice') }} </strong> </p>
     @endif
-    <p> {{ link_to ('users/create', 'Crear nuevo usuario') }} </p>
+    <p><a href='users/create' class="btn btn-primary"><i class="icon-plus"></i> Crear nuevo usuario</a></p>
     @if($users->count())
 <div class="widget-content-white glossed">
     <div class="padded">
@@ -25,7 +25,7 @@
                 <td> {{ $item->lastname }} </td>
                 <td> {{ $item->firstname}} </td>
                 <td> {{ link_to('users/'.$item->id, 'Ver') }} </td>
-                <td> {{ link_to('users/'.$item->id.'/edit', 'Editar',array('class'=>'btn btn-default btn-xs')) }} </td>
+                <td><a href='users/{{$item->id}}/edit' class="btn btn-default btn-xs"><i class="icon-pencil"></i> edit</a> </td>
                 <td> 
   			{{ Form::open(array('url' => 'users/'.$item->id)) }}
      		 {{ Form::hidden("_method", "DELETE") }}

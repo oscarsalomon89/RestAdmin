@@ -28,9 +28,13 @@ class SessionsController extends BaseController {
 		));
 
 		if($attempt){
-			return Auth::User();
+			return Response::json(array(
+			'success' => true,
+        ));
 		}else{
-			return null;
+			return Response::json(array(
+			'success'     =>  false,
+        ));
 		}
 
 		//return Response::json(array('action'=>'login', 'status' => 'faliure'));
