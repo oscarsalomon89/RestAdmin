@@ -27,6 +27,8 @@ Route::post('users/create/{id}', 'UsersController@update');
 //Route::resource('users', 'UsersController');
 
 Route::get('cocina','CocinaController@index');
+Route::get('listOrders', 'CocinaController@items');
+Route::post('listOrders/{cant}', 'CocinaController@itemsOrders');
 
 Route::get('orders','OrdersController@index');
 Route::get('orders/create', 'OrdersController@create');

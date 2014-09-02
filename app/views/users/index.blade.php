@@ -1,10 +1,10 @@
 @extends('layouts.master')
- 
+
 @section('content')
 <h1> USUARIOS </h1>
-    @if(Session::has('notice'))
-       <p> <strong> {{ Session::get('notice') }} </strong> </p>
-    @endif
+  @if(Session::has('notice'))
+  <p> <strong> {{ Session::get('notice') }} </strong> </p>
+  @endif
     <p><a href='users/create' class="btn btn-primary"><i class="icon-plus"></i> Crear nuevo usuario</a></p>
     @if($users->count())
 <div class="widget-content-white glossed">
