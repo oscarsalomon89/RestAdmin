@@ -1,6 +1,7 @@
 @extends('layouts.master')
  
 @section('content')
+<link rel="stylesheet" href="chosen.css">
 <div class="widget">
 <div class="widget-content-white glossed">
   <div class="padded">

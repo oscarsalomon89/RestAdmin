@@ -1,5 +1,6 @@
 @if($quantOrders)
 <input type="hidden" id= 'quantity' value='{{$quantOrders}}'>
+<input type="hidden" id= 'quantitems' value='{{$quantItems}}'>
     <div class="padded">
         <div class="row">
         @foreach($orders as $order)
@@ -60,9 +61,10 @@
     @endif
 <script type="text/javascript">
 var cantOrders = $("#quantity").val();
+var cantItems = $("#quantitems").val();
 setInterval(
   function(){
-$.post('listOrders/' + cantOrders, 
+$.post('listOrders/' + cantOrders + '/'+cantItems, 
             function(data){
                 if (data.success == true){
                     var mensaje = 'Nueva orden';
@@ -73,6 +75,7 @@ $.post('listOrders/' + cantOrders,
                 else{
                   $('.errors_form').removeClass( "alert alert-danger error" );
                   $('.errors_form').html('');
+                  //$("#tableOrders").load('listOrders');
                 }
             });  
   },

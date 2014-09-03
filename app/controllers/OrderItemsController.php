@@ -7,7 +7,7 @@ class OrderItemsController extends BaseController {
 	 *
 	 * @return Response
 	 */
-    public function index($id) {
+    public function items($id) {
      $order = Order::find($id);
      return View::make('order.items', array('order' => $order));
      }
@@ -74,7 +74,8 @@ class OrderItemsController extends BaseController {
       $item = ItemOrder::find($iditem);      
       $item->delete();
          return Response::json(array(
-            'success'     =>  true
+            'success'     =>  true,
+            $item
         ));
      }
 }

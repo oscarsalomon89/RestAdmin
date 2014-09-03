@@ -10,7 +10,6 @@
 $(document).ready(function ()
 {
 $("#tableOrders").load('listOrders');
-
 });
 </script>
 @stop

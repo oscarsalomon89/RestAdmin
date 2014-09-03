@@ -28,21 +28,21 @@ Route::post('users/create/{id}', 'UsersController@update');
 
 Route::get('cocina','CocinaController@index');
 Route::get('listOrders', 'CocinaController@items');
-Route::post('listOrders/{cant}', 'CocinaController@itemsOrders');
+Route::post('listOrders/{cant}/{items}', 'CocinaController@itemsOrders');
 
 Route::get('orders','OrdersController@index');
 Route::get('orders/create', 'OrdersController@create');
 Route::post('orders/create', 'OrdersController@store');
 Route::get('orders/editar/{id}', 'OrdersController@edit');
 Route::post('orders/create/{id}', 'OrdersController@update');
-Route::get('orders/edit/list/{id}', 'OrderItemsController@index');
 Route::get('orders/cobrar/{id}', 'OrdersController@cobrar');
 Route::post('orders/cobrar/{id}', 'OrdersController@save');
 Route::get('orders/{id}', 'OrdersController@show');
 Route::DELETE('orders/{id}', 'OrdersController@destroy');
 
-Route::get('list/{id}', 'OrderItemsController@index');
-Route::get('orders/list/{id}', 'OrderItemsController@index');
+Route::get('orders/edit/list/{id}', 'OrderItemsController@items');
+Route::get('list/{id}', 'OrderItemsController@items');
+Route::get('orders/list/{id}', 'OrderItemsController@items');
 Route::get('orders/edit/{id}', 'OrderItemsController@edit');
 Route::post('orders/edit', 'OrderItemsController@store');
 Route::post('orders/edit/{iditem}/{idorder}/{price}', 'OrderItemsController@destroy');
