@@ -17,7 +17,7 @@
                 <td> $ {{$item->pivot->price * $item->pivot->quantity}}</td>
                 <td> <a href='http://localhost/restappadmin/public/index.php/orders/editar/{{$item->id}}' class="btn btn-default btn-xs"><i class="icon-pencil"></i> edit</a></td>
               <td>
-                <button id="button" onclick="eliminar({{ $item->pivot->id }}, {{ $order->id }}, {{$item->pivot->price * $item->pivot->quantity}})" class="btn btn-danger btn-xs"><i class="icon-remove"></i></button>
+                <button id="button" onclick="eliminar({{ $item->pivot->id }}, {{ $order->id }})" class="btn btn-danger btn-xs"><i class="icon-remove"></i></button>
               </td>
           </tr>
       @endforeach
@@ -27,9 +27,9 @@
         </table>
     </ul>
 <script type="text/javascript">
-function eliminar(iditem, idorder, price){          
+function eliminar(iditem, idorder){          
 
-$.post(iditem+'/'+idorder+'/'+price, 
+$.post(iditem, 
             function(data){
                 if (data.success != true){
                   alert('Error');

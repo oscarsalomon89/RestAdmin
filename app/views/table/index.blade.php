@@ -1,10 +1,13 @@
 @extends('layouts.master')
  
 @section('content')
-@section('head')
-{{HTML::script('js/delete.js')}}
-@stop
 <h1> MESAS EXISTENTES </h1>
+@if(Session::has('notice'))
+<div class="alert alert-danger fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+      <h4>{{ Session::get('notice') }}</h4>
+    </div>
+    @endif
     <p> <a href='tables/create' class="btn btn-primary"><i class="icon-plus"></i> Crear mesa</a> </p>
     @if($tables->count())
 <div class='errors_form'></div>
@@ -32,9 +35,7 @@
                 <span class="label label-danger">Ocupada</span>
               @endif</td>
                 <td> <a href='tables/{{$table->id}}/edit' class="btn btn-default btn-xs"><i class="icon-pencil"></i> edit</a></td>
-                <td>
-                <button id="button" value='tables/' onclick="eliminar({{ $table->id }})" class="btn btn-danger btn-xs"><i class="icon-remove"></i></button>
-               </td>
+                <td><a href='tables/{{$table->id}}/delete' class="btn btn-danger btn-xs"><i class="icon-remove"></i></a></td>
              </tr>
           @endforeach
           </tbody>

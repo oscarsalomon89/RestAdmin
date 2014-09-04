@@ -1,7 +1,6 @@
 @extends('layouts.master')
  
 @section('content')
-<link rel="stylesheet" href="chosen.css">
 <div class="widget">
 <div class="widget-content-white glossed">
   <div class="padded">
@@ -82,7 +81,7 @@ form.on('submit', function () {
                     }else{
                         $(form)[0].reset();//limpiamos el formulario
                         $('#message').removeClass("alert alert-danger");
-                          mensaje = data.message;
+                        mensaje = data.message;
                         $('#message').addClass("alert alert-success");
                         $('#message').html(mensaje);
                         $("#tabla").load('list/'+id);

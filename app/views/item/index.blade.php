@@ -3,7 +3,10 @@
 @section('content')
 <h1> ITEMS DEL MENU </h1>
 @if(Session::has('notice'))
-       <div class="alert alert-success">{{ Session::get('notice') }}</div>
+<div class="alert alert-danger fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+      <h4>{{ Session::get('notice') }}</h4>
+    </div>
     @endif
 <p> <a href='items/create' class="btn btn-primary"><i class="icon-plus"></i> Crear nuevo item</a> </p>
 <!--    @if($categories->count())

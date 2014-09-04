@@ -75,7 +75,6 @@ class OrdersController extends BaseController {
 
 			return Response::json(array(
 					'success' => false,
-					'order' => $order,
 					'errors' => 'Table is taken'
 			));	
 		}
@@ -162,7 +161,13 @@ class OrdersController extends BaseController {
 
 			$order->push();
 
-			return Redirect::to('orders')->with('notice', 'La Orden ha sido eliminada correctamente.');
+			if(Request::wantsJson())
+			{
+				return Response::json($order);
+			}
+			else{
+				return Redirect::to('orders')->with('notice', 'La Orden ha sido eliminada correctamente.');
+			}
 
 		}else{
 

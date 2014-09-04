@@ -1,10 +1,13 @@
 @extends('layouts.master')
  
 @section('content')
-@section('head')
-{{HTML::script('js/delete.js')}}
-@stop
 <h1> CATEGORIAS DEL MENU </h1>
+@if(Session::has('notice'))
+<div class="alert alert-danger fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+      <h4>{{ Session::get('notice') }}</h4>
+    </div>
+    @endif
 <p><a href='categorias/create' class="btn btn-primary"><i class="icon-plus"></i> Crear categoria</a></p>
 <div class='errors_form'></div>
     @if($categories->count())
@@ -24,7 +27,7 @@
                 <td> {{ $category->name }} </td>
                 <td> {{ $category->description }} </td>
                 <td> <a href='categorias/{{$category->id}}/edit' class="btn btn-default btn-xs"><i class="icon-pencil"></i> edit</a> </td>
-                <td> <button id="button" value='categorias/' onclick="eliminar({{ $category->id }})" class="btn btn-danger btn-xs"><i class="icon-remove"></i></button> </td>
+                <td><a href='categorias/{{$category->id}}/delete' class="btn btn-danger btn-xs"><i class="icon-remove"></i></a></td>
              </tr>
           @endforeach
           </tbody>

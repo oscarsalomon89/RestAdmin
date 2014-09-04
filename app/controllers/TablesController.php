@@ -18,7 +18,22 @@ class TablesController extends BaseController {
 		}
 	}
 
-
+	/**
+	* Display the specified resource.
+	*
+	* @param  int  $id
+	* @return Response
+	*/
+	public function delete($id)
+	{
+		$table = Table::find($id);
+		if (Request::wantsJson())
+		{
+			return Response::json($table);
+		}else{
+			return View::make('table.delete', array('table' => $table));
+		}
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -126,12 +141,20 @@ class TablesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
+
 	public function destroy($id)
+	{
+		//TODO: WILL BE UPDATED
+		$table = Table::find($id);
+		$table->delete();
+		return Redirect::to('tables')->with('notice', 'La mesa ha sido eliminada correctamente.');
+	}
+/*	public function destroy($id)
 	{
 		$table = Table::find($id);
 		$table->delete();
 		return Response::json(array(
 			'success' => true
 		));
-	}
+	}*/
 }
