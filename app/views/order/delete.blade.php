@@ -6,18 +6,22 @@
   <div class="widget">
      <div class="widget-content-white glossed">
      <div class="padded">
-<h2> Esta seguro que quiere eliminar este item? </h2>
+<h2> Esta seguro que quiere eliminar esta Orden? </h2>
     <ul>
-       <li> Nombre: {{ $order->active }} </li>
-       <li> Descripcion: {{ $item->description }} </li>
-       <li> Precio: {{ $item->price }} </li>
-       <li> Categoria: {{ $item->category['name'] }} </li>
+       <li> Mozo: {{$order->user['firstname']}} {{$order->user['lastname']}}</li>
+       <li> Mesa Nro: {{$order->table['number']}} </li>
+       <li> Estado: 
+        @if($order->active==true)
+          <span class="label label-success">Abierta</span>
+        @else
+           <span class="label label-danger">Cerrada</span>
+        @endif </li>
     </ul>
-    <p>   {{ Form::open(array('url' => 'items/'.$item->id)) }}
+    <p>   {{ Form::open(array('url' => 'orders/'.$order->id)) }}
       {{ Form::hidden("_method", "DELETE") }}
-      {{ Form::submit("Eliminar",array('class'=>'btn btn-success')) }}
+      {{ Form::submit("Eliminar",array('class'=>'btn btn-danger')) }}
    {{ Form::close() }}</p>
-    <p> {{ link_to('items', 'Volver atrás') }} </p>
+    <p> {{ link_to('orders', 'Volver atrás') }} </p>
 </div>
 </div>
 </div>

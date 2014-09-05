@@ -38,6 +38,7 @@ Route::post('orders/create/{id}', 'OrdersController@update');
 Route::get('orders/cobrar/{id}', 'OrdersController@cobrar');
 Route::post('orders/cobrar/{id}', 'OrdersController@save');
 Route::get('orders/{id}', 'OrdersController@show');
+Route::get('orders/{id}/delete', 'OrdersController@delete');
 Route::DELETE('orders/{id}', 'OrdersController@destroy');
 
 Route::get('orders/edit/list/{id}', 'OrderItemsController@items');

@@ -68,11 +68,11 @@ class OrdersController extends BaseController {
 
 			return Response::json(array(
 			'success'     =>  true,
+			'message' => 'Se agrego la orden correctamente',
 			'idorder' => $order->id
 			));
 
 		}else{
-
 			return Response::json(array(
 					'success' => false,
 					'errors' => 'Table is taken'
@@ -144,7 +144,22 @@ class OrdersController extends BaseController {
 			));
 		}
 	}
-
+	/**
+	* Display the specified resource.
+	*
+	* @param  int  $id
+	* @return Response
+	*/
+	public function delete($id)
+	{
+		$order = Order::find($id);
+		if (Request::wantsJson())
+		{
+			return Response::json($order);
+		}else{
+			return View::make('order.delete', array('order' => $order));
+		}
+	}
 	/**
 	 * Remove the specified resource from storage.
 	 *

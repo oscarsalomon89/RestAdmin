@@ -4,7 +4,10 @@
 
 <h1> ORDENES </h1>
     @if(Session::has('notice'))
-       <div class="alert alert-success">{{ Session::get('notice') }}</div>
+<div class="alert alert-danger fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+      <h4>{{ Session::get('notice') }}</h4>
+    </div>
     @endif
     <p> <a href='orders/create' class="btn btn-primary"><i class="icon-plus"></i> Crear nueva orden</a> </p>
     @if($orders->count())
@@ -29,7 +32,7 @@
               @else
                 <span class="label label-danger">Cerrada</span>
               @endif </td>
-                <td> {{$item->user['firstname'].' '.$item->user['lastname']}}</td>
+                <td> {{$item->user['firstname']}} {{$item->user['lastname']}}</td>
                 <td> {{$item->table['number']}}</td>
                 <td> {{ link_to('orders/'.$item->id, 'Ver') }} </td>               
                 <td>
@@ -43,10 +46,7 @@
         @endif
                 </td>
         <td> 
-        {{ Form::open(array('url' => 'orders/'.$item->id)) }}
-         {{ Form::hidden("_method", "DELETE") }}
-        <input type="submit" value="Eliminar" class="btn btn-primary btn-xs">
-        {{ Form::close() }}
+<td><a href='orders/{{$item->id}}/delete' class="btn btn-danger btn-xs"><i class="icon-remove"></i></a></td>
         </td>
         <td><a href='orders/editar/{{$item->id}}' class="btn btn-default btn-xs"><i class="icon-pencil"></i> edit</a></td>
              </tr>
