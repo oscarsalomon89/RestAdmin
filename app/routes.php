@@ -29,6 +29,7 @@ Route::post('users/create/{id}', ['before' => 'auth', 'uses' =>'UsersController@
 Route::get('cocina','CocinaController@index');
 Route::get('listOrders', 'CocinaController@items');
 Route::post('listOrders/{cant}/{items}', 'CocinaController@itemsOrders');
+Route::post('orders/view/{id}', 'CocinaController@orderview');
 
 Route::get('orders','OrdersController@index');
 Route::get('orders/create', 'OrdersController@create');

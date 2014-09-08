@@ -5,12 +5,13 @@
         <div class="row">
         @foreach($orders as $order)
         <div class="col-lg-6">
-        @if($order->active == true)
+        @if($order->ready == true)
             <div class="panel panel-success">
             <span class="label label-success pull-right">Mozo: {{$order->user['firstname'].' '.$order->user['lastname']}}</span>
         @else
             <div class="panel panel-danger">
               <span class="badge pull-right alert-animated">Mozo: {{$order->user['firstname'].' '.$order->user['lastname']}}</span>
+              <button id='check' value="{{$order->id}}" type="button" class="btn btn-primary pull-right">Vista </button>
         @endif
               <div class="panel-heading">
                 <div class="row">
@@ -67,9 +68,8 @@ setInterval(
 $.post('listOrders/' + cantOrders + '/'+cantItems, 
             function(data){
                 if (data.success == true){
-                    var mensaje = 'Nueva orden';
                     $('.errors_form').addClass( "alert alert-danger error" );
-                    $('.errors_form').html(mensaje);
+                    $('.errors_form').html(data.message);
                     $("#tableOrders").load('listOrders');
                 }
                 else{
@@ -80,4 +80,17 @@ $.post('listOrders/' + cantOrders + '/'+cantItems,
             });  
   },
 5000);
+$("#check").click(function (){          
+
+var id = $( "#check" ).val();
+$.post("orders/view/"+id, 
+            function(data){
+                if (data.success != true){
+                  alert('Error');
+                }else{
+                    // si la respuesta fue exitosa entonces eliminamos la fila de la tabla 
+                    $("#tableOrders").load('listOrders');
+                }
+            });                         
+});
 </script>
