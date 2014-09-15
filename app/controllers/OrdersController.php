@@ -125,8 +125,8 @@ class OrdersController extends BaseController {
 		$validator = Order::validate($input, $order->id);
 		if ($validator->fails()){
 			return Response::json(array(
-			'success' => false,
-			'errors' => $validator->getMessageBag()->toArray()
+				'success' => false,
+				'errors' => $validator->getMessageBag()->toArray()
 			));
 		}else{        
 			$table = Table::find($order->table_id);

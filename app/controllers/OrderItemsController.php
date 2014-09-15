@@ -38,26 +38,34 @@ class OrderItemsController extends BaseController {
 			$total = $item->price * $quantity;
 			//TODO: Deberiamos checkear si la orden existe y está activa.
 			$order = Order::find($input['order_id']);
-			$order->total += $total;
-			$order->save();
 
-			$orderItem = new ItemOrder();
-			$orderItem->item_id = $item->id;
-			$orderItem->order_id = $order->id;
-			$orderItem->quantity = $quantity;
-			$orderItem->price = $item->price;
-			$orderItem->save();
+			if($order){
+				$order->total += $total;
+				$order->save();
 
-			return Response::json(array(
-				'success'     =>  true,
-				'message'     =>  'Se agrego el item correctamente',
-				'id' => $orderItem->id
-			));
+				$orderItem = new ItemOrder();
+				$orderItem->item_id = $item->id;
+				$orderItem->order_id = $order->id;
+				$orderItem->quantity = $quantity;
+				$orderItem->price = $item->price;
+				$orderItem->save();
+
+				return Response::json(array(
+					'success'     =>  true,
+					'message'     =>  'Se agrego el item correctamente',
+					'id' => $orderItem->id
+				));
+			}else{
+				return Response::json(array(
+				'success' => false,
+				'message' => 'La orden especificada no existe'
+				));
+			}
 		}
 		else {
 			return Response::json(array(
 				'success' => false,
-				'errors' => $validator->getMessageBag()->toArray()
+				'message' => $validator->getMessageBag()->toArray()
 			));
 		}
 	}
@@ -78,7 +86,7 @@ class OrderItemsController extends BaseController {
 				$order->save();
 				$orderItem->delete();
 				
-				return Response::json(array('success' => true, 'order_item' => $orderItem));
+				return Response::json(array('success' => true, 'id' => $orderItem->id));
 
 			}else{
 				return Response::json(array('success' => false, 'message' => "Order not found"));

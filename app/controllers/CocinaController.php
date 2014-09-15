@@ -41,10 +41,16 @@ public function itemsOrders($cant, $items){
 			'message' => 'Se ha eliminado una orden'
 		));
 	}
-	if ($quantItems!=$items) {
+	if ($quantItems>$items) {
 		return Response::json(array(
 			'success' => true,
 			'message' => 'Se ha agregado un item a una orden'
+		));
+	}
+	if ($quantItems<$items) {
+		return Response::json(array(
+			'success' => true,
+			'message' => 'Se ha eliminado un item a una orden'
 		));
 	}
 		return Response::json(array(

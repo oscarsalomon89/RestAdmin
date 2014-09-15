@@ -10,10 +10,17 @@ public function index() {
    }
 
  public function barrasChart(){
+/*
+SELECT Month(o.created_at) as MES, sum(o.total) as TOTAL FROM restappdb.orders o
+group by Month(o.created_at);
 
- 	$items = DB::table('orders')
+$items = DB::select('SELECT Month(created_at) as fecha, SUM(total) as total FROM orders
+group by Month(created_at)');
+*/
+
+	$items = DB::table('orders')
 	->select('created_at AS fecha', DB::raw('SUM(total) AS total'))
- 	->groupBy('created_at')
+ 	->groupBy('orders.created_at')
  	->get();
  	return Response::json($items);
  }

@@ -1,6 +1,14 @@
 @extends('layouts.master')
  
 @section('content')
+@section('head')
+{{HTML::script('js/chosen.jquery.js')}}
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".chosen-select").chosen({no_results_text:'No hay resultados para '});
+});
+</script>
+@stop
 <div class="widget">
 <div class="widget-content-white glossed">
   <div class="padded">
@@ -22,7 +30,7 @@
   {{ Form::open(array('url' => 'orders/edit', 'id' => 'formulario_busqueda')) }}
   <input type="hidden" class="form-control" id= 'order_id' name="order_id" value='{{$order->id}}'>
   <div class="col-lg-6">
-  <select class="form-control" id="item_id" name="item_id">
+    <select class="chosen-select" id="item_id" name="item_id" data-placeholder="Seleccione El item">
     <option value=""></option>
     @foreach($categories as $category)
     <optgroup label="{{$category->name}}">
@@ -34,7 +42,7 @@
   </select>
   </div>
     <div class="col-lg-3">
-        <input class="form-control" placeholder="cantidad" autocomplete="of" name="quantity" type="text" id="quantity">
+   <input class="form-control" style="margin-top: 6px; height:36px;" placeholder="cantidad" autocomplete="of" name="quantity" type="text" id="quantity">
   </div>
   <div class="col-lg-3">
   {{ Form::submit('Agregar',array('class'=>'btn btn-primary')) }}
@@ -73,8 +81,8 @@ form.on('submit', function () {
                   {
                   if(data.success == false){
                         var errores = '';
-                        for(datos in data.errors){
-                            errores +=  data.errors[datos]+'<br>';
+                        for(datos in data.message){
+                            errores +=  data.message[datos]+'<br>';
                         }
                         $('#message').addClass("alert alert-danger");
                         $('#message').html(errores);

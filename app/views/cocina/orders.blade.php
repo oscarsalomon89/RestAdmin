@@ -25,7 +25,7 @@
                 </div>
               </div>              
                 <div class="panel-footer announcement-bottom" style="height:300px;">
-                  <button type="button" class="btn btn-primary pull-right">Enviar <i class="fa fa-arrow-circle-right"></i></button>
+                  <button id= 'enviar' onclick="send({{$order->id}})" type="button" class="btn btn-primary pull-right">Enviar <i class="fa fa-arrow-circle-right"></i></button>
                   <h3>Items de la orden</h3>
           <table class="table table-striped table-bordered table-hover datatable">
            <tr>
@@ -33,14 +33,20 @@
              <th> Descripcion </th>
              <th> Cantidad </th>
           </tr>
+        <div id="form">
        @foreach($order->items as $item)
-            <tr>
+        <tr>
                 <td> {{ $item->name }} </td>
                 <td> {{ $item->description }} </td>
                 <td> {{ $item->pivot->quantity }} </td>
-                <td> <div class="checkbox"><input type="checkbox"></div></td>
+                @if($item->pivot->view == false)
+                <td> <div class="checkbox">{{ Form::checkbox('view['.$item->pivot->id.']', $item->pivot->id) }}</div></td>
+                @else
+                <td> <div class="checkbox">{{ Form::checkbox('view['.$item->pivot->id.']', $item->pivot->id, true) }}</div></td>
+                @endif
           </tr>
       @endforeach
+    </div>
         </table>
  <!--<ul class="pagination pagination-sm pull-right">
       <li class="disabled"><a href="#">«</a></li>
@@ -93,4 +99,40 @@ $.post("orders/view/"+id,
                 }
             });                         
 });
+
+/*$('#enviar').click(function() {
+var selected = ''; 
+$('#form input[type=checkbox]').each(function(){
+            if (this.checked) {
+                selected += $(this).val()+', ';
+            }
+        }); 
+     if (selected != '') 
+            alert('Has seleccionado: '+selected);  
+        else
+            alert('Debes seleccionar al menos una opción.');
+
+        return false;
+});*/
+function send(orderid){          
+$(":checkbox[name=view]").each(function(){
+if (this.checked)
+{
+alert($(this).val());
+}
+})
+/*
+$.post(orderid, 
+            function(data){
+                if (data.success != true){
+                  alert('Error');
+                }else{
+                    // si la respuesta fue exitosa entonces eliminamos la fila de la tabla 
+                    var mensaje = 'El item se elimino correctamente';
+                    $('#message').addClass("alert alert-danger");
+                    $('#message').html(mensaje);
+                    $("#tabla").load('list/'+idorder);
+                }
+            });    */   
+}
 </script>
