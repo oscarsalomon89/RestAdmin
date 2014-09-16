@@ -2,9 +2,12 @@
 
 @section('content')
 @if(Session::has('notice'))
-    <div class="alert alert-success" id='del'>{{ Session::get('notice') }}</div>
+<div class="alert alert-danger fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+      <h4>{{ Session::get('notice') }}</h4>
+    </div>
     @endif
-<h1> Reservas </h1>
+<h1> RESERVAS </h1>
 <p> {{ link_to ('reservas/create', 'Crear nueva Reserva') }} </p>
 <div class='errors_form'></div>
 <div class="widget-content-white glossed">
@@ -24,10 +27,7 @@
                 <td> {{ $reserva->name }} </td>
                 <td> {{ $reserva->cantpersons }} </td>
                 <td> <a href = 'reservas/{{$reserva->id}}/edit' class="btn btn-default btn-xs">Editar</a> </td>
-                <td> {{ Form::open(array('url' => 'reservas', 'id' => 'formulario_delete')) }}
-        <input type="hidden" id= 'reserva_id' name="reserva_id" value='{{$reserva->id}}'>
-        {{ Form::submit('Eliminar', array('class' => 'btn btn-primary btn-xs')) }}       
-        {{ Form::close() }} </td>
+                <td><a href='reservas/{{$reserva->id}}/delete' class="btn btn-danger btn-xs"><i class="icon-remove"></i></a></td>
              </tr>
           @endforeach
           </tbody>

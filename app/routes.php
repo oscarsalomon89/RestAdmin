@@ -1,16 +1,19 @@
 <?php
-// Nos mostrará el formulario de login.
-/*Route::get('login', 'AuthController@showLogin');
-// Validamos los datos de inicio de sesión.
-Route::post('login', 'AuthController@postLogin');
-Route::group(array('before' => 'auth'), function()
-{
-Route::get('logout', 'AuthController@Logout');
-});*/
+
 Route::resource('sessions', 'SessionsController', array('only'=> array('create','destroy','store')));
 Route::get('logout', 'SessionsController@destroy');
 Route::get('login', 'SessionsController@create')->before('guest');
 Route::post('login', 'SessionsController@store');
+
+
+Route::group(array('before' => 'auth'), function()
+{
+Route::get('users', 'UsersController@index');
+Route::get('users/create', 'UsersController@create');
+Route::post('users/create', 'UsersController@store');
+Route::get('users/{id}/edit', 'UsersController@edit');
+Route::post('users/create/{id}', 'UsersController@update');
+//Route::resource('users', 'UsersController');
 
 Route::get('/', 'HomeController@index');
 Route::post('/', 'HomeController@store');
@@ -18,13 +21,6 @@ Route::post('/', 'HomeController@store');
 Route::get('admin', 'HomeController@indexAdmin');
 Route::get('admin/cargagraficos', 'StatisticsController@index');
 Route::get('admin/colum', 'StatisticsController@barrasChart');
-
-Route::get('users',['before' => 'auth', 'uses' =>'UsersController@index']);
-Route::get('users/create', ['before' => 'auth', 'uses' =>'UsersController@create']);
-Route::post('users/create', ['before' => 'auth', 'uses' =>'UsersController@store']);
-Route::get('users/{id}/edit', ['before' => 'auth', 'uses' =>'UsersController@edit']);
-Route::post('users/create/{id}', ['before' => 'auth', 'uses' =>'UsersController@update']);
-//Route::resource('users', 'UsersController');
 
 Route::get('cocina','CocinaController@index');
 Route::get('listOrders', 'CocinaController@items');
@@ -82,5 +78,7 @@ Route::get('reservas/create', 'ReservaController@create');
 Route::post('reservas/create', 'ReservaController@store');
 Route::get('reservas/{id}/edit', 'ReservaController@edit');
 Route::post('reservas/create/{id}', 'ReservaController@update');
-//Route::DELETE('reservas/{id}', 'ReservaController@destroy');
-Route::get('listres', 'ReservaController@lista');
+Route::get('reservas/{id}/delete', 'ReservaController@delete');
+Route::DELETE('reservas/{id}', 'ReservaController@destroy');
+});
+

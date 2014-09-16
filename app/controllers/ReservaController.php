@@ -60,9 +60,21 @@
         ));
    }
    }
- public function destroy() { 
-   $reserva = Reserva::find(Input::get('reserva_id'));
+
+  public function delete($id)
+  {
+    $reserva = Reserva::find($id);
+    if (Request::wantsJson())
+    {
+      return Response::json($reserva);
+    }else{
+      return View::make('reservas.delete', array('reserva' => $reserva));
+    }
+  }
+
+ public function destroy($id) { 
+   $reserva = Reserva::find($id);
    $reserva->delete();
-return Redirect::to('reservas')->with('notice', 'el item ha sido eliminado correctamente.');
+return Redirect::to('reservas')->with('notice', 'La reserva fue eliminada correctamente.');
    }
 }

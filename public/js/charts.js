@@ -5,12 +5,12 @@ function drawChart() {
 
 $.getJSON("/restappadmin/public/index.php/admin/colum", function (datos) {
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Meses');
+        data.addColumn('number', 'Meses');
         data.addColumn('number', 'Total');
           
           $.each(datos, function(id, item){
           data.addRows([
-            [item.fecha, parseInt(item.total)],
+            [item.fecha, item.total],
             ])
           })
 
@@ -36,7 +36,7 @@ $.getJSON("/restappadmin/public/index.php/admin/cargagraficos", function (datos)
     })
 
     var donutoptions = {
-          title: 'Distribución de ingresos por clientes',
+          title: 'Porcentaje de productos vendidos',
           is3D: true
         };
 
