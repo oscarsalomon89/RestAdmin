@@ -118,8 +118,7 @@ return array(
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
-		'Illuminate\Workbench\WorkbenchServiceProvider',
-		'Codesleeve\Social\SocialServiceProvider'
+		'Illuminate\Workbench\WorkbenchServiceProvider'
 	),
 
 	/*
@@ -184,8 +183,7 @@ return array(
 		'Str'             => 'Illuminate\Support\Str',
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
-		'View'            => 'Illuminate\Support\Facades\View',
-		'Social' => 'Codesleeve\Social\Social',
+		'View'            => 'Illuminate\Support\Facades\View'
 
 	),
 

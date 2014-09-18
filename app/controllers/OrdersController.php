@@ -192,4 +192,25 @@ class OrdersController extends BaseController {
 			));	
 		}
 	}
+
+public function mesas()
+	{
+	$coord = Coord::find('9');
+	//$orders = Order::where('active', true)->get();
+	return View::make('order.mesas', array('coord' => $coord));
+	}
+
+public function savepos($left, $top)
+	{
+	$coord = Coord::find('9');
+	$coord->table_id ="8";
+	$coord->x_pos = $left;
+	$coord->y_pos = $top;
+	$coord->save();
+
+	return Response::json(array(
+	'success' => true,
+	'message' => 'cambio pos'
+	));	
+	}
 }
