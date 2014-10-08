@@ -91,12 +91,12 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#{{$user->firstname}}">
-          {{$user->firstname.', '.$user->lastname}}
+        <a data-toggle="collapse" data-parent="#accordion" href="#{{$user->name}}">
+          {{$user->name.', '.$user->lastname}}
         </a>
       </h4>
     </div>
-    <div id="{{$user->firstname}}" class="panel-collapse collapse">
+    <div id="{{$user->name}}" class="panel-collapse collapse">
     @if($user->orders()->count())
       <div class="panel-body">
         <div class="widget-content-white glossed">

@@ -28,7 +28,8 @@ Route::post('listOrders/{cant}/{items}', 'CocinaController@itemsOrders');
 Route::post('orders/view/{id}', 'CocinaController@orderview');
 
 Route::get('orders/mesas', 'OrdersController@mesas');
-Route::post('orders/savepos/{left}/{top}', 'OrdersController@savepos');
+Route::get('orders/edit', 'OrdersController@editar');
+Route::post('orders/savepos/{left}/{top}/{id}', 'OrdersController@savepos');
 Route::get('orders','OrdersController@index');
 Route::get('orders/create', 'OrdersController@create');
 Route::post('orders/create', 'OrdersController@store');

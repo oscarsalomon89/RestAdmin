@@ -5,9 +5,6 @@ public function orders(){
    return $this->hasMany('Order');
 }
 
-public function coord(){
-      return $this->hasOne('Coord', 'coord_id');
-   }
 
 //VALIDACIONES
     public static $rules = array(

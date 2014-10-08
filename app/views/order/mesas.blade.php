@@ -4,34 +4,41 @@
 @section('head')
   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
   <style>
-  #draggable { 	height:115px;
-	padding:10px 10px 10px 10px;
-	width:115px;cursor:move;}
-  #containment { 
-	border:1px solid #000;
-	height:400px;
-	margin: 0px auto auto auto;
-	position:relative;
-	width:800px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;}
-  h3 { clear: left; }
-  </style>
+  .draggable
+  { 	
+  height:10px;
+  width:10px;
+  position: absolute;
+  cursor:move;
+}
+
+  #containment-wrapper { 
+  border:1px solid #000;
+  height:700px;
+  position:relative;
+  width:800px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
   </style>
 @stop
-<div id="containment">
-<div id="draggable" style="left:{{$coord->x_pos}}px; top:{{$coord->y_pos}}px;" class="ui-widget-content">
+<div id="containment-wrapper">
+@foreach($coords as $coord)
+<div id="draggable{{$coord->id}}" value="{{$coord->id}}" class="draggable ui-widget-content" style="left:{{$coord->x_pos}}px; top:{{$coord->y_pos}}px;" >
 {{ HTML::image('images/table.png') }}
 </div>
+@endforeach
 </div>
+
  
  <script>
   $(function() {
-    $( "#draggable" ).draggable
-    ({ containment: "#containment", scroll: false }).mouseup(
+    $( "#draggable1" ).draggable
+    ({ containment: "#containment-wrapper", scroll: true }).mouseup(
     				function(){
-						var coord = $(this).position();					
-						$.post("savepos/" + coord.left + "/" + coord.top, 
+						var coord = $(this).position();		
+            var id =  $("#draggable1").val();			
+						$.post("savepos/" + coord.left + "/" + coord.top+"/"+1, 
             				function(data){
                 			if (data.success != true){
                   				alert('Error');
@@ -40,6 +47,48 @@
                 }
             });  
 					});
+        $( "#draggable2" ).draggable
+    ({ containment: "#containment-wrapper", scroll: false }).mouseup(
+            function(){
+            var coord = $(this).position();   
+            var id =  $("#draggable2").val();  
+            $.post("savepos/" + coord.left + "/" + coord.top + "/" + 2, 
+                    function(data){
+                      if (data.success != true){
+                          alert('Error');
+                      }else{
+                        alert(data.message);
+                }
+            });  
+          });
+        $( "#draggable9" ).draggable
+    ({ containment: "#containment-wrapper", scroll: false }).mouseup(
+            function(){
+            var coord = $(this).position();   
+            var id =  $("#draggable2").val();  
+            $.post("savepos/" + coord.left + "/" + coord.top + "/" + 9, 
+                    function(data){
+                      if (data.success != true){
+                          alert('Error');
+                      }else{
+                        alert(data.message);
+                }
+            });  
+          });
+        $( "#draggable4" ).draggable
+    ({ containment: "#containment-wrapper", scroll: false }).mouseup(
+            function(){
+            var coord = $(this).position();   
+            var id =  $("#draggable2").val();  
+            $.post("savepos/" + coord.left + "/" + coord.top + "/" + 4, 
+                    function(data){
+                      if (data.success != true){
+                          alert('Error');
+                      }else{
+                        alert(data.message);
+                }
+            });  
+          });
   });
   </script>
 @stop

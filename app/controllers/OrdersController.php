@@ -27,7 +27,7 @@ class OrdersController extends BaseController {
 	public function create()
 	{
 		$order = new Order();
-		$users = User::all(array('id','firstname','lastname'));
+		$users = User::all(array('id','name','lastname'));
 		$tables = Table::where('taken',false)->get();
 		$title = 'NUEVA';
 		return View::make('order.save', array('order' => $order, 'users'=> $users,'tables'=>$tables,'title'=>$title)); 
@@ -195,15 +195,21 @@ class OrdersController extends BaseController {
 
 public function mesas()
 	{
-	$coord = Coord::find('9');
+	$coords = Coord::all();
 	//$orders = Order::where('active', true)->get();
-	return View::make('order.mesas', array('coord' => $coord));
+	return View::make('order.mesas', array('coords' => $coords));
 	}
 
-public function savepos($left, $top)
+public function editar()
 	{
-	$coord = Coord::find('9');
-	$coord->table_id ="8";
+	$coords = Coord::all();
+	//$orders = Order::where('active', true)->get();
+	return View::make('order.edit', array('coords' => $coords));
+	}
+
+public function savepos($left, $top, $id)
+	{
+	$coord = Coord::find($id);
 	$coord->x_pos = $left;
 	$coord->y_pos = $top;
 	$coord->save();

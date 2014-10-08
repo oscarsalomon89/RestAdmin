@@ -69,6 +69,12 @@ class TablesController extends BaseController {
 		$table->description = $input['description'];
 		$table->taken = false;
 		$table->save();
+
+		/*$coord = new Coord();
+		$coord->table_id = $table->id;
+		$coord->x_pos = '10px';
+		$coord->y_pos = '10px';
+		$coord->save();*/
 		return Response::json(array(
 			'success' => true
 		));
