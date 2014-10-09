@@ -27,7 +27,7 @@
       ));
    }else{
    $user = new User();
-   $user->name = $input['name'];
+   $user->firstname = $input['firstname'];
    $user->lastname = $input['lastname'];
    $user->username = $input['username'];
    $user->password = Hash::make($input['password']);
@@ -57,7 +57,7 @@
     ));
     }
 else{
-    $user->name = $input['name'];
+    $user->firstname = $input['firstname'];
     $user->lastname = $input['lastname'];
     $user->username = $input['username'];
     $user->save();
